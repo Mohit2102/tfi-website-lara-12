@@ -578,8 +578,8 @@
                     <div class="stat-label">Inactive customers</div>
                 </article>
                 <article class="stat">
-                    <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-dumbbell"/></svg></span><span class="chip"><svg class="ic"><use href="#i-up"/></svg>Running</span></div>
-                    <div class="stat-value">12</div>
+                    <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-dumbbell"/></svg></span>@if (!empty($stats['active_programs']))<span class="chip"><svg class="ic"><use href="#i-up"/></svg>Running</span>@endif</div>
+                    <div class="stat-value">{{ $stats['active_programs'] ?? '—' }}</div>
                     <div class="stat-label">Active programs</div>
                 </article>
             </section>

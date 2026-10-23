@@ -2,22 +2,77 @@
     // Change this if your public website lives at a different address
     $websiteUrl = 'https://tfi-3fc3.onrender.com/';
 
+    /*
+     |------------------------------------------------------------------
+     | Data comes from CustomerDashboardController (all optional):
+     |   $user      current customer
+     |   $stats     streak, week_hours, week_activity[7], hydration_l,
+     |              hydration_goal_l, badges, sessions_done, sessions_goal,
+     |              cardio_pct, strength_pct
+     |   $plan      name, current_week, total_weeks, status, phases[]
+     |   $sessions  upcoming: title, type, starts_at, duration_min
+     | Anything missing shows an empty state instead of fake numbers.
+     |------------------------------------------------------------------
+     */
+    $user     = $user ?? auth()->user();
+    $stats    = $stats ?? [];
+    $plan     = $plan ?? null;
+    $sessions = collect($sessions ?? []);
+
     $initials = collect(preg_split('/\s+/', trim($user->name ?? 'TFI')))
         ->filter()->map(fn ($p) => mb_strtoupper(mb_substr($p, 0, 1)))->take(2)->implode('');
     $hour  = now()->hour;
     $greet = $hour < 12 ? 'Good morning' : ($hour < 17 ? 'Good afternoon' : 'Good evening');
+    $fmt   = fn ($n) => rtrim(rtrim(number_format((float) $n, 1), '0'), '.');
+    $clamp = fn ($n) => max(0, min(100, (int) round($n)));
 
     // Weekly activity (hours) Mon → Sun
-    $week = [
-        ['d' => 'Mon', 'h' => 1.1],
-        ['d' => 'Tue', 'h' => 1.2],
-        ['d' => 'Wed', 'h' => 0.9],
-        ['d' => 'Thu', 'h' => 1.0],
-        ['d' => 'Fri', 'h' => 0],
-        ['d' => 'Sat', 'h' => 0],
-        ['d' => 'Sun', 'h' => 0],
-    ];
+    $byDay = array_values((array) data_get($stats, 'week_activity', []));
+    $week  = collect(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
+        ->map(fn ($d, $i) => ['d' => $d, 'h' => (float) ($byDay[$i] ?? 0)])->all();
+    $maxH     = max(1, collect($week)->max('h'));
     $todayIdx = now()->dayOfWeekIso - 1;
+
+    // Headline numbers
+    $streak        = (int) data_get($stats, 'streak', 0);
+    $weekHours     = (float) data_get($stats, 'week_hours', collect($week)->sum('h'));
+    $hydration     = (float) data_get($stats, 'hydration_l', 0);
+    $hydrationGoal = (float) data_get($stats, 'hydration_goal_l', 2);
+    $badges        = (int) data_get($stats, 'badges', 0);
+    $done          = (int) data_get($stats, 'sessions_done', 0);
+    $goal          = max(0, (int) data_get($stats, 'sessions_goal', 0));
+    $weekPct       = $goal > 0 ? $clamp($done / $goal * 100) : 0;
+    $cardioPct     = $clamp(data_get($stats, 'cardio_pct', 0));
+    $strengthPct   = $clamp(data_get($stats, 'strength_pct', 0));
+    $ringOff       = round(326.7 * (1 - $weekPct / 100), 1);
+
+    // Active plan + phase tracker
+    $planName   = data_get($plan, 'name');
+    $planWeek   = (int) data_get($plan, 'current_week', 0);
+    $planTotal  = max(1, (int) data_get($plan, 'total_weeks', 12));
+    $planStatus = (string) data_get($plan, 'status', 'active');
+    $phaseNames = array_values((array) (data_get($plan, 'phases') ?: ['Foundation', 'Build', 'Strength & Conditioning', 'Peak']));
+    $phaseLen   = $planTotal / max(1, count($phaseNames));
+    $phases = collect($phaseNames)->map(function ($name, $i) use ($phaseLen, $planWeek) {
+        $start = (int) floor($i * $phaseLen) + 1;
+        $end   = (int) floor(($i + 1) * $phaseLen);
+        $state = $planWeek > $end ? 'done' : ($planWeek >= $start ? 'now' : '');
+        return compact('name', 'start', 'end', 'state');
+    });
+    $currentPhase = optional($phases->firstWhere('state', 'now'))['name'] ?? null;
+
+    // Session helpers
+    $iconFor = fn ($type) => match (strtolower((string) $type)) {
+        'cardio', 'run', 'running'              => 'i-run',
+        'yoga', 'flexibility', 'mobility'       => 'i-yoga',
+        'hiit', 'conditioning'                  => 'i-zap',
+        default                                 => 'i-dumbbell',
+    };
+    $dayLabel = function ($when) {
+        $c = \Illuminate\Support\Carbon::parse($when);
+        return $c->isToday() ? 'Today' : ($c->isTomorrow() ? 'Tomorrow' : $c->format('D, d M'));
+    };
+    $nextToday = $sessions->first(fn ($s) => \Illuminate\Support\Carbon::parse(data_get($s, 'starts_at'))->isToday());
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -387,6 +442,12 @@
         .site-cta h3 span { color: var(--gold-light); }
         .site-cta p { margin-top: .4rem; font-size: .9rem; color: rgba(245,240,223,.75); }
 
+        .hero p strong { color: var(--gold-bright); font-weight: 600; }
+        .empty-card { text-align: center; padding: 2.2rem 1.5rem; }
+        .empty-card h3 { font-size: 1.25rem; text-transform: uppercase; }
+        .empty-card p { margin-top: .5rem; color: var(--text-muted); font-size: .9rem; }
+        .sess-empty { padding: 1.4rem .5rem; text-align: center; color: var(--text-muted); font-size: .88rem; }
+
         .overlay { display: none; }
 
         /* ───────── Responsive ───────── */
@@ -553,22 +614,37 @@
                 <div>
                     <div class="eyebrow">{{ $greet }}</div>
                     <h2>
-                        <span>Hey <span class="hl">{{ $user->name }}</span>, keep pushing!</span>
+                        <span>Hey <span class="hl">{{ $user->name }}</span>, {{ $streak > 0 ? 'keep pushing!' : "let's get started!" }}</span>
                         <svg class="ic flame"><use href="#i-flame"/></svg>
                     </h2>
-                    <p>You're on track for a great fitness journey. Your 28-day streak is your personal best, so keep it going today.</p>
+                    <p>
+                        @if ($streak > 0)
+                            You're on a <strong>{{ $streak }}-day streak</strong>. Keep it going today.
+                        @elseif ($planName)
+                            Your plan is ready. Log your first workout to start a streak.
+                        @else
+                            Choose a program to begin your fitness journey with TFI.
+                        @endif
+                    </p>
                     <div class="hero-cta">
-                        <a href="#" class="btn-gold"><svg class="ic"><use href="#i-play"/></svg> Start today's session</a>
+                        @if ($planName)
+                            <a href="#" class="btn-gold"><svg class="ic"><use href="#i-play"/></svg> {{ $nextToday ? "Start today's session" : 'Log a workout' }}</a>
+                        @else
+                            <a href="{{ $websiteUrl }}#programs" class="btn-gold"><svg class="ic"><use href="#i-dumbbell"/></svg> Browse programs</a>
+                        @endif
                         <a href="{{ $websiteUrl }}" class="btn-ghost"><svg class="ic"><use href="#i-globe"/></svg> Visit website</a>
                     </div>
                 </div>
 
                 <div class="ring-card">
-                    <div class="ring" style="--off: 137.2;">
+                    <div class="ring" style="--off: {{ $ringOff }};">
                         <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="bar" cx="60" cy="60" r="52"/></svg>
-                        <div class="ring-val"><b>58<i>%</i></b></div>
+                        <div class="ring-val"><b>{{ $weekPct }}<i>%</i></b></div>
                     </div>
-                    <div class="ring-cap">Weekly goal<br>4 of 7 sessions</div>
+                    <div class="ring-cap">
+                        Weekly goal<br>
+                        @if ($goal > 0) {{ $done }} of {{ $goal }} sessions @else No goal set @endif
+                    </div>
                 </div>
             </section>
 
@@ -583,60 +659,70 @@
             <!-- Stats -->
             <section class="stats">
                 <article class="stat">
-                    <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-flame"/></svg></span><span class="chip"><svg class="ic"><use href="#i-up"/></svg>Personal best</span></div>
-                    <div class="stat-value">28<small>days</small></div>
+                    <div class="stat-top">
+                        <span class="tile-ic"><svg class="ic"><use href="#i-flame"/></svg></span>
+                        @if ($streak >= 7)<span class="chip"><svg class="ic"><use href="#i-up"/></svg>On fire</span>@endif
+                    </div>
+                    <div class="stat-value">{{ $streak }}<small>{{ $streak === 1 ? 'day' : 'days' }}</small></div>
                     <div class="stat-label">Day streak</div>
-                    <svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path d="M0 24 L14 20 L28 22 L42 14 L56 16 L70 8 L84 10 L100 2"/></svg>
                 </article>
                 <article class="stat">
                     <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-timer"/></svg></span></div>
-                    <div class="stat-value">4.2<small>hrs</small></div>
+                    <div class="stat-value">{{ $fmt($weekHours) }}<small>hrs</small></div>
                     <div class="stat-label">This week</div>
-                    <svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path d="M0 18 L16 10 L33 14 L50 6 L66 12 L83 4 L100 8"/></svg>
                 </article>
                 <article class="stat">
-                    <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-drop"/></svg></span><span class="chip"><svg class="ic"><use href="#i-check"/></svg>Goal met</span></div>
-                    <div class="stat-value">2.1<small>L</small></div>
+                    <div class="stat-top">
+                        <span class="tile-ic"><svg class="ic"><use href="#i-drop"/></svg></span>
+                        @if ($hydrationGoal > 0 && $hydration >= $hydrationGoal)<span class="chip"><svg class="ic"><use href="#i-check"/></svg>Goal met</span>@endif
+                    </div>
+                    <div class="stat-value">{{ $fmt($hydration) }}<small>L</small></div>
                     <div class="stat-label">Hydration today</div>
-                    <svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path d="M0 22 L20 18 L40 20 L60 10 L80 12 L100 4"/></svg>
                 </article>
                 <article class="stat">
                     <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-trophy"/></svg></span></div>
-                    <div class="stat-value">5</div>
+                    <div class="stat-value">{{ $badges }}</div>
                     <div class="stat-label">Badges earned</div>
-                    <svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><path d="M0 26 L25 26 L25 18 L50 18 L50 12 L75 12 L75 6 L100 6"/></svg>
                 </article>
             </section>
 
             <!-- Plan + Progress -->
             <section class="grid-2">
                 <div style="display:grid; gap:1.4rem;">
-                    <div class="card plan">
-                        <div class="plan-top">
-                            <div class="plan-ic"><svg class="ic"><use href="#i-dumbbell"/></svg></div>
-                            <div>
-                                <h3>12-Week Virtual Training Program</h3>
-                                <p>Week 7 of 12 — Strength &amp; Conditioning Phase</p>
+                    @if ($planName)
+                        <div class="card plan">
+                            <div class="plan-top">
+                                <div class="plan-ic"><svg class="ic"><use href="#i-dumbbell"/></svg></div>
+                                <div>
+                                    <h3>{{ $planName }}</h3>
+                                    <p>Week {{ min(max($planWeek, 1), $planTotal) }} of {{ $planTotal }}@if ($currentPhase) — {{ $currentPhase }} Phase @endif</p>
+                                </div>
+                                <span class="badge-active">{{ \Illuminate\Support\Str::headline($planStatus) }}</span>
                             </div>
-                            <span class="badge-active">Active</span>
+                            <div class="phases">
+                                @foreach ($phases as $ph)
+                                    <div class="phase {{ $ph['state'] }}"><b>Weeks {{ $ph['start'] }}–{{ $ph['end'] }}</b>{{ $ph['name'] }}</div>
+                                @endforeach
+                            </div>
                         </div>
-                        <div class="phases">
-                            <div class="phase done"><b>Weeks 1–3</b>Foundation</div>
-                            <div class="phase done"><b>Weeks 4–6</b>Build</div>
-                            <div class="phase now"><b>Weeks 7–9</b>Strength &amp; Conditioning</div>
-                            <div class="phase"><b>Weeks 10–12</b>Peak</div>
+                    @else
+                        <div class="card empty-card">
+                            <div class="plan-ic" style="margin:0 auto 1rem"><svg class="ic"><use href="#i-dumbbell"/></svg></div>
+                            <h3>No active plan yet</h3>
+                            <p>Pick a training program to see your phases, schedule and progress here.</p>
+                            <a href="{{ $websiteUrl }}#programs" class="btn-gold" style="margin-top:1.1rem"><svg class="ic"><use href="#i-globe"/></svg> Browse programs</a>
                         </div>
-                    </div>
+                    @endif
 
                     <div class="card">
                         <div class="card-head">
                             <h3><svg class="ic"><use href="#i-activity"/></svg> This week's activity</h3>
-                            <span class="chip">4.2 hrs</span>
+                            <span class="chip">{{ $fmt($weekHours) }} hrs</span>
                         </div>
                         <div class="chart">
                             @foreach ($week as $i => $d)
                                 <div class="col {{ $d['h'] > 0 ? 'on' : '' }} {{ $i === $todayIdx ? 'today' : '' }}">
-                                    <div class="b" style="height: {{ $d['h'] > 0 ? max(14, round($d['h'] / 1.3 * 100)) : 4 }}%" title="{{ $d['h'] }} h"></div>
+                                    <div class="b" style="height: {{ $d['h'] > 0 ? max(14, round($d['h'] / $maxH * 100)) : 4 }}%" title="{{ $fmt($d['h']) }} h"></div>
                                     <span>{{ $d['d'] }}</span>
                                 </div>
                             @endforeach
@@ -649,15 +735,17 @@
                         <div class="card-head">
                             <h3><svg class="ic"><use href="#i-trend"/></svg> Weekly goal progress</h3>
                         </div>
-                        <div class="prog-row"><span>Overall</span><b>58%</b></div>
-                        <div class="bar-wrap"><div class="bar-fill" style="width:58%"></div></div>
-                        <p class="prog-note">4 of 7 sessions completed this week</p>
+                        <div class="prog-row"><span>Overall</span><b>{{ $weekPct }}%</b></div>
+                        <div class="bar-wrap"><div class="bar-fill" style="width:{{ $weekPct }}%"></div></div>
+                        <p class="prog-note">
+                            @if ($goal > 0) {{ $done }} of {{ $goal }} sessions completed this week @else No weekly goal set yet @endif
+                        </p>
 
-                        <div class="prog-row"><span>Cardio</span><b>75%</b></div>
-                        <div class="bar-wrap"><div class="bar-fill" style="width:75%"></div></div>
+                        <div class="prog-row"><span>Cardio</span><b>{{ $cardioPct }}%</b></div>
+                        <div class="bar-wrap"><div class="bar-fill" style="width:{{ $cardioPct }}%"></div></div>
 
-                        <div class="prog-row"><span>Strength</span><b>40%</b></div>
-                        <div class="bar-wrap" style="margin-bottom:0"><div class="bar-fill" style="width:40%"></div></div>
+                        <div class="prog-row"><span>Strength</span><b>{{ $strengthPct }}%</b></div>
+                        <div class="bar-wrap" style="margin-bottom:0"><div class="bar-fill" style="width:{{ $strengthPct }}%"></div></div>
                     </div>
 
                     <div class="card">
@@ -666,26 +754,18 @@
                             <a href="#" class="link">Full schedule <svg class="ic"><use href="#i-arrow"/></svg></a>
                         </div>
                         <ul class="sched">
-                            <li class="sess first">
-                                <span class="tile"><svg class="ic"><use href="#i-run"/></svg></span>
-                                <div class="sess-info"><b>Morning Cardio Run</b><span>6:00 AM · 45 min</span></div>
-                                <span class="day">Today</span>
-                            </li>
-                            <li class="sess">
-                                <span class="tile"><svg class="ic"><use href="#i-dumbbell"/></svg></span>
-                                <div class="sess-info"><b>Upper Body Strength</b><span>7:00 PM · 60 min</span></div>
-                                <span class="day">Tomorrow</span>
-                            </li>
-                            <li class="sess">
-                                <span class="tile"><svg class="ic"><use href="#i-yoga"/></svg></span>
-                                <div class="sess-info"><b>Yoga &amp; Flexibility</b><span>8:00 AM · 30 min</span></div>
-                                <span class="day">Friday</span>
-                            </li>
-                            <li class="sess">
-                                <span class="tile"><svg class="ic"><use href="#i-zap"/></svg></span>
-                                <div class="sess-info"><b>Full Body HIIT</b><span>6:30 PM · 50 min</span></div>
-                                <span class="day">Saturday</span>
-                            </li>
+                            @forelse ($sessions->take(4) as $s)
+                                <li class="sess {{ $loop->first ? 'first' : '' }}">
+                                    <span class="tile"><svg class="ic"><use href="#{{ $iconFor(data_get($s, 'type')) }}"/></svg></span>
+                                    <div class="sess-info">
+                                        <b>{{ data_get($s, 'title') }}</b>
+                                        <span>{{ \Illuminate\Support\Carbon::parse(data_get($s, 'starts_at'))->format('g:i A') }}@if (data_get($s, 'duration_min')) · {{ data_get($s, 'duration_min') }} min @endif</span>
+                                    </div>
+                                    <span class="day">{{ $dayLabel(data_get($s, 'starts_at')) }}</span>
+                                </li>
+                            @empty
+                                <li class="sess-empty">No upcoming sessions yet. Your coach will add them here.</li>
+                            @endforelse
                         </ul>
                     </div>
                 </div>
