@@ -173,7 +173,10 @@ class HtmlPageRenderer
             app(PlanPricing::class)->frontendPacks(),
             JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP
         );
-        $boot = '<script>window.TFI_PLAN_PRICES='.$packs.';</script><script src="/tfi-currency.js"></script>';
+        $geo = app(VisitorCurrency::class)->hint();
+        $geoCountry = $geo['country'] ? json_encode($geo['country']) : 'null';
+        $geoCurrency = $geo['currency'] ? json_encode($geo['currency']) : 'null';
+        $boot = '<script>window.TFI_PLAN_PRICES='.$packs.';window.TFI_GEO_COUNTRY='.$geoCountry.';window.TFI_GEO_CURRENCY='.$geoCurrency.';</script><script src="/tfi-currency.js"></script>';
 
         $html = preg_replace('/<head[^>]*>/i', '$0'.$boot, $html, 1) ?? $html;
 
