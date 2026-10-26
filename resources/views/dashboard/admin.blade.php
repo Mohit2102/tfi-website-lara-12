@@ -5,8 +5,7 @@
     $me = auth()->user();
     $initialsOf = fn ($name) => collect(preg_split('/\s+/', trim($name ?: 'TFI')))
         ->filter()->map(fn ($p) => mb_strtoupper(mb_substr($p, 0, 1)))->take(2)->implode('');
-    $hour  = now()->hour;
-    $greet = $hour < 12 ? 'Good morning' : ($hour < 17 ? 'Good afternoon' : 'Good evening');
+    $greet = \App\Support\DashboardGreeting::line($me->name);
 
     $totalC    = max(1, (int) ($stats['total_customers'] ?? 0));
     $activeC   = (int) ($stats['active_customers'] ?? 0);
@@ -511,7 +510,7 @@
             <button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg class="ic"><use href="#i-menu"/></svg></button>
             <div class="page-title">
                 <h1>Admin Dashboard</h1>
-                <p>{{ now()->format('l, d M Y') }}</p>
+                <p>{{ \App\Support\DashboardGreeting::today() }}</p>
             </div>
 
             <div class="top-actions">
@@ -537,7 +536,7 @@
             <!-- Hero -->
             <section class="hero">
                 <div>
-                    <div class="eyebrow">{{ $greet }} · Admin</div>
+                    <div class="eyebrow">{{ $greet }}</div>
                     <h2>Welcome back, <span class="hl">{{ $me->name }}</span>!</h2>
                     <p>Manage your customers and training programs from here.</p>
                     <div class="hero-cta">

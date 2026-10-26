@@ -8,8 +8,7 @@
     $me = auth()->user();
     $initialsOf = fn ($name) => collect(preg_split('/\s+/', trim($name ?: 'TFI')))
         ->filter()->map(fn ($p) => mb_strtoupper(mb_substr($p, 0, 1)))->take(2)->implode('');
-    $hour = now()->hour;
-    $greet = $hour < 12 ? 'Good morning' : ($hour < 17 ? 'Good afternoon' : 'Good evening');
+    $greet = \App\Support\DashboardGreeting::line($me->name);
     $total = max(1, (int) $stats['total_users']);
     $pct = fn ($n) => round($n / $total * 100, 1);
     $websiteUrl = url('/');
@@ -17,7 +16,7 @@
 
             <section class="hero">
                 <div>
-                    <div class="eyebrow">{{ $greet }} · Super Admin</div>
+                    <div class="eyebrow">{{ $greet }}</div>
                     <h2>Welcome back, <span class="hl">{{ $me->name }}</span>!</h2>
                     <p>You have <strong>full system access</strong>. Edit every public page and plan price from this dashboard.</p>
                     <div class="hero-cta">
@@ -51,10 +50,10 @@
                     <div class="stat-value">{{ $stats['total_customers'] }}</div>
                     <div class="stat-label">Customers</div>
                 </a>
-                <a class="stat" href="{{ route('superadmin.users.index') }}">
-                    <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-check-circle"/></svg></span><span class="chip"><svg class="ic"><use href="#i-up"/></svg>Active</span></div>
-                    <div class="stat-value">{{ $stats['active_users'] }}</div>
-                    <div class="stat-label">Active users</div>
+                <a class="stat" href="{{ route('superadmin.enquiries.index') }}">
+                    <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-bell"/></svg></span>@if ($stats['new_enquiries'] > 0)<span class="chip">{{ $stats['new_enquiries'] }} new</span>@endif</div>
+                    <div class="stat-value">{{ $stats['total_enquiries'] }}</div>
+                    <div class="stat-label">Enquiries</div>
                 </a>
             </section>
 
@@ -84,7 +83,7 @@
                     <div class="actions">
                         <a href="{{ route('superadmin.users.index') }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-users"/></svg></span><b>All users</b></a>
                         <a href="{{ route('superadmin.users.create', ['role' => 'admin']) }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-user-plus"/></svg></span><b>Add admin</b></a>
-                        <a href="{{ route('superadmin.users.create', ['role' => 'customer']) }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-run"/></svg></span><b>Add customer</b></a>
+                        <a href="{{ route('superadmin.enquiries.index') }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-bell"/></svg></span><b>Enquiries</b></a>
                     </div>
                 </div>
             </section>
@@ -134,6 +133,48 @@
                             </tr>
                             @empty
                             <tr><td colspan="5" class="empty">No users yet.</td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card flush">
+                <div class="card-head">
+                    <h3><svg class="ic"><use href="#i-bell"/></svg> Latest enquiries</h3>
+                    <a href="{{ route('superadmin.enquiries.index') }}" class="link">View all <svg class="ic"><use href="#i-arrow"/></svg></a>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Person</th>
+                                <th>Program</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Received</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($recentEnquiries as $enquiry)
+                            <tr>
+                                <td>
+                                    <div class="td-main">{{ $enquiry->name }}</div>
+                                    <div class="td-sub">{{ $enquiry->email }} · {{ $enquiry->phone }}</div>
+                                </td>
+                                <td>{{ $enquiry->program }}</td>
+                                <td class="muted">{{ \Illuminate\Support\Str::limit($enquiry->message ?: '—', 60) }}</td>
+                                <td>
+                                    <span class="badge {{ $enquiry->isUnread() ? 'st-active' : 'st-inactive' }}">
+                                        {{ $enquiry->isUnread() ? 'New' : 'Read' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a class="link" href="{{ route('superadmin.enquiries.show', $enquiry) }}">{{ $enquiry->created_at->format('d M Y') }} <svg class="ic"><use href="#i-arrow"/></svg></a>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr><td colspan="5" class="empty">No website enquiries yet.</td></tr>
                             @endforelse
                         </tbody>
                     </table>

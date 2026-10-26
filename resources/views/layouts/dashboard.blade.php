@@ -429,7 +429,7 @@
         <header class="topbar">
             <div class="topbar-left">
                 <h1>@yield('page_title', 'Dashboard')</h1>
-                <p>{{ now()->format('l, d M Y') }}</p>
+                <p>{{ \App\Support\DashboardGreeting::today() }}</p>
             </div>
             <div class="topbar-right">
                 <span class="topbar-btn">🔔</span>

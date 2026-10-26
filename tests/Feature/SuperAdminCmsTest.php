@@ -154,5 +154,6 @@ class SuperAdminCmsTest extends TestCase
         $this->actingAs($customer)->get('/superadmin/home')->assertForbidden();
         $this->actingAs($customer)->get('/superadmin/plan-prices')->assertForbidden();
         $this->actingAs($customer)->get('/superadmin/profile')->assertForbidden();
+        $this->actingAs($customer)->get('/superadmin/enquiries')->assertForbidden();
     }
 }

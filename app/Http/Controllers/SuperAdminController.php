@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Enquiry;
 use App\Models\User;
 use Illuminate\View\View;
 
@@ -14,9 +15,12 @@ class SuperAdminController extends Controller
             'total_admins'    => User::where('role', 'admin')->count(),
             'total_customers' => User::where('role', 'customer')->count(),
             'active_users'    => User::where('is_active', true)->count(),
+            'new_enquiries'   => Enquiry::query()->unread()->count(),
+            'total_enquiries' => Enquiry::count(),
         ];
 
         $recentUsers = User::latest()->take(8)->get();
+        $recentEnquiries = Enquiry::query()->latest()->take(6)->get();
 
         $total = max(1, (int) $stats['total_users']);
         $admins = (int) $stats['total_admins'];
@@ -28,6 +32,7 @@ class SuperAdminController extends Controller
         return view('dashboard.superadmin', [
             'stats' => $stats,
             'recentUsers' => $recentUsers,
+            'recentEnquiries' => $recentEnquiries,
             'admins' => $admins,
             'customers' => $customers,
             'others' => $others,

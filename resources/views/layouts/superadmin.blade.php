@@ -156,6 +156,13 @@
         }
         .nav-item.active .ic { color: #17130a; }
         .nav-item.active:hover { transform: none; color: #17130a; }
+        .nav-count {
+            margin-left: auto; min-width: 1.35rem; height: 1.35rem; padding: 0 .4rem;
+            border-radius: 100px; display: grid; place-items: center;
+            font-size: .68rem; font-weight: 700; color: #17130a;
+            background: var(--gold-bright);
+        }
+        .nav-item.active .nav-count { background: #17130a; color: var(--gold-bright); }
 
         .side-foot { padding-top: 1rem; margin-top: .6rem; border-top: 1px solid rgba(243,217,139,.14); display: grid; gap: .6rem; }
         .btn-site {
@@ -523,6 +530,12 @@
             <a href="{{ route('superadmin.home.edit') }}" class="{{ $navClass('superadmin.home.*') }}"><svg class="ic"><use href="#i-file"/></svg> Home page</a>
             {{-- <a href="{{ route('superadmin.pages.index') }}" class="{{ $navClass('superadmin.pages.*') }}"><svg class="ic"><use href="#i-globe"/></svg> Other pages</a> --}}
             <a href="{{ route('superadmin.prices.edit') }}" class="{{ $navClass('superadmin.prices.*') }}"><svg class="ic"><use href="#i-sliders"/></svg> Plan prices</a>
+            <a href="{{ route('superadmin.enquiries.index') }}" class="{{ $navClass('superadmin.enquiries.*') }}">
+                <svg class="ic"><use href="#i-bell"/></svg> Enquiries
+                @if (($newEnquiries ?? 0) > 0)
+                    <span class="nav-count">{{ $newEnquiries }}</span>
+                @endif
+            </a>
 
             <p class="nav-label">Account</p>
             <a href="{{ route('superadmin.profile.edit') }}" class="{{ $navClass('superadmin.profile.*') }}"><svg class="ic"><use href="#i-user"/></svg> Profile settings</a>
@@ -554,7 +567,7 @@
             <button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg class="ic"><use href="#i-menu"/></svg></button>
             <div class="page-title">
                 <h1>@yield('heading', 'Super Admin')</h1>
-                <p>@yield('subheading', now()->format('l, d M Y'))</p>
+                <p>@yield('subheading', \App\Support\DashboardGreeting::today())</p>
             </div>
 
             <div class="top-actions">

@@ -1667,7 +1667,7 @@
             </button>
 
 
-            <div class="form-note">
+            <div class="form-note" id="enquiryStatus">
               We respond within 24 hours · No spam, ever
             </div>
 
@@ -2473,7 +2473,8 @@
 
       function initEnquiryForm() {
         var form = document.getElementById("enquiryForm");
-        var success = document.getElementById("formSuccess");
+        var status = document.getElementById("enquiryStatus");
+        var defaultNote = status ? status.textContent : "";
 
         if (!form) return;
 
@@ -2485,9 +2486,54 @@
             return;
           }
 
-          // TODO: send the form data to your backend / email service here.
-          if (success) success.style.display = "block";
-          form.reset();
+          var button = form.querySelector('button[type="submit"]');
+          var tokenMeta = document.querySelector('meta[name="csrf-token"]');
+          var payload = {
+            name: (form.elements.namedItem("name") || {}).value || "",
+            phone: (form.elements.namedItem("phone") || {}).value || "",
+            email: (form.elements.namedItem("email") || {}).value || "",
+            program: (form.elements.namedItem("program") || {}).value || "",
+            message: (form.elements.namedItem("message") || {}).value || ""
+          };
+
+          if (button) button.disabled = true;
+          if (status) status.textContent = "Sending…";
+
+          fetch("/enquiries", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+              "X-CSRF-TOKEN": tokenMeta ? tokenMeta.getAttribute("content") : ""
+            },
+            body: JSON.stringify(payload)
+          })
+            .then(function (response) {
+              return response.json().then(function (data) {
+                return { ok: response.ok, data: data };
+              });
+            })
+            .then(function (result) {
+              if (!result.ok) {
+                var errors = result.data && result.data.errors;
+                var first = errors ? errors[Object.keys(errors)[0]][0] : (result.data && result.data.message);
+                throw new Error(first || "Could not send your enquiry. Please try again.");
+              }
+
+              form.reset();
+              var trigger = document.querySelector("#programSelect .custom-select-trigger span");
+              if (trigger) trigger.textContent = "Select a program";
+
+              if (status) status.textContent = result.data.message || "Thanks — we received your enquiry.";
+            })
+            .catch(function (error) {
+              if (status) status.textContent = error.message || "Could not send your enquiry. Please try again.";
+            })
+            .finally(function () {
+              if (button) button.disabled = false;
+            });
         });
       }
 

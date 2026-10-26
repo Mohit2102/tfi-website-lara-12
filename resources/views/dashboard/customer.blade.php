@@ -21,8 +21,7 @@
 
     $initials = collect(preg_split('/\s+/', trim($user->name ?? 'TFI')))
         ->filter()->map(fn ($p) => mb_strtoupper(mb_substr($p, 0, 1)))->take(2)->implode('');
-    $hour  = now()->hour;
-    $greet = $hour < 12 ? 'Good morning' : ($hour < 17 ? 'Good afternoon' : 'Good evening');
+    $greet = \App\Support\DashboardGreeting::line($user->name);
     $fmt   = fn ($n) => rtrim(rtrim(number_format((float) $n, 1), '0'), '.');
     $clamp = fn ($n) => max(0, min(100, (int) round($n)));
 
@@ -31,7 +30,7 @@
     $week  = collect(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
         ->map(fn ($d, $i) => ['d' => $d, 'h' => (float) ($byDay[$i] ?? 0)])->all();
     $maxH     = max(1, collect($week)->max('h'));
-    $todayIdx = now()->dayOfWeekIso - 1;
+    $todayIdx = now(\App\Support\DashboardGreeting::TIMEZONE)->dayOfWeekIso - 1;
 
     // Headline numbers
     $streak        = (int) data_get($stats, 'streak', 0);
@@ -586,7 +585,7 @@
             <button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg class="ic"><use href="#i-menu"/></svg></button>
             <div class="page-title">
                 <h1>My Dashboard</h1>
-                <p>{{ now()->format('l, d M Y') }}</p>
+                <p>{{ \App\Support\DashboardGreeting::today() }}</p>
             </div>
 
             <div class="top-actions">

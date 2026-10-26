@@ -3,8 +3,10 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RazorpayController;
+use App\Http\Controllers\SuperAdmin\EnquiryController as SuperAdminEnquiryController;
 use App\Http\Controllers\SuperAdmin\HomePageController;
 use App\Http\Controllers\SuperAdmin\PlanPriceController;
 use App\Http\Controllers\SuperAdmin\ProfileController;
@@ -22,6 +24,9 @@ Route::middleware('role:customer')->group(function () {
     Route::post('/api/razorpay/verify', [RazorpayController::class, 'verify']);
 });
 Route::post('/api/razorpay/webhook', [RazorpayController::class, 'webhook']);
+Route::post('/enquiries', [EnquiryController::class, 'store'])
+    ->middleware('throttle:8,1')
+    ->name('enquiries.store');
 
 $pages = implode('|', array_values(array_filter(
     HtmlPageRenderer::PAGES,
@@ -58,6 +63,9 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('supe
     Route::put('/plan-prices', [PlanPriceController::class, 'update'])->name('prices.update');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/enquiries', [SuperAdminEnquiryController::class, 'index'])->name('enquiries.index');
+    Route::get('/enquiries/{enquiry}', [SuperAdminEnquiryController::class, 'show'])->name('enquiries.show');
+    Route::delete('/enquiries/{enquiry}', [SuperAdminEnquiryController::class, 'destroy'])->name('enquiries.destroy');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
