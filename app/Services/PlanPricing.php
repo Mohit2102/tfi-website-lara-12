@@ -45,6 +45,24 @@ class PlanPricing
         throw new InvalidArgumentException('Invalid plan selection.');
     }
 
+    /**
+     * @param  array<string, mixed>  $selection
+     */
+    public function durationWeeks(string $plan, array $selection = []): int
+    {
+        $weeks = match (true) {
+            str_contains($plan, 'half-yearly') => 26,
+            str_contains($plan, '12-weeks') || str_contains($plan, '12-week') => 12,
+            default => 4,
+        };
+
+        return $weeks + match ((string) ($selection['extension'] ?? 'none')) {
+            '1', '30' => 4,
+            '10' => 2,
+            default => 0,
+        };
+    }
+
     public function fixedPriceFor(string $plan, string $currency = 'inr'): int|float|null
     {
         if (! $this->isFixedPlan($plan)) {

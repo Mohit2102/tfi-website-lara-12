@@ -50,13 +50,25 @@
                 <div class="field">
                     <label for="role">Role</label>
                     <select id="role" name="role" @disabled($isSelf)>
-                        <option value="customer" @selected(old('role', $user->role) === 'customer')>Customer</option>
-                        <option value="admin" @selected(old('role', $user->role) === 'admin')>Admin</option>
+                        <option value="customer" @selected(old('role', $user->role) === 'customer')>Trainee (customer)</option>
+                        <option value="admin" @selected(old('role', $user->role) === 'admin')>Trainer (admin)</option>
                         <option value="superadmin" @selected(old('role', $user->role) === 'superadmin')>Super admin</option>
                     </select>
                     @if ($isSelf)
                         <input type="hidden" name="role" value="{{ $user->role }}">
                     @endif
+                </div>
+                <div class="field" id="trainerField">
+                    <label for="trainer_id">Assigned trainer</label>
+                    <select id="trainer_id" name="trainer_id">
+                        <option value="">Unassigned</option>
+                        @foreach (($trainers ?? []) as $trainer)
+                            <option value="{{ $trainer->id }}" @selected((string) old('trainer_id', $user->trainer_id) === (string) $trainer->id)>
+                                {{ $trainer->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <p class="help">Only used for trainee accounts. Trainers see only their assigned trainees.</p>
                 </div>
                 {{-- <div class="field">
                     <label for="password">{{ $user->exists ? 'New password (optional)' : 'Password' }}</label>

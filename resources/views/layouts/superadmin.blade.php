@@ -542,8 +542,9 @@
 
             <p class="nav-label">Management</p>
             <a href="{{ route('superadmin.users.index') }}" class="nav-item {{ request()->routeIs('superadmin.users.*') && request('role') !== 'admin' && request('role') !== 'customer' ? 'active' : '' }}"><svg class="ic"><use href="#i-users"/></svg> All Users</a>
-            <a href="{{ route('superadmin.users.index', ['role' => 'admin']) }}" class="nav-item {{ request()->routeIs('superadmin.users.*') && request('role') === 'admin' ? 'active' : '' }}"><svg class="ic"><use href="#i-shield"/></svg> Admins</a>
-            <a href="{{ route('superadmin.users.index', ['role' => 'customer']) }}" class="nav-item {{ request()->routeIs('superadmin.users.*') && request('role') === 'customer' ? 'active' : '' }}"><svg class="ic"><use href="#i-run"/></svg> Customers</a>
+            <a href="{{ route('superadmin.users.index', ['role' => 'admin']) }}" class="nav-item {{ request()->routeIs('superadmin.users.*') && request('role') === 'admin' ? 'active' : '' }}"><svg class="ic"><use href="#i-shield"/></svg> Trainers</a>
+            <a href="{{ route('superadmin.users.index', ['role' => 'customer']) }}" class="nav-item {{ request()->routeIs('superadmin.users.*') && request('role') === 'customer' ? 'active' : '' }}"><svg class="ic"><use href="#i-run"/></svg> Trainees</a>
+            <a href="{{ route('superadmin.assignments.index') }}" class="{{ $navClass('superadmin.assignments.*') }}"><svg class="ic"><use href="#i-users"/></svg> Assign trainers</a>
         </nav>
 
         <div class="side-foot">

@@ -1,77 +1,5 @@
 @php
-    // Change this if your public website lives at a different address
-    $websiteUrl = 'https://tfi-3fc3.onrender.com/';
-
-    /*
-     |------------------------------------------------------------------
-     | Data comes from CustomerDashboardController (all optional):
-     |   $user      current customer
-     |   $stats     streak, week_hours, week_activity[7], hydration_l,
-     |              hydration_goal_l, badges, sessions_done, sessions_goal,
-     |              cardio_pct, strength_pct
-     |   $plan      name, current_week, total_weeks, status, phases[]
-     |   $sessions  upcoming: title, type, starts_at, duration_min
-     | Anything missing shows an empty state instead of fake numbers.
-     |------------------------------------------------------------------
-     */
-    $user     = $user ?? auth()->user();
-    $stats    = $stats ?? [];
-    $plan     = $plan ?? null;
-    $sessions = collect($sessions ?? []);
-
-    $initials = collect(preg_split('/\s+/', trim($user->name ?? 'TFI')))
-        ->filter()->map(fn ($p) => mb_strtoupper(mb_substr($p, 0, 1)))->take(2)->implode('');
-    $greet = \App\Support\DashboardGreeting::line($user->name);
-    $fmt   = fn ($n) => rtrim(rtrim(number_format((float) $n, 1), '0'), '.');
-    $clamp = fn ($n) => max(0, min(100, (int) round($n)));
-
-    // Weekly activity (hours) Mon → Sun
-    $byDay = array_values((array) data_get($stats, 'week_activity', []));
-    $week  = collect(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
-        ->map(fn ($d, $i) => ['d' => $d, 'h' => (float) ($byDay[$i] ?? 0)])->all();
-    $maxH     = max(1, collect($week)->max('h'));
-    $todayIdx = now(\App\Support\DashboardGreeting::TIMEZONE)->dayOfWeekIso - 1;
-
-    // Headline numbers
-    $streak        = (int) data_get($stats, 'streak', 0);
-    $weekHours     = (float) data_get($stats, 'week_hours', collect($week)->sum('h'));
-    $hydration     = (float) data_get($stats, 'hydration_l', 0);
-    $hydrationGoal = (float) data_get($stats, 'hydration_goal_l', 2);
-    $badges        = (int) data_get($stats, 'badges', 0);
-    $done          = (int) data_get($stats, 'sessions_done', 0);
-    $goal          = max(0, (int) data_get($stats, 'sessions_goal', 0));
-    $weekPct       = $goal > 0 ? $clamp($done / $goal * 100) : 0;
-    $cardioPct     = $clamp(data_get($stats, 'cardio_pct', 0));
-    $strengthPct   = $clamp(data_get($stats, 'strength_pct', 0));
-    $ringOff       = round(326.7 * (1 - $weekPct / 100), 1);
-
-    // Active plan + phase tracker
-    $planName   = data_get($plan, 'name');
-    $planWeek   = (int) data_get($plan, 'current_week', 0);
-    $planTotal  = max(1, (int) data_get($plan, 'total_weeks', 12));
-    $planStatus = (string) data_get($plan, 'status', 'active');
-    $phaseNames = array_values((array) (data_get($plan, 'phases') ?: ['Foundation', 'Build', 'Strength & Conditioning', 'Peak']));
-    $phaseLen   = $planTotal / max(1, count($phaseNames));
-    $phases = collect($phaseNames)->map(function ($name, $i) use ($phaseLen, $planWeek) {
-        $start = (int) floor($i * $phaseLen) + 1;
-        $end   = (int) floor(($i + 1) * $phaseLen);
-        $state = $planWeek > $end ? 'done' : ($planWeek >= $start ? 'now' : '');
-        return compact('name', 'start', 'end', 'state');
-    });
-    $currentPhase = optional($phases->firstWhere('state', 'now'))['name'] ?? null;
-
-    // Session helpers
-    $iconFor = fn ($type) => match (strtolower((string) $type)) {
-        'cardio', 'run', 'running'              => 'i-run',
-        'yoga', 'flexibility', 'mobility'       => 'i-yoga',
-        'hiit', 'conditioning'                  => 'i-zap',
-        default                                 => 'i-dumbbell',
-    };
-    $dayLabel = function ($when) {
-        $c = \Illuminate\Support\Carbon::parse($when);
-        return $c->isToday() ? 'Today' : ($c->isTomorrow() ? 'Tomorrow' : $c->format('D, d M'));
-    };
-    $nextToday = $sessions->first(fn ($s) => \Illuminate\Support\Carbon::parse(data_get($s, 'starts_at'))->isToday());
+    $websiteUrl = rtrim(url('/'), '/').'/';
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -186,11 +114,12 @@
         }
         .avatar {
             width: 44px; height: 44px; border-radius: 50%; flex: none;
-            display: grid; place-items: center;
+            display: grid; place-items: center; overflow: hidden;
             font-family: "Oswald", sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: .04em; color: #17130a;
             background: linear-gradient(135deg, var(--gold-bright), var(--gold) 60%, var(--gold-deep));
             box-shadow: 0 0 0 3px rgba(243,217,139,.18);
         }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .user-meta { min-width: 0; flex: 1; }
         .user-name { font-weight: 600; font-size: .92rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .user-role { font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light); margin-top: .15rem; }
@@ -406,6 +335,38 @@
         @keyframes grow { from { width: 0 !important; } }
         .prog-note { font-size: .8rem; color: var(--text-muted); margin: -.6rem 0 1.4rem; }
 
+        .coach-card { display: grid; grid-template-columns: auto 1fr; gap: 1.2rem 1.4rem; align-items: center; }
+        .coach-photo { width: 96px; height: 96px; font-size: 1.85rem; border-radius: 22px; box-shadow: 0 12px 26px var(--primary-glow); }
+        .coach-card h3 { font-size: 1.45rem; text-transform: uppercase; margin-top: .2rem; }
+        .coach-card .role { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-text); }
+        .coach-contacts { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .9rem; }
+        .coach-contacts a {
+            display: inline-flex; align-items: center; gap: .4rem;
+            padding: .45rem .8rem; border-radius: 100px;
+            font-size: .82rem; font-weight: 600; color: var(--gold-text);
+            background: rgba(201,154,46,.12); border: 1px solid rgba(201,154,46,.35);
+        }
+        .coach-contacts a:hover { background: linear-gradient(135deg, var(--gold-bright), var(--gold)); color: #17130a; border-color: transparent; }
+        .coach-contacts .ic { width: 15px; height: 15px; }
+        @media (max-width: 720px) { .coach-card { grid-template-columns: 1fr; justify-items: start; } }
+        .flash { padding: 1rem 1.2rem; border-radius: 12px; font-size: .92rem; font-weight: 600; }
+        .flash-ok { color: #11633c; background: rgba(22,130,80,.10); border: 1px solid rgba(22,130,80,.35); }
+        html.dark-mode .flash-ok { color: #6ee7b7; background: rgba(52,211,153,.10); border-color: rgba(52,211,153,.35); }
+        .flash-err { color: #a11d1d; background: rgba(200,40,40,.08); border: 1px solid rgba(200,40,40,.30); }
+        .msg-form { display: grid; gap: .8rem; }
+        .msg-form textarea {
+            width: 100%; min-height: 110px; padding: .9rem 1rem; border-radius: 12px; resize: vertical;
+            border: 1px solid var(--line-strong); background: var(--bg); color: var(--text); font: inherit;
+        }
+        .msg-form textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+        .thread { list-style: none; display: grid; gap: .7rem; margin-top: 1.1rem; }
+        .thread li { padding: .85rem 1rem; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); }
+        .thread li.from-trainer { border-color: rgba(201,154,46,.35); background: rgba(201,154,46,.08); }
+        .file-list { list-style: none; display: grid; gap: .65rem; margin-top: .4rem; }
+        .file-list li { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: .85rem 1rem; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); }
+        .thread b { display: block; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-text); margin-bottom: .35rem; }
+        .thread p { font-size: .9rem; line-height: 1.5; white-space: pre-wrap; }
+
         /* activity chart */
         .chart { display: grid; grid-template-columns: repeat(7, 1fr); gap: .6rem; align-items: end; height: 150px; margin-top: .4rem; }
         .col { display: grid; justify-items: center; align-content: end; gap: .45rem; height: 100%; }
@@ -505,6 +466,7 @@
     <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
     <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.5 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 21c0-3 1.9-5.5 6-7"/></symbol>
     <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6L17 13l4 1.5v3A16 16 0 0 1 6.5 3z"/></symbol>
     <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h4"/></symbol>
     <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
     <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-3-1.5-5-3-6.5-.5 1.5-1.5 2.5-2.5 3 .5-3-.5-6-3.5-8.5C9.5 7 5 10 5 15a7 7 0 0 0 7 7z"/><path d="M12 22a3 3 0 0 0 3-3c0-1.5-1-2.5-3-4-2 1.5-3 2.5-3 4a3 3 0 0 0 3 3z"/></symbol>
@@ -541,27 +503,22 @@
         </a>
 
         <div class="user-card">
-            <div class="avatar">{{ $initials }}</div>
+            <div class="avatar">
+                @if ($user->avatarUrl())
+                    <img src="{{ $user->avatarUrl() }}" alt="{{ $user->name }}">
+                @else
+                    {{ $initials }}
+                @endif
+            </div>
             <div class="user-meta">
                 <div class="user-name">{{ $user->name }}</div>
-                <div class="user-role">Customer</div>
+                <div class="user-role">Trainee</div>
             </div>
             <span class="online" title="Online"></span>
         </div>
 
         <nav class="nav">
-            <a href="{{ route('customer.dashboard') }}" class="nav-item active"><svg class="ic"><use href="#i-dash"/></svg> My Dashboard</a>
-
-            <p class="nav-label">My Fitness</p>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-dumbbell"/></svg> My Program</a>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-calendar"/></svg> Schedule</a>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-trend"/></svg> Progress</a>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-leaf"/></svg> Nutrition</a>
-
-            <p class="nav-label">Account</p>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-user"/></svg> Profile</a>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-card"/></svg> Subscription</a>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-bell"/></svg> Notifications</a>
+            @include('dashboard.partials.portal-nav')
         </nav>
 
         <div class="side-foot">
@@ -607,6 +564,12 @@
         </header>
 
         <main class="content">
+            @if (session('success'))
+                <div class="flash flash-ok">{{ session('success') }}</div>
+            @endif
+            @if ($errors->any())
+                <div class="flash flash-err">{{ $errors->first() }}</div>
+            @endif
 
             <!-- Hero -->
             <section class="hero">
@@ -617,6 +580,9 @@
                         <svg class="ic flame"><use href="#i-flame"/></svg>
                     </h2>
                     <p>
+                        @if ($trainer)
+                            Your trainer is <strong>{{ $trainer }}</strong>.
+                        @endif
                         @if ($streak > 0)
                             You're on a <strong>{{ $streak }}-day streak</strong>. Keep it going today.
                         @elseif ($planName)
@@ -627,9 +593,9 @@
                     </p>
                     <div class="hero-cta">
                         @if ($planName)
-                            <a href="#" class="btn-gold"><svg class="ic"><use href="#i-play"/></svg> {{ $nextToday ? "Start today's session" : 'Log a workout' }}</a>
+                            <a href="{{ route('customer.schedule') }}" class="btn-gold"><svg class="ic"><use href="#i-play"/></svg> {{ $nextToday ? "Start today's session" : 'View schedule' }}</a>
                         @else
-                            <a href="{{ $websiteUrl }}#programs" class="btn-gold"><svg class="ic"><use href="#i-dumbbell"/></svg> Browse programs</a>
+                            <a href="{{ url('/#programs') }}" class="btn-gold"><svg class="ic"><use href="#i-dumbbell"/></svg> Browse programs</a>
                         @endif
                         <a href="{{ $websiteUrl }}" class="btn-ghost"><svg class="ic"><use href="#i-globe"/></svg> Visit website</a>
                     </div>
@@ -647,15 +613,13 @@
                 </div>
             </section>
 
-            <!-- Quick actions -->
             <section class="quick">
-                <a href="#" class="qa"><span class="tile"><svg class="ic"><use href="#i-plus"/></svg></span><div><b>Log workout</b><span>Record today's effort</span></div></a>
-                <a href="#" class="qa"><span class="tile"><svg class="ic"><use href="#i-msg"/></svg></span><div><b>Message coach</b><span>Get expert guidance</span></div></a>
-                <a href="#" class="qa"><span class="tile"><svg class="ic"><use href="#i-leaf"/></svg></span><div><b>Nutrition plan</b><span>See today's meals</span></div></a>
-                <a href="#" class="qa"><span class="tile"><svg class="ic"><use href="#i-calendar"/></svg></span><div><b>Book session</b><span>Pick a time slot</span></div></a>
+                <a href="{{ route('customer.program') }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-dumbbell"/></svg></span><div><b>My Program</b><span>See your current plan</span></div></a>
+                <a href="{{ route('customer.messages.index') }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-msg"/></svg></span><div><b>Message coach</b><span>Get expert guidance</span></div></a>
+                <a href="{{ route('customer.nutrition') }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-leaf"/></svg></span><div><b>Nutrition plan</b><span>Documents from your trainer</span></div></a>
+                <a href="{{ route('customer.schedule') }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-calendar"/></svg></span><div><b>Schedule</b><span>Upcoming sessions</span></div></a>
             </section>
 
-            <!-- Stats -->
             <section class="stats">
                 <article class="stat">
                     <div class="stat-top">
@@ -683,91 +647,6 @@
                     <div class="stat-value">{{ $badges }}</div>
                     <div class="stat-label">Badges earned</div>
                 </article>
-            </section>
-
-            <!-- Plan + Progress -->
-            <section class="grid-2">
-                <div style="display:grid; gap:1.4rem;">
-                    @if ($planName)
-                        <div class="card plan">
-                            <div class="plan-top">
-                                <div class="plan-ic"><svg class="ic"><use href="#i-dumbbell"/></svg></div>
-                                <div>
-                                    <h3>{{ $planName }}</h3>
-                                    <p>Week {{ min(max($planWeek, 1), $planTotal) }} of {{ $planTotal }}@if ($currentPhase) — {{ $currentPhase }} Phase @endif</p>
-                                </div>
-                                <span class="badge-active">{{ \Illuminate\Support\Str::headline($planStatus) }}</span>
-                            </div>
-                            <div class="phases">
-                                @foreach ($phases as $ph)
-                                    <div class="phase {{ $ph['state'] }}"><b>Weeks {{ $ph['start'] }}–{{ $ph['end'] }}</b>{{ $ph['name'] }}</div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @else
-                        <div class="card empty-card">
-                            <div class="plan-ic" style="margin:0 auto 1rem"><svg class="ic"><use href="#i-dumbbell"/></svg></div>
-                            <h3>No active plan yet</h3>
-                            <p>Pick a training program to see your phases, schedule and progress here.</p>
-                            <a href="{{ $websiteUrl }}#programs" class="btn-gold" style="margin-top:1.1rem"><svg class="ic"><use href="#i-globe"/></svg> Browse programs</a>
-                        </div>
-                    @endif
-
-                    <div class="card">
-                        <div class="card-head">
-                            <h3><svg class="ic"><use href="#i-activity"/></svg> This week's activity</h3>
-                            <span class="chip">{{ $fmt($weekHours) }} hrs</span>
-                        </div>
-                        <div class="chart">
-                            @foreach ($week as $i => $d)
-                                <div class="col {{ $d['h'] > 0 ? 'on' : '' }} {{ $i === $todayIdx ? 'today' : '' }}">
-                                    <div class="b" style="height: {{ $d['h'] > 0 ? max(14, round($d['h'] / $maxH * 100)) : 4 }}%" title="{{ $fmt($d['h']) }} h"></div>
-                                    <span>{{ $d['d'] }}</span>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display:grid; gap:1.4rem;">
-                    <div class="card">
-                        <div class="card-head">
-                            <h3><svg class="ic"><use href="#i-trend"/></svg> Weekly goal progress</h3>
-                        </div>
-                        <div class="prog-row"><span>Overall</span><b>{{ $weekPct }}%</b></div>
-                        <div class="bar-wrap"><div class="bar-fill" style="width:{{ $weekPct }}%"></div></div>
-                        <p class="prog-note">
-                            @if ($goal > 0) {{ $done }} of {{ $goal }} sessions completed this week @else No weekly goal set yet @endif
-                        </p>
-
-                        <div class="prog-row"><span>Cardio</span><b>{{ $cardioPct }}%</b></div>
-                        <div class="bar-wrap"><div class="bar-fill" style="width:{{ $cardioPct }}%"></div></div>
-
-                        <div class="prog-row"><span>Strength</span><b>{{ $strengthPct }}%</b></div>
-                        <div class="bar-wrap" style="margin-bottom:0"><div class="bar-fill" style="width:{{ $strengthPct }}%"></div></div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-head">
-                            <h3><svg class="ic"><use href="#i-calendar"/></svg> Upcoming sessions</h3>
-                            <a href="#" class="link">Full schedule <svg class="ic"><use href="#i-arrow"/></svg></a>
-                        </div>
-                        <ul class="sched">
-                            @forelse ($sessions->take(4) as $s)
-                                <li class="sess {{ $loop->first ? 'first' : '' }}">
-                                    <span class="tile"><svg class="ic"><use href="#{{ $iconFor(data_get($s, 'type')) }}"/></svg></span>
-                                    <div class="sess-info">
-                                        <b>{{ data_get($s, 'title') }}</b>
-                                        <span>{{ \Illuminate\Support\Carbon::parse(data_get($s, 'starts_at'))->format('g:i A') }}@if (data_get($s, 'duration_min')) · {{ data_get($s, 'duration_min') }} min @endif</span>
-                                    </div>
-                                    <span class="day">{{ $dayLabel(data_get($s, 'starts_at')) }}</span>
-                                </li>
-                            @empty
-                                <li class="sess-empty">No upcoming sessions yet. Your coach will add them here.</li>
-                            @endforelse
-                        </ul>
-                    </div>
-                </div>
             </section>
 
             <!-- Website CTA -->

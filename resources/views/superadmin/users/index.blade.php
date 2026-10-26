@@ -20,12 +20,12 @@
     <a class="stat" href="{{ route('superadmin.users.index', ['role' => 'admin']) }}">
         <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-shield-check"/></svg></span></div>
         <div class="stat-value">{{ $counts['admin'] }}</div>
-        <div class="stat-label">Admins</div>
+        <div class="stat-label">Trainers</div>
     </a>
     <a class="stat" href="{{ route('superadmin.users.index', ['role' => 'customer']) }}">
         <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-run"/></svg></span></div>
         <div class="stat-value">{{ $counts['customer'] }}</div>
-        <div class="stat-label">Customers</div>
+        <div class="stat-label">Trainees</div>
     </a>
 </section>
 

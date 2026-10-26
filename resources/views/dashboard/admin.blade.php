@@ -1,6 +1,9 @@
 @php
-    // Change this if your public website lives at a different address
-    $websiteUrl = 'https://tfi-3fc3.onrender.com/';
+    $websiteUrl = rtrim(url('/'), '/').'/';
+    $trainees = $trainees ?? collect();
+    $conversations = collect($conversations ?? []);
+    $nutritionPlans = collect($nutritionPlans ?? []);
+    $unreadMessages = (int) ($unreadMessages ?? 0);
 
     $me = auth()->user();
     $initialsOf = fn ($name) => collect(preg_split('/\s+/', trim($name ?: 'TFI')))
@@ -19,8 +22,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Admin Dashboard — TFI Portal</title>
-    <meta name="description" content="TFI Admin - Manage customers and training programs" />
+    <title>Trainer Dashboard — TFI Portal</title>
+    <meta name="description" content="TFI Trainer - Manage trainees and training programs" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -133,11 +136,12 @@
         }
         .avatar {
             width: 44px; height: 44px; border-radius: 50%; flex: none;
-            display: grid; place-items: center;
+            display: grid; place-items: center; overflow: hidden;
             font-family: "Oswald", sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: .04em; color: #17130a;
             background: linear-gradient(135deg, var(--gold-bright), var(--gold) 60%, var(--gold-deep));
             box-shadow: 0 0 0 3px rgba(243,217,139,.18);
         }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .user-meta { min-width: 0; flex: 1; }
         .user-name { font-weight: 600; font-size: .92rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .user-role { font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light); margin-top: .15rem; }
@@ -357,7 +361,36 @@
             background: linear-gradient(135deg, var(--gold-bright), var(--gold) 60%, var(--gold-deep));
         }
         .td-main { font-weight: 600; }
+        .td-sub { font-size: .74rem; color: var(--text-muted); margin-top: .1rem; }
         .muted { color: var(--text-muted); }
+        .thread { list-style: none; display: grid; gap: .7rem; }
+        .thread li { padding: .95rem 1rem; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); }
+        .thread li.from-trainer { border-color: rgba(201,154,46,.35); background: rgba(201,154,46,.08); }
+        .thread b { display: block; font-size: .78rem; margin-bottom: .35rem; }
+        .thread span { font-size: .72rem; color: var(--text-muted); font-weight: 500; }
+        .thread p { margin-top: .4rem; font-size: .9rem; line-height: 1.55; white-space: pre-wrap; }
+        .flash { padding: 1rem 1.2rem; border-radius: 12px; font-size: .92rem; font-weight: 600; margin-bottom: 1rem; }
+        .flash-ok { color: #11633c; background: rgba(22,130,80,.10); border: 1px solid rgba(22,130,80,.35); }
+        html.dark-mode .flash-ok { color: #6ee7b7; background: rgba(52,211,153,.10); border-color: rgba(52,211,153,.35); }
+        .flash-err { color: #a11d1d; background: rgba(200,40,40,.08); border: 1px solid rgba(200,40,40,.30); }
+        .convo { display: grid; gap: .85rem; padding: 1rem 0; border-top: 1px solid var(--line); }
+        .convo:first-of-type { border-top: none; padding-top: 0; }
+        .convo h4 { font-size: 1rem; }
+        .msg-form { display: grid; gap: .7rem; }
+        .msg-form textarea, .share-form input, .share-form select {
+            width: 100%; padding: .8rem 1rem; border-radius: 12px;
+            border: 1px solid var(--line-strong); background: var(--bg); color: var(--text); font: inherit;
+        }
+        .msg-form textarea { min-height: 90px; resize: vertical; }
+        .share-form { display: grid; gap: .8rem; margin-bottom: 1.2rem; }
+        @media (min-width: 720px) {
+            .share-form { grid-template-columns: 1fr 1fr auto; align-items: end; }
+            .share-form .full { grid-column: 1 / -1; }
+        }
+        .file-list { list-style: none; display: grid; gap: .65rem; }
+        .file-list li { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: .85rem 1rem; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); }
+        .file-actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+        .share-form label span { display: block; font-size: .74rem; color: var(--text-muted); margin-bottom: .35rem; }
 
         .badge { display: inline-flex; align-items: center; gap: .4rem; padding: .28rem .7rem; border-radius: 100px; font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; border: 1px solid; }
         .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
@@ -438,6 +471,7 @@
     <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></symbol>
     <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
     <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="18" rx="2.5"/><path d="M9 2h6v4H9zM9 12h6M9 16h4"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
     <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
     <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
     <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
@@ -462,31 +496,26 @@
             <img src="{{ $websiteUrl }}logo/logo.png" alt="TFI"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
             <span class="brand-fallback">TFI</span>
-            <span class="brand-text">TFI Portal<small>Admin Panel</small></span>
+            <span class="brand-text">TFI Portal<small>Trainer Panel</small></span>
         </a>
 
         <div class="user-card">
-            <div class="avatar">{{ $initialsOf($me->name ?? '') }}</div>
+            <div class="avatar">
+                @if ($me->avatarUrl())
+                    <img src="{{ $me->avatarUrl() }}" alt="{{ $me->name }}">
+                @else
+                    {{ $initialsOf($me->name ?? '') }}
+                @endif
+            </div>
             <div class="user-meta">
                 <div class="user-name">{{ $me->name }}</div>
-                <div class="user-role">Admin</div>
+                <div class="user-role">Trainer</div>
             </div>
             <span class="online" title="Online"></span>
         </div>
 
         <nav class="nav">
-            <a href="{{ route('admin.dashboard') }}" class="nav-item active"><svg class="ic"><use href="#i-dash"/></svg> Dashboard</a>
-
-            <p class="nav-label">Customers</p>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-run"/></svg> All Customers</a>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-user-plus"/></svg> Add Customer</a>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-check-circle"/></svg> Active</a>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-x-circle"/></svg> Inactive</a>
-
-            <p class="nav-label">Programs</p>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-dumbbell"/></svg> Training Plans</a>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-calendar"/></svg> Schedules</a>
-            <a href="#" class="nav-item"><svg class="ic"><use href="#i-clipboard"/></svg> Reports</a>
+            @include('dashboard.partials.portal-nav')
         </nav>
 
         <div class="side-foot">
@@ -509,7 +538,7 @@
         <header class="topbar">
             <button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg class="ic"><use href="#i-menu"/></svg></button>
             <div class="page-title">
-                <h1>Admin Dashboard</h1>
+                <h1>Trainer Dashboard</h1>
                 <p>{{ \App\Support\DashboardGreeting::today() }}</p>
             </div>
 
@@ -532,15 +561,21 @@
         </header>
 
         <main class="content">
+            @if (session('success'))
+                <div class="flash flash-ok">{{ session('success') }}</div>
+            @endif
+            @if ($errors->any())
+                <div class="flash flash-err">{{ $errors->first() }}</div>
+            @endif
 
             <!-- Hero -->
             <section class="hero">
                 <div>
                     <div class="eyebrow">{{ $greet }}</div>
                     <h2>Welcome back, <span class="hl">{{ $me->name }}</span>!</h2>
-                    <p>Manage your customers and training programs from here.</p>
+                    <p>You are a <strong>trainer</strong>. Superadmin assigns trainees to you — only your trainees appear here.</p>
                     <div class="hero-cta">
-                        <a href="#" class="btn-gold"><svg class="ic"><use href="#i-user-plus"/></svg> Add customer</a>
+                        <a href="{{ url('/#programs') }}" class="btn-gold"><svg class="ic"><use href="#i-dumbbell"/></svg> Website programs</a>
                         <a href="{{ $websiteUrl }}" class="btn-ghost"><svg class="ic"><use href="#i-globe"/></svg> Visit website</a>
                     </div>
                 </div>
@@ -550,7 +585,7 @@
                         <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="bar" cx="60" cy="60" r="52"/></svg>
                         <div class="ring-val"><b>{{ $activePct }}<i>%</i></b></div>
                     </div>
-                    <div class="ring-cap">Customers active<br>{{ $activeC }} of {{ $stats['total_customers'] }}</div>
+                    <div class="ring-cap">Trainees active<br>{{ $activeC }} of {{ $stats['total_customers'] }}</div>
                 </div>
             </section>
 
@@ -559,12 +594,12 @@
                 <article class="stat">
                     <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-run"/></svg></span></div>
                     <div class="stat-value">{{ $stats['total_customers'] }}</div>
-                    <div class="stat-label">Total customers</div>
+                    <div class="stat-label">Total trainees</div>
                 </article>
                 <article class="stat">
                     <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-check-circle"/></svg></span><span class="chip"><svg class="ic"><use href="#i-up"/></svg>Online</span></div>
                     <div class="stat-value">{{ $stats['active_customers'] }}</div>
-                    <div class="stat-label">Active customers</div>
+                    <div class="stat-label">Active trainees</div>
                 </article>
                 <article class="stat">
                     <div class="stat-top">
@@ -574,11 +609,11 @@
                         @endif
                     </div>
                     <div class="stat-value">{{ $stats['inactive_customers'] }}</div>
-                    <div class="stat-label">Inactive customers</div>
+                    <div class="stat-label">Inactive trainees</div>
                 </article>
                 <article class="stat">
                     <div class="stat-top"><span class="tile-ic"><svg class="ic"><use href="#i-dumbbell"/></svg></span>@if (!empty($stats['active_programs']))<span class="chip"><svg class="ic"><use href="#i-up"/></svg>Running</span>@endif</div>
-                    <div class="stat-value">{{ $stats['active_programs'] ?? '—' }}</div>
+                    <div class="stat-value">{{ $stats['active_programs'] ?? 0 }}</div>
                     <div class="stat-label">Active programs</div>
                 </article>
             </section>
@@ -587,7 +622,7 @@
             <section class="grid-2">
                 <div class="card">
                     <div class="card-head">
-                        <h3><svg class="ic"><use href="#i-pie"/></svg> Customer status</h3>
+                        <h3><svg class="ic"><use href="#i-pie"/></svg> Trainee status</h3>
                     </div>
                     <div class="dist-bar" role="img" aria-label="Active versus inactive customers">
                         <span class="s1" style="flex: {{ $activeC }} 1 0"></span>
@@ -604,54 +639,11 @@
                         <h3><svg class="ic"><use href="#i-zap"/></svg> Quick actions</h3>
                     </div>
                     <div class="actions">
-                        <a href="#" class="qa"><span class="tile"><svg class="ic"><use href="#i-user-plus"/></svg></span><b>Add Customer</b></a>
-                        <a href="#" class="qa"><span class="tile"><svg class="ic"><use href="#i-calendar"/></svg></span><b>Schedule</b></a>
-                        <a href="#" class="qa"><span class="tile"><svg class="ic"><use href="#i-clipboard"/></svg></span><b>Reports</b></a>
-                        <a href="#" class="qa"><span class="tile"><svg class="ic"><use href="#i-msg"/></svg></span><b>Messages</b></a>
+                        <a href="{{ route('admin.messages.index') }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-msg"/></svg></span><b>Messages</b></a>
+                        <a href="{{ route('admin.nutrition.index') }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-clipboard"/></svg></span><b>Nutrition</b></a>
+                        <a href="{{ route('admin.trainees') }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-run"/></svg></span><b>Trainees</b></a>
+                        <a href="{{ route('admin.profile.edit') }}" class="qa"><span class="tile"><svg class="ic"><use href="#i-user"/></svg></span><b>Profile</b></a>
                     </div>
-                </div>
-            </section>
-
-            <!-- Recent customers -->
-            <section class="card flush">
-                <div class="card-head">
-                    <h3><svg class="ic"><use href="#i-clock"/></svg> Recent customers</h3>
-                    <a href="#" class="link">View all <svg class="ic"><use href="#i-arrow"/></svg></a>
-                </div>
-                <div class="table-scroll">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Customer</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Status</th>
-                                <th>Joined</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($recentCustomers as $customer)
-                            <tr>
-                                <td>
-                                    <div class="td-name">
-                                        <div class="td-avatar">{{ $initialsOf($customer->name) }}</div>
-                                        <div class="td-main">{{ $customer->name }}</div>
-                                    </div>
-                                </td>
-                                <td class="muted">{{ $customer->email }}</td>
-                                <td class="muted">{{ $customer->phone ?? '—' }}</td>
-                                <td>
-                                    <span class="badge {{ $customer->is_active ? 'st-active' : 'st-inactive' }}">
-                                        {{ $customer->is_active ? 'Active' : 'Inactive' }}
-                                    </span>
-                                </td>
-                                <td class="muted" style="font-size:.82rem; white-space:nowrap">{{ $customer->created_at->format('d M Y') }}</td>
-                            </tr>
-                            @empty
-                            <tr><td colspan="5" class="empty">No customers yet.</td></tr>
-                            @endforelse
-                        </tbody>
-                    </table>
                 </div>
             </section>
 

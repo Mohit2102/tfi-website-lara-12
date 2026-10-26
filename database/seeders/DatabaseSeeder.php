@@ -56,5 +56,6 @@ class DatabaseSeeder extends Seeder
         );
 
         $this->call(PlanPriceSeeder::class);
+        $this->call(DemoPlanPaymentSeeder::class);
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AccountProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RazorpayController;
+use App\Http\Controllers\SuperAdmin\AssignmentController;
 use App\Http\Controllers\SuperAdmin\EnquiryController as SuperAdminEnquiryController;
 use App\Http\Controllers\SuperAdmin\HomePageController;
 use App\Http\Controllers\SuperAdmin\PlanPriceController;
@@ -66,6 +68,8 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('supe
     Route::get('/enquiries', [SuperAdminEnquiryController::class, 'index'])->name('enquiries.index');
     Route::get('/enquiries/{enquiry}', [SuperAdminEnquiryController::class, 'show'])->name('enquiries.show');
     Route::delete('/enquiries/{enquiry}', [SuperAdminEnquiryController::class, 'destroy'])->name('enquiries.destroy');
+    Route::get('/assignments', [AssignmentController::class, 'index'])->name('assignments.index');
+    Route::put('/assignments', [AssignmentController::class, 'update'])->name('assignments.update');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
@@ -77,9 +81,35 @@ Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('supe
 // ─── Admin Routes ──────────────────────────────────────────────────────────────
 Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/messages', [AdminController::class, 'messages'])->name('messages.index');
+    Route::post('/messages', [AdminController::class, 'replyMessage'])
+        ->middleware('throttle:20,1')
+        ->name('messages.reply');
+    Route::get('/nutrition', [AdminController::class, 'nutrition'])->name('nutrition.index');
+    Route::post('/nutrition', [AdminController::class, 'shareNutrition'])
+        ->middleware('throttle:10,1')
+        ->name('nutrition.store');
+    Route::delete('/nutrition/{nutritionPlan}', [AdminController::class, 'destroyNutrition'])
+        ->name('nutrition.destroy');
+    Route::get('/trainees', [AdminController::class, 'trainees'])->name('trainees');
+    Route::get('/profile', [AccountProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [AccountProfileController::class, 'update'])->name('profile.update');
 });
 
 // ─── Customer Routes ───────────────────────────────────────────────────────────
 Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer.')->group(function () {
     Route::get('/dashboard', [CustomerController::class, 'dashboard'])->name('dashboard');
+    Route::get('/trainer', [CustomerController::class, 'trainer'])->name('trainer');
+    Route::get('/program', [CustomerController::class, 'program'])->name('program');
+    Route::get('/schedule', [CustomerController::class, 'schedule'])->name('schedule');
+    Route::get('/progress', [CustomerController::class, 'progress'])->name('progress');
+    Route::get('/nutrition', [CustomerController::class, 'nutrition'])->name('nutrition');
+    Route::get('/messages', [CustomerController::class, 'messages'])->name('messages.index');
+    Route::post('/messages', [CustomerController::class, 'storeMessage'])
+        ->middleware('throttle:20,1')
+        ->name('messages.store');
+    Route::get('/subscription', [CustomerController::class, 'subscription'])->name('subscription');
+    Route::get('/notifications', [CustomerController::class, 'notifications'])->name('notifications');
+    Route::get('/profile', [AccountProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [AccountProfileController::class, 'update'])->name('profile.update');
 });

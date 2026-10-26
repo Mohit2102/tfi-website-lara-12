@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserPlan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -32,8 +33,8 @@ class UserController extends Controller
             ->withQueryString();
 
         $titles = [
-            User::ROLE_ADMIN => ['Admins', 'Staff accounts that can manage customers'],
-            User::ROLE_CUSTOMER => ['Customers', 'People who buy and follow training plans'],
+            User::ROLE_ADMIN => ['Trainers', 'Admin accounts that coach assigned trainees'],
+            User::ROLE_CUSTOMER => ['Trainees', 'Customers who buy and follow training plans'],
             null => ['All users', 'Every account on the TFI portal'],
         ];
 
@@ -60,6 +61,7 @@ class UserController extends Controller
         return view('superadmin.users.form', [
             'user' => new User(['role' => $role, 'is_active' => true]),
             'roleFilter' => $this->requestedRole($request),
+            'trainers' => $this->trainers(),
         ]);
     }
 
@@ -69,6 +71,7 @@ class UserController extends Controller
         unset($data['photo']);
         $data['is_active'] = $request->boolean('is_active');
         $data['avatar'] = $this->storePhoto($request->file('photo'));
+        $data['trainer_id'] = $this->assignedTrainerId($request, $data['role']);
 
         User::query()->create($data);
 
@@ -82,6 +85,7 @@ class UserController extends Controller
         return view('superadmin.users.form', [
             'user' => $user,
             'roleFilter' => $this->requestedRole($request),
+            'trainers' => $this->trainers(),
         ]);
     }
 
@@ -104,7 +108,15 @@ class UserController extends Controller
             unset($data['password']);
         }
 
+        $data['trainer_id'] = $this->assignedTrainerId($request, $data['role']);
         $user->update($data);
+
+        if ($user->role === User::ROLE_CUSTOMER) {
+            UserPlan::query()
+                ->where('user_id', $user->id)
+                ->where('status', 'active')
+                ->update(['trainer_id' => $user->trainer_id]);
+        }
 
         return redirect()
             ->route('superadmin.users.edit', $user)
@@ -138,7 +150,31 @@ class UserController extends Controller
             'role' => ['required', Rule::in([User::ROLE_SUPERADMIN, User::ROLE_ADMIN, User::ROLE_CUSTOMER])],
             'password' => $passwordRules,
             'photo' => ['nullable', 'image', 'max:4096'],
+            'trainer_id' => ['nullable', 'integer', Rule::exists('users', 'id')->where('role', User::ROLE_ADMIN)],
         ]);
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection<int, User>
+     */
+    private function trainers()
+    {
+        return User::query()
+            ->where('role', User::ROLE_ADMIN)
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get();
+    }
+
+    private function assignedTrainerId(Request $request, string $role): ?int
+    {
+        if ($role !== User::ROLE_CUSTOMER) {
+            return null;
+        }
+
+        $trainerId = $request->input('trainer_id');
+
+        return filled($trainerId) ? (int) $trainerId : null;
     }
 
     private function requestedRole(Request $request): ?string

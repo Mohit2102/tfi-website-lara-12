@@ -104,9 +104,20 @@
     setBusy(trigger, true);
     if (typeof options.onState === "function") options.onState(true);
 
-    loadRazorpay().then(function () {
-      return post("/api/razorpay/create-order", selection);
+    post("/api/razorpay/create-order", selection).then(function (order) {
+      if (order && order.dummy) {
+        window.location.href = "/payment-success?payment_id=" +
+          encodeURIComponent(order.payment_id || "dummy") +
+          "&plan=" + encodeURIComponent(order.plan || "");
+        return null;
+      }
+
+      return loadRazorpay().then(function () {
+        return order;
+      });
     }).then(function (order) {
+      if (!order) return;
+
       var verifying = false;
       var checkout = new window.Razorpay({
         key: order.key_id,
