@@ -626,6 +626,13 @@
     months: 6
   };
 
+  var PACKHY = window.TFI && window.TFI.pack ? window.TFI.pack() : null;
+  if (PACKHY && PACKHY.halfYearly) {
+    CFG.monthly = PACKHY.halfYearly.monthly;
+    CFG.nutrition = PACKHY.halfYearly.nutrition;
+    CFG.ext = PACKHY.halfYearly.ext;
+  }
+
   var GROUPS = ["session", "couple", "nutrition", "trainer", "extension"];
 
   var totalEl = document.getElementById("mvTotal");
@@ -644,7 +651,7 @@
 
   function checked(name) { return form.querySelector('input[name="' + name + '"]:checked'); }
   function val(name) { var el = checked(name); return el ? el.value : ""; }
-  function money(n) { return "₹" + Number(n).toLocaleString("en-IN"); }
+  function money(n) { return window.TFI && window.TFI.money ? window.TFI.money(n) : "₹" + Number(n).toLocaleString("en-IN"); }
 
   /* Training price = monthly price x months x (1 - discount); Couple = 1.5x.
      Stays 0 until BOTH a trainer level and a session count are chosen. */

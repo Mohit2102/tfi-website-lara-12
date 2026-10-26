@@ -18,6 +18,21 @@ class SuperAdminController extends Controller
 
         $recentUsers = User::latest()->take(8)->get();
 
-        return view('dashboard.superadmin', compact('stats', 'recentUsers'));
+        $total = max(1, (int) $stats['total_users']);
+        $admins = (int) $stats['total_admins'];
+        $customers = (int) $stats['total_customers'];
+        $active = (int) $stats['active_users'];
+        $others = max(0, $total - $admins - $customers);
+        $activePct = min(100, (int) round($active / $total * 100));
+
+        return view('dashboard.superadmin', [
+            'stats' => $stats,
+            'recentUsers' => $recentUsers,
+            'admins' => $admins,
+            'customers' => $customers,
+            'others' => $others,
+            'activePct' => $activePct,
+            'ringOff' => round(326.7 * (1 - $activePct / 100), 1),
+        ]);
     }
 }

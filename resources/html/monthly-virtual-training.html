@@ -2497,6 +2497,13 @@
 
   };
 
+  var PACK = window.TFI && window.TFI.pack ? window.TFI.pack() : null;
+  if (PACK && PACK.monthly) {
+    BASE = PACK.monthly.base;
+    NUTRITION_PER_PERSON_PER_MONTH = PACK.monthly.nutrition;
+    EXTENSION = PACK.monthly.extension;
+  }
+
 
 
   /* =========================================================
@@ -2597,6 +2604,10 @@
   ========================================================== */
 
   function money(n) {
+
+    if (window.TFI && window.TFI.money) {
+      return window.TFI.money(n);
+    }
 
     return "₹" +
       Math.round(

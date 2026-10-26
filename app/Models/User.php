@@ -92,4 +92,17 @@ class User extends Authenticatable
             default               => '#10b981',
         };
     }
+
+    public function avatarUrl(): ?string
+    {
+        if (! filled($this->avatar)) {
+            return null;
+        }
+
+        if (str_starts_with($this->avatar, 'http://') || str_starts_with($this->avatar, 'https://')) {
+            return $this->avatar;
+        }
+
+        return asset($this->avatar);
+    }
 }

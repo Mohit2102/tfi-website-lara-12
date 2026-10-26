@@ -19,22 +19,29 @@
   /* ---------------------------------------------------------------
      1. Price + links (single source: data-price on <main>)
   ---------------------------------------------------------------- */
-  var price = parseFloat(root.getAttribute("data-price"));
+  var priceInr = parseFloat(root.getAttribute("data-price"));
+  var priceUsd = parseFloat(root.getAttribute("data-price-usd"));
+  var useUsd = window.TFI_CURRENCY === "usd" && isFinite(priceUsd) && priceUsd > 0;
+  var price = useUsd ? priceUsd : priceInr;
   var plan = root.getAttribute("data-plan") || "";
   var planName = root.getAttribute("data-plan-name") || document.title;
   var waNumber = root.getAttribute("data-whatsapp") || "918951077599";
 
   if (isFinite(price) && price > 0) {
-    var priceText = "₹" + price.toLocaleString("en-IN", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-    var bits = priceText.replace("₹", "").split(".");
+    var priceText = window.TFI && window.TFI.money
+      ? window.TFI.money(price)
+      : "₹" + price.toLocaleString("en-IN", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+    var symbol = useUsd ? "$" : "₹";
+    var bits = priceText.replace(symbol, "").replace(/^[^\d]+/, "").split(".");
+    if (bits.length === 1) bits.push("00");
 
     qsa("[data-ps-price]").forEach(function (el) {
       el.innerHTML =
         '<span class="ps-sr">' + priceText + "</span>" +
-        '<span class="ps-cur" aria-hidden="true">₹</span>' +
+        '<span class="ps-cur" aria-hidden="true">' + symbol + '</span>' +
         '<span class="ps-amt" aria-hidden="true">' + bits[0] + "</span>" +
         '<span class="ps-dec" aria-hidden="true">.' + bits[1] + "</span>";
     });

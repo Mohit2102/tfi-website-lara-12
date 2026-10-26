@@ -245,8 +245,8 @@
 
   <!-- Slide 01 -->
   <div class="carousel-slide active">
-    <img class="slide-bg" src="images/hero-7.png" alt="" aria-hidden="true">
-    <img class="slide-fg" src="images/hero-7.png" alt="Personal training">
+    <img class="slide-bg" data-cms-src="hero.0.image" src="images/hero-7.png" alt="" aria-hidden="true">
+    <img class="slide-fg" data-cms-src="hero.0.image" data-cms-alt="hero.0.alt" src="images/hero-7.png" alt="Personal training">
 
     <!-- <a href="virtual-training.html" class="hero-know-more">
       Know More
@@ -256,8 +256,8 @@
 
   <!-- Slide 02 -->
   <div class="carousel-slide">
-    <img class="slide-bg" src="images/hero-8.png" alt="" aria-hidden="true" loading="lazy">
-    <img class="slide-fg" src="images/hero-8.png" alt="Strength training" loading="lazy">
+    <img class="slide-bg" data-cms-src="hero.1.image" src="images/hero-8.png" alt="" aria-hidden="true" loading="lazy">
+    <img class="slide-fg" data-cms-src="hero.1.image" data-cms-alt="hero.1.alt" src="images/hero-8.png" alt="Strength training" loading="lazy">
 
     <!-- <a href="non-virtual-training.html" class="hero-know-more">
       Know More
@@ -267,8 +267,8 @@
 
   <!-- Slide 03 -->
   <div class="carousel-slide">
-    <img class="slide-bg" src="images/hero-9.png" alt="" aria-hidden="true" loading="lazy">
-    <img class="slide-fg" src="images/hero-9.png" alt="Group fitness" loading="lazy">
+    <img class="slide-bg" data-cms-src="hero.2.image" src="images/hero-9.png" alt="" aria-hidden="true" loading="lazy">
+    <img class="slide-fg" data-cms-src="hero.2.image" data-cms-alt="hero.2.alt" src="images/hero-9.png" alt="Group fitness" loading="lazy">
 
     <!-- <a href="personal-training.html" class="hero-know-more">
       Know More
@@ -305,30 +305,30 @@
 
         <div class="stat-cell">
           <div class="stat-num">
-            <span class="counter" data-target="2000">0</span><span class="u">+</span>
+            <span class="counter" data-cms-target="stats.0.value" data-target="2000">0</span><span class="u" data-cms="stats.0.suffix">+</span>
           </div>
-          <div class="stat-label">Members trained</div>
+          <div class="stat-label" data-cms="stats.0.label">Members trained</div>
         </div>
 
         <div class="stat-cell">
           <div class="stat-num">
-            <span class="counter" data-target="15">0</span><span class="u">+</span>
+            <span class="counter" data-cms-target="stats.1.value" data-target="15">0</span><span class="u" data-cms="stats.1.suffix">+</span>
           </div>
-          <div class="stat-label">Certified coaches</div>
+          <div class="stat-label" data-cms="stats.1.label">Certified coaches</div>
         </div>
 
         <div class="stat-cell">
           <div class="stat-num">
-            <span class="counter" data-target="3">0</span>
+            <span class="counter" data-cms-target="stats.2.value" data-target="3">0</span><span class="u" data-cms="stats.2.suffix"></span>
           </div>
-          <div class="stat-label">Fitness programs</div>
+          <div class="stat-label" data-cms="stats.2.label">Fitness programs</div>
         </div>
 
         <div class="stat-cell">
           <div class="stat-num">
-            <span class="counter" data-target="12">0</span><span class="u">+</span>
+            <span class="counter" data-cms-target="stats.3.value" data-target="12">0</span><span class="u" data-cms="stats.3.suffix">+</span>
           </div>
-          <div class="stat-label">Years of coaching</div>
+          <div class="stat-label" data-cms="stats.3.label">Years of coaching</div>
         </div>
 
       </div>
@@ -354,24 +354,23 @@
 
           <div class="tfi-eyebrow">
             <span></span>
-            YOUR FITNESS. YOUR GOALS. YOUR JOURNEY.
+            <span data-cms="intro.eyebrow">YOUR FITNESS. YOUR GOALS. YOUR JOURNEY.</span>
             <span></span>
           </div>
 
           <h2>
-            Fitness that is
-            <span>built around you.</span>
+            <span data-cms="intro.heading">Fitness that is</span>
+            <span data-cms="intro.heading_accent">built around you.</span>
           </h2>
 
           <div class="tfi-title-line"></div>
 
-          <p class="tfi-personalized-subtitle">
-            Personalised Fitness Training,
-            <strong>Wherever You Are</strong>
+          <p class="tfi-personalized-subtitle" data-cms="intro.subtitle">
+            Personalised Fitness Training, Wherever You Are
           </p>
 
-          <p class="tfi-personalized-text">
-            At <strong>TIME TO FIT INDIA</strong>, we first understand your
+          <p class="tfi-personalized-text" data-cms="intro.body">
+            At TIME TO FIT INDIA, we first understand your
             body, fitness level, lifestyle and goals. Then, we create a
             personalised training approach designed around you —
             with expert guidance and support, wherever you are.
@@ -385,8 +384,8 @@
               </div>
               <div class="tfi-step-body">
                 <span class="tfi-step-num">01</span>
-                <strong>Know You</strong>
-                <p>Your body, habits, health and goals come first.</p>
+                <strong data-cms="intro.steps.0.title">Know You</strong>
+                <p data-cms="intro.steps.0.text">Your body, habits, health and goals come first.</p>
               </div>
             </div>
 
@@ -396,8 +395,8 @@
               </div>
               <div class="tfi-step-body">
                 <span class="tfi-step-num">02</span>
-                <strong>Build It</strong>
-                <p>A plan that fits your schedule, level and preferences.</p>
+                <strong data-cms="intro.steps.1.title">Build It</strong>
+                <p data-cms="intro.steps.1.text">A plan that fits your schedule, level and preferences.</p>
               </div>
             </div>
 
@@ -407,8 +406,8 @@
               </div>
               <div class="tfi-step-body">
                 <span class="tfi-step-num">03</span>
-                <strong>Own It</strong>
-                <p>Track every win, grow stronger and stay confident.</p>
+                <strong data-cms="intro.steps.2.title">Own It</strong>
+                <p data-cms="intro.steps.2.text">Track every win, grow stronger and stay confident.</p>
               </div>
             </div>
 
@@ -467,14 +466,14 @@
         <div class="journey-intro">
 
           <div class="journey-intro-content">
-            <div class="sec-kicker">YOUR FITNESS JOURNEY STARTS HERE</div>
+            <div class="sec-kicker" data-cms="journey.kicker">YOUR FITNESS JOURNEY STARTS HERE</div>
 
-            <h2>
+            <h2 data-cms="journey.heading">
               Understand. Assess.<br>
               Plan. Train. Progress.
             </h2>
 
-            <p>
+            <p data-cms="journey.body">
               Your fitness journey starts with understanding where you are,
               where you want to go and what works best for you.
             </p>
@@ -650,7 +649,7 @@
         <!-- Bottom message -->
         <div class="journey-bottom">
           <span></span>
-          <p>A personalised journey, thoughtfully built around you.</p>
+          <p data-cms="journey.footer">A personalised journey, thoughtfully built around you.</p>
           <span></span>
         </div>
 
@@ -666,9 +665,9 @@
       <div class="wrap">
 
         <div class="sec-head">
-          <div class="sec-kicker">Find Your Program</div>
-          <h2>Every body. Every goal. One team.</h2>
-          <p>
+          <div class="sec-kicker" data-cms="programs.kicker">Find Your Program</div>
+          <h2 data-cms="programs.heading">Every body. Every goal. One team.</h2>
+          <p data-cms="programs.body">
             Whether you train at home, need a complete fitness plan,
             or prefer personal coaching, TFI has a program built around you.
           </p>
@@ -679,60 +678,60 @@
           <!-- Virtual Training -->
           <a class="path-card" href="virtual-training.html">
             <div class="path-media">
-              <img src="images/program-1.jpg"
+              <img data-cms-src="programs.cards.0.image" src="images/program-1.jpg"
                   alt="Live virtual personal training from home"
                   loading="lazy">
               <div class="path-badge"></div>
             </div>
 
             <div class="path-body">
-              <h3>Virtual Personal Training</h3>
-              <p>
+              <h3 data-cms="programs.cards.0.title">Virtual Personal Training</h3>
+              <p data-cms="programs.cards.0.body">
                 Train from the comfort of home with live 1-on-1 coaching,
                 personalised workouts and flexible schedules designed
                 to fit your lifestyle and fitness goals.
               </p>
-              <span class="path-cta">Explore Virtual Training</span>
+              <span class="path-cta" data-cms="programs.cards.0.cta">Explore Virtual Training</span>
             </div>
           </a>
 
           <!-- Workout & Nutrition Plans -->
           <a class="path-card" href="non-virtual-training.html">
             <div class="path-media">
-              <img src="images/program-2.jpg"
+              <img data-cms-src="programs.cards.1.image" src="images/program-2.jpg"
                   alt="Personalised workout and nutrition planning"
                   loading="lazy">
               <div class="path-badge"></div>
             </div>
 
             <div class="path-body">
-              <h3>Workout & Nutrition Plans</h3>
-              <p>
+              <h3 data-cms="programs.cards.1.title">Workout & Nutrition Plans</h3>
+              <p data-cms="programs.cards.1.body">
                 Follow a structured fitness journey with personalised
                 workout routines and nutrition guidance tailored to
                 your goals, preferences and daily routine.
               </p>
-              <span class="path-cta">Explore Fitness Plans</span>
+              <span class="path-cta" data-cms="programs.cards.1.cta">Explore Fitness Plans</span>
             </div>
           </a>
 
           <!-- Specialized Personal Training -->
           <a class="path-card" href="personal-training.html">
             <div class="path-media">
-              <img src="images/program-3.jpg"
+              <img data-cms-src="programs.cards.2.image" src="images/program-3.jpg"
                   alt="One-on-one specialised personal training"
                   loading="lazy">
               <div class="path-badge"></div>
             </div>
 
             <div class="path-body">
-              <h3>Specialized Personal Training</h3>
-              <p>
+              <h3 data-cms="programs.cards.2.title">Specialized Personal Training</h3>
+              <p data-cms="programs.cards.2.body">
                 Get focused 1-on-1 coaching for your individual fitness
                 needs, from building strength and improving mobility
                 to working towards specific performance goals.
               </p>
-              <span class="path-cta">Explore Personal Training</span>
+              <span class="path-cta" data-cms="programs.cards.2.cta">Explore Personal Training</span>
             </div>
           </a>
 
@@ -750,11 +749,11 @@
       <div class="wrap">
 
         <header class="why-heading">
-          <span class="why-kicker">THE TFI EDGE</span>
-          <h2 id="why-title">Why <span>TIME TO FIT INDIA?</span></h2>
+          <span class="why-kicker" data-cms="why.kicker">THE TFI EDGE</span>
+          <h2 id="why-title"><span data-cms="why.heading">Why</span> <span data-cms="why.heading_accent">TIME TO FIT INDIA?</span></h2>
           <div class="why-subtitle">
             <span aria-hidden="true"></span>
-            <p>A personalized approach to online fitness coaching.</p>
+            <p data-cms="why.subtitle">A personalized approach to online fitness coaching.</p>
             <span aria-hidden="true"></span>
           </div>
         </header>
@@ -762,66 +761,66 @@
         <div class="why-grid">
 
           <article class="why-card">
-            <div class="why-image" style="background-image:url('images/why-coaches.jpg')">
+            <div class="why-image" data-cms-bg="why.cards.0.image" style="background-image:url('images/why-coaches.jpg')">
               <div class="why-image-overlay"></div>
               <div class="why-image-content">
                 <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
-                <h3>YOUR BODY.<br>YOUR GOALS.<br><span>YOUR STARTING POINT.</span></h3>
+                <h3 data-cms="why.cards.0.title">YOUR BODY.<br>YOUR GOALS.<br>YOUR STARTING POINT.</h3>
               </div>
             </div>
-            <div class="why-description">
+            <div class="why-description" data-cms="why.cards.0.body">
               We assess your fitness level, lifestyle and goals to create a training approach that works for you.
             </div>
           </article>
 
           <article class="why-card">
-            <div class="why-image" style="background-image:url('images/why-small-batches.jpg')">
+            <div class="why-image" data-cms-bg="why.cards.1.image" style="background-image:url('images/why-small-batches.jpg')">
               <div class="why-image-overlay"></div>
               <div class="why-image-content">
                 <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></div>
-                <h3>YOUR GOALS.<br>YOUR PERSONAL<br><span>FITNESS PLAN.</span></h3>
+                <h3 data-cms="why.cards.1.title">YOUR GOALS.<br>YOUR PERSONAL<br>FITNESS PLAN.</h3>
               </div>
             </div>
-            <div class="why-description">
+            <div class="why-description" data-cms="why.cards.1.body">
               Your personalized plan aligns your fitness goals, training level and daily schedule for consistent progress.
             </div>
           </article>
 
           <article class="why-card">
-            <div class="why-image" style="background-image:url('images/why-nutrition.jpg')">
+            <div class="why-image" data-cms-bg="why.cards.2.image" style="background-image:url('images/why-nutrition.jpg')">
               <div class="why-image-overlay"></div>
               <div class="why-image-content">
                 <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-dumbbell"></i></div>
-                <h3>EXPERT GUIDANCE.<br>SMARTER MOVEMENT.<br><span>BETTER TRAINING.</span></h3>
+                <h3 data-cms="why.cards.2.title">EXPERT GUIDANCE.<br>SMARTER MOVEMENT.<br>BETTER TRAINING.</h3>
               </div>
             </div>
-            <div class="why-description">
+            <div class="why-description" data-cms="why.cards.2.body">
               Get expert coaching, exercise guidance and ongoing support to improve your technique and train with confidence.
             </div>
           </article>
 
           <article class="why-card">
-            <div class="why-image" style="background-image:url('images/why-scheduling.jpg')">
+            <div class="why-image" data-cms-bg="why.cards.3.image" style="background-image:url('images/why-scheduling.jpg')">
               <div class="why-image-overlay"></div>
               <div class="why-image-content">
                 <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-laptop"></i></div>
-                <h3>YOUR SPACE.<br>YOUR SCHEDULE.<br><span>YOUR FITNESS.</span></h3>
+                <h3 data-cms="why.cards.3.title">YOUR SPACE.<br>YOUR SCHEDULE.<br>YOUR FITNESS.</h3>
               </div>
             </div>
-            <div class="why-description">
+            <div class="why-description" data-cms="why.cards.3.body">
               Train from your preferred location with flexible online sessions that fit your routine and schedule.
             </div>
           </article>
 
           <article class="why-card">
-            <div class="why-image" style="background-image:url('images/why-results.jpg')">
+            <div class="why-image" data-cms-bg="why.cards.4.image" style="background-image:url('images/why-results.jpg')">
               <div class="why-image-overlay"></div>
               <div class="why-image-content">
                 <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-chart-line"></i></div>
-                <h3>TRACK YOUR EFFORT.<br>MEASURE YOUR RESULTS.<br><span>KEEP PROGRESSING.</span></h3>
+                <h3 data-cms="why.cards.4.title">TRACK YOUR EFFORT.<br>MEASURE YOUR RESULTS.<br>KEEP PROGRESSING.</h3>
               </div>
             </div>
-            <div class="why-description">
+            <div class="why-description" data-cms="why.cards.4.body">
               Track your consistency, strength and fitness improvements, then adjust your plan as you progress.
             </div>
           </article>
@@ -829,7 +828,7 @@
         </div>
 
         <div class="why-team">
-          <div class="why-team-image" style="background-image:url('images/why-team.png')">
+          <div class="why-team-image" data-cms-bg="why.team_image" style="background-image:url('images/why-team.png')">
             <div class="why-team-overlay"></div>
             <div class="why-team-caption">
               <span class="why-team-icon" aria-hidden="true"><i class="fa-solid fa-users"></i></span>
@@ -839,8 +838,8 @@
 
           <div class="why-team-info">
             <span class="why-team-eyebrow">YOUR GOALS. OUR EXPERTISE.</span>
-            <h3>Qualified People.<br>Professional Coaching.</h3>
-            <p>Meet our trainers and explore their certifications, experience, qualifications and coaching expertise.</p>
+            <h3 data-cms="why.team_heading">Qualified People.<br>Professional Coaching.</h3>
+            <p data-cms="why.team_body">Meet our trainers and explore their certifications, experience, qualifications and coaching expertise.</p>
             <a href="trainers.html" class="why-team-button">
               MEET THE TEAM <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>
@@ -861,17 +860,17 @@
           <div class="founder-visual">
 
             <div class="founder-image-frame">
-              <img src="images/santhosh-land.png" alt="Santhosh M - Founder of Time To Fit India" loading="lazy">
+              <img data-cms-src="founder.image" data-cms-alt="founder.name" src="images/santhosh-land.png" alt="Santhosh M - Founder of Time To Fit India" loading="lazy">
 
               <div class="founder-experience">
-                <div class="experience-number">12+</div>
-                <div class="experience-label">Years in<br>Fitness</div>
+                <div class="experience-number" data-cms="founder.experience">12+</div>
+                <div class="experience-label" data-cms="founder.experience_label">Years in<br>Fitness</div>
               </div>
             </div>
 
             <div class="founder-image-caption">
               <span></span>
-              <p>Founder · Head Coach · Personal Trainer</p>
+              <p data-cms="founder.caption">Founder · Head Coach · Personal Trainer</p>
             </div>
 
           </div>
@@ -879,31 +878,29 @@
           <!-- Right: content -->
           <div class="founder-content">
 
-            <div class="sec-kicker">MEET THE FOUNDER</div>
+            <div class="sec-kicker" data-cms="founder.kicker">MEET THE FOUNDER</div>
 
-            <h2>Santhosh M</h2>
+            <h2 data-cms="founder.name">Santhosh M</h2>
 
             <div class="founder-role">
-              <span>ACE-Certified Personal Trainer</span>
+              <span data-cms="founder.role">ACE-Certified Personal Trainer</span>
               <b>·</b>
               <span>12+ Years in Fitness</span>
             </div>
 
-            <p class="founder-lead">
+            <p class="founder-lead" data-cms="founder.lead">
               I believe the right fitness journey begins with understanding
               the person — their goals, lifestyle and individual needs.
             </p>
 
-            <p>
+            <div data-cms="founder.bio">
               I'm Santhosh M, an ACE-Certified Personal Trainer with
               12+ years of experience in the fitness industry.
-            </p>
 
-            <p>
               Over the years, I've worked with people across different
               fitness levels and goals, including people over 40 and
               individuals with specific health considerations.
-            </p>
+            </div>
 
             <p>
               This experience shaped my approach to fitness:
@@ -958,7 +955,7 @@
             <!-- Quote -->
             <div class="founder-quote">
               <span class="quote-mark">“</span>
-              <p>
+              <p data-cms="founder.quote">
                 Fitness should be personal.<br>
                 Training should have a purpose.
               </p>
@@ -980,8 +977,8 @@
         <!-- Header + controls -->
         <div class="testimonials-head">
           <div>
-            <div class="sec-kicker">Loved by members</div>
-            <h2>Real bodies. Real transformations.</h2>
+            <div class="sec-kicker" data-cms="testimonials.kicker">Loved by members</div>
+            <h2 data-cms="testimonials.heading">Real bodies. Real transformations.</h2>
           </div>
 
           <div class="testimonial-controls">
@@ -1000,7 +997,7 @@
               <span class="testi-stars">★★★★★</span>
             </div>
             <div class="testi-quote">“</div>
-            <p>
+            <p data-cms="testimonials.items.0.quote">
               I lost 12 kilos in five months without starving myself.
               The coaches actually track your progress — it's not just
               a gym, it's a system.
@@ -1008,8 +1005,8 @@
             <div class="testi-bottom">
               <div class="testi-avatar">M</div>
               <div>
-                <strong>Member</strong>
-                <span>Weight Loss Program</span>
+                <strong data-cms="testimonials.items.0.name">Member</strong>
+                <span data-cms="testimonials.items.0.program">Weight Loss Program</span>
               </div>
             </div>
           </div>
@@ -1021,7 +1018,7 @@
               <span class="testi-stars">★★★★★</span>
             </div>
             <div class="testi-quote">“</div>
-            <p>
+            <p data-cms="testimonials.items.1.quote">
               Best personal training I've done. My trainer corrects
               every rep and actually pushes me on the days I don't
               want to show up.
@@ -1029,8 +1026,8 @@
             <div class="testi-bottom">
               <div class="testi-avatar">M</div>
               <div>
-                <strong>Member</strong>
-                <span>Specialized Live Personal Training</span>
+                <strong data-cms="testimonials.items.1.name">Member</strong>
+                <span data-cms="testimonials.items.1.program">Specialized Live Personal Training</span>
               </div>
             </div>
           </div>
@@ -1042,15 +1039,15 @@
               <span class="testi-stars">★★★★★</span>
             </div>
             <div class="testi-quote">“</div>
-            <p>
+            <p data-cms="testimonials.items.2.quote">
               The Zumba classes are the highlight of my week —
               high energy, zero judgement, real results.
             </p>
             <div class="testi-bottom">
               <div class="testi-avatar">M</div>
               <div>
-                <strong>Member</strong>
-                <span>Zumba &amp; Dance Fitness</span>
+                <strong data-cms="testimonials.items.2.name">Member</strong>
+                <span data-cms="testimonials.items.2.program">Zumba &amp; Dance Fitness</span>
               </div>
             </div>
           </div>
@@ -1062,15 +1059,15 @@
               <span class="testi-stars">★★★★★</span>
             </div>
             <div class="testi-quote">“</div>
-            <p>
+            <p data-cms="testimonials.items.3.quote">
               TFI's nutrition coaching changed how I eat completely.
               Down eight kilos and still eating food I actually enjoy.
             </p>
             <div class="testi-bottom">
               <div class="testi-avatar">M</div>
               <div>
-                <strong>Member</strong>
-                <span>Nutrition Coaching</span>
+                <strong data-cms="testimonials.items.3.name">Member</strong>
+                <span data-cms="testimonials.items.3.program">Nutrition Coaching</span>
               </div>
             </div>
           </div>
@@ -1082,15 +1079,15 @@
               <span class="testi-stars">★★★★★</span>
             </div>
             <div class="testi-quote">“</div>
-            <p>
+            <p data-cms="testimonials.items.4.quote">
               The coaches make every workout feel purposeful.
               I've become stronger, more confident and more consistent.
             </p>
             <div class="testi-bottom">
               <div class="testi-avatar">M</div>
               <div>
-                <strong>Member</strong>
-                <span>Strength &amp; Conditioning</span>
+                <strong data-cms="testimonials.items.4.name">Member</strong>
+                <span data-cms="testimonials.items.4.program">Strength &amp; Conditioning</span>
               </div>
             </div>
           </div>
@@ -1102,15 +1099,15 @@
               <span class="testi-stars">★★★★★</span>
             </div>
             <div class="testi-quote">“</div>
-            <p>
+            <p data-cms="testimonials.items.5.quote">
               I finally found a routine that fits my lifestyle.
               The team understands that everyone's fitness journey is different.
             </p>
             <div class="testi-bottom">
               <div class="testi-avatar">M</div>
               <div>
-                <strong>Member</strong>
-                <span>Specialized Live Personal Training</span>
+                <strong data-cms="testimonials.items.5.name">Member</strong>
+                <span data-cms="testimonials.items.5.program">Specialized Live Personal Training</span>
               </div>
             </div>
           </div>
@@ -1122,15 +1119,15 @@
               <span class="testi-stars">★★★★★</span>
             </div>
             <div class="testi-quote">“</div>
-            <p>
+            <p data-cms="testimonials.items.6.quote">
               Every session has a clear purpose. The support,
               accountability and attention to technique made a huge difference.
             </p>
             <div class="testi-bottom">
               <div class="testi-avatar">M</div>
               <div>
-                <strong>Member</strong>
-                <span>Fitness Program</span>
+                <strong data-cms="testimonials.items.6.name">Member</strong>
+                <span data-cms="testimonials.items.6.program">Fitness Program</span>
               </div>
             </div>
           </div>
@@ -1142,15 +1139,15 @@
               <span class="testi-stars">★★★★★</span>
             </div>
             <div class="testi-quote">“</div>
-            <p>
+            <p data-cms="testimonials.items.7.quote">
               TFI made fitness feel simple and achievable.
               I enjoy coming to every session and can genuinely see the progress.
             </p>
             <div class="testi-bottom">
               <div class="testi-avatar">M</div>
               <div>
-                <strong>Member</strong>
-                <span>Fitness &amp; Wellness</span>
+                <strong data-cms="testimonials.items.7.name">Member</strong>
+                <span data-cms="testimonials.items.7.program">Fitness &amp; Wellness</span>
               </div>
             </div>
           </div>
@@ -1174,9 +1171,9 @@
       <div class="wrap">
 
         <div class="sec-head who-head">
-          <div class="sec-kicker">WHO WE TRAIN</div>
-          <h2>Different people.<br>Different goals. Different needs.</h2>
-          <p>One personalised approach.</p>
+          <div class="sec-kicker" data-cms="who.kicker">WHO WE TRAIN</div>
+          <h2 data-cms="who.heading">Different people.<br>Different goals. Different needs.</h2>
+          <p data-cms="who.subtitle">One personalised approach.</p>
         </div>
 
         <div class="who-grid">
@@ -1193,7 +1190,7 @@
             <div class="who-content">
               <h3>Men</h3>
 
-              <p class="who-intro">
+              <p class="who-intro" data-cms="who.men">
                 Helping men build strength, improve fitness and stay active
                 through every stage of life.
               </p>
@@ -1271,7 +1268,7 @@
             <div class="who-content">
               <h3>Women</h3>
 
-              <p class="who-intro">
+              <p class="who-intro" data-cms="who.women">
                 Helping women become stronger, fitter and more confident
                 at every stage of life.
               </p>
@@ -1347,7 +1344,7 @@
           <div class="who-focus-content">
             <div class="sec-kicker">OUR FOCUS</div>
 
-            <h3>
+            <h3 data-cms="who.focus_heading">
               Your body.<br>
               Your goals.<br>
               Your starting point.
@@ -1355,7 +1352,7 @@
           </div>
 
           <div class="who-focus-copy">
-            <p>
+            <p data-cms="who.focus_body">
               Whether your goal is to lose fat, build muscle, improve stamina,
               move better or become stronger, we start with your current level
               and build from there.
@@ -1378,15 +1375,15 @@
 
         <!-- Image -->
         <div class="bmi-image">
-          <img src="images/bmi-fitness.png" alt="Woman checking her fitness progress" loading="lazy">
+          <img data-cms-src="bmi.image" src="images/bmi-fitness.png" alt="Woman checking her fitness progress" loading="lazy">
         </div>
 
         <!-- Calculator -->
         <div class="bmi-content">
 
           <div class="bmi-heading">
-            <div class="sec-kicker">HEALTH CHECK</div>
-            <h2>Calculate your <span class="accent">BMI</span></h2>
+            <div class="sec-kicker" data-cms="bmi.kicker">HEALTH CHECK</div>
+            <h2><span data-cms="bmi.heading">Calculate your</span> <span class="accent" data-cms="bmi.heading_accent">BMI</span></h2>
             <p>Enter your height and weight to see where you stand today. It takes ten seconds.</p>
           </div>
 
@@ -1550,14 +1547,14 @@
 
         <!-- Left: message -->
         <div>
-          <h2>Ready to get fit?</h2>
+          <h2 data-cms="contact.heading">Ready to get fit?</h2>
 
-          <p>
+          <p data-cms="contact.body">
             Tell us your goal — we'll match you with the right coach, program and schedule.
             Free trial session available this week.
           </p>
 
-          <div class="cta-flag">Get a free trial session when you enquire this week</div>
+          <div class="cta-flag" data-cms="contact.flag">Get a free trial session when you enquire this week</div>
 
           <div style="margin-top: 28px; display: flex; gap: 14px; flex-wrap: wrap;">
             <a class="btn btn-solid" href="#contact">Book now</a>

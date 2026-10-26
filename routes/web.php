@@ -5,6 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RazorpayController;
+use App\Http\Controllers\SuperAdmin\HomePageController;
+use App\Http\Controllers\SuperAdmin\PlanPriceController;
+use App\Http\Controllers\SuperAdmin\ProfileController;
+use App\Http\Controllers\SuperAdmin\SitePageController;
+use App\Http\Controllers\SuperAdmin\UserController;
 use App\Http\Controllers\SuperAdminController;
 use App\Support\HtmlPageRenderer;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +48,22 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // ─── SuperAdmin Routes ─────────────────────────────────────────────────────────
 Route::middleware(['auth', 'role:superadmin'])->prefix('superadmin')->name('superadmin.')->group(function () {
     Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/home', [HomePageController::class, 'edit'])->name('home.edit');
+    Route::put('/home', [HomePageController::class, 'update'])->name('home.update');
+    Route::get('/pages', [SitePageController::class, 'index'])->name('pages.index');
+    Route::get('/pages/{slug}/edit', [SitePageController::class, 'edit'])->name('pages.edit');
+    Route::put('/pages/{slug}', [SitePageController::class, 'update'])->name('pages.update');
+    Route::delete('/pages/{slug}', [SitePageController::class, 'restore'])->name('pages.restore');
+    Route::get('/plan-prices', [PlanPriceController::class, 'edit'])->name('prices.edit');
+    Route::put('/plan-prices', [PlanPriceController::class, 'update'])->name('prices.update');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 // ─── Admin Routes ──────────────────────────────────────────────────────────────

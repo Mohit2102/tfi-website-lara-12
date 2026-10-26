@@ -29,6 +29,16 @@
     months: 3
   };
 
+  var PACK12 = window.TFI && window.TFI.pack ? window.TFI.pack() : null;
+  if (PACK12 && PACK12.twelveWeek) {
+    CFG.base = PACK12.twelveWeek.base;
+    CFG.defaultBase = PACK12.twelveWeek.defaultBase;
+    CFG.trainer = PACK12.twelveWeek.trainer;
+    CFG.couple = PACK12.twelveWeek.couple;
+    CFG.nutrition = PACK12.twelveWeek.nutrition;
+    CFG.ext = PACK12.twelveWeek.ext;
+  }
+
   var GROUPS = ["session", "couple", "trainer", "nutrition", "extension"];
   var WA_NUMBER = "918951077599";
   var cond = document.title.split("|")[0].trim();
@@ -40,7 +50,7 @@
   function checked(name) { return form.querySelector('input[name="' + name + '"]:checked'); }
   function val(name) { var el = checked(name); return el ? el.value : ""; }
   function label(name) { var el = checked(name); return el ? el.getAttribute("data-label") : ""; }
-  function money(n) { return "₹" + Math.round(Number(n)).toLocaleString("en-IN"); }
+  function money(n) { return window.TFI && window.TFI.money ? window.TFI.money(n) : "₹" + Math.round(Number(n)).toLocaleString("en-IN"); }
 
   function total() {
     var t = CFG.base[val("session")] || 0;

@@ -2,10 +2,12 @@
 
 namespace App\Support;
 
+use App\Models\SitePage;
 use App\Services\PlanPricing;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class HtmlPageRenderer
 {
@@ -41,18 +43,65 @@ class HtmlPageRenderer
             throw new NotFoundHttpException;
         }
 
-        $path = resource_path('html/'.$page.'.html');
+        $record = $this->record($page);
 
-        if (! is_file($path)) {
+        if ($record && ! $record->is_published) {
             throw new NotFoundHttpException;
         }
 
-        return response($this->rewrite((string) file_get_contents($path), $page))
+        $html = filled($record?->html) ? (string) $record->html : $this->fileHtml($page);
+
+        if ($html === '') {
+            throw new NotFoundHttpException;
+        }
+
+        if ($page === 'index') {
+            $html = HomePageContent::apply($html, HomePageContent::merge($record?->content));
+        }
+
+        return response($this->rewrite($html, $page, $record))
             ->header('Content-Type', 'text/html; charset=UTF-8');
     }
 
-    private function rewrite(string $html, string $page): string
+    private function fileHtml(string $page): string
     {
+        $path = resource_path('html/'.$page.'.html');
+
+        return is_file($path) ? (string) file_get_contents($path) : '';
+    }
+
+    private function record(string $page): ?SitePage
+    {
+        try {
+            return SitePage::query()->where('slug', $page)->first();
+        } catch (Throwable) {
+            return null;
+        }
+    }
+
+    private function rewrite(string $html, string $page, ?SitePage $record): string
+    {
+        if ($record) {
+            if (filled($record->title)) {
+                $title = e($record->title);
+                $html = preg_replace('/<title>.*?<\/title>/is', '<title>'.$title.'</title>', $html, 1) ?? $html;
+            }
+
+            if (filled($record->meta_description)) {
+                $meta = e($record->meta_description);
+                $replaced = preg_replace(
+                    '/(<meta[^>]+name=["\']description["\'][^>]+content=["\'])(.*?)(["\'])/is',
+                    '${1}'.$meta.'${3}',
+                    $html,
+                    1,
+                    $count
+                );
+                if (is_string($replaced) && $count > 0) {
+                    $html = $replaced;
+                }
+            }
+        }
+
         $html = str_replace(
             [
                 'href="index.html',
@@ -86,10 +135,20 @@ class HtmlPageRenderer
         ];
 
         if (isset($fixedPlanPages[$page])) {
-            $price = app(PlanPricing::class)->fixedPriceFor($fixedPlanPages[$page]);
+            $pricing = app(PlanPricing::class);
+            $price = $pricing->fixedPriceFor($fixedPlanPages[$page]);
+            $usd = $pricing->fixedPriceFor($fixedPlanPages[$page], 'usd');
 
             if ($price !== null) {
-                $html = preg_replace('/data-price="\d+"/', 'data-price="'.$price.'"', $html, 1) ?? $html;
+                $html = preg_replace('/data-price="[\d.]+"/', 'data-price="'.$price.'"', $html, 1) ?? $html;
+            }
+
+            if (is_numeric($usd)) {
+                if (preg_match('/data-price-usd="/', $html)) {
+                    $html = preg_replace('/data-price-usd="[\d.]+"/', 'data-price-usd="'.$usd.'"', $html, 1) ?? $html;
+                } else {
+                    $html = preg_replace('/data-price="[\d.]+"/', 'data-price="'.$price.'" data-price-usd="'.$usd.'"', $html, 1) ?? $html;
+                }
             }
         }
 
@@ -109,6 +168,14 @@ class HtmlPageRenderer
                 $html
             );
         }
+
+        $packs = json_encode(
+            app(PlanPricing::class)->frontendPacks(),
+            JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP
+        );
+        $boot = '<script>window.TFI_PLAN_PRICES='.$packs.';</script><script src="/tfi-currency.js"></script>';
+
+        $html = preg_replace('/<head[^>]*>/i', '$0'.$boot, $html, 1) ?? $html;
 
         $html = preg_replace(
             '/<\/body>/i',

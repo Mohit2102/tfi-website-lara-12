@@ -54,5 +54,7 @@ class DatabaseSeeder extends Seeder
                 'phone'     => '+91 9000000003',
             ]
         );
+
+        $this->call(PlanPriceSeeder::class);
     }
 }

@@ -581,6 +581,17 @@
     months: 3
   };
 
+  var PACK12 = window.TFI && window.TFI.pack ? window.TFI.pack() : null;
+  if (PACK12 && PACK12.twelveWeek) {
+    CFG.base = PACK12.twelveWeek.base;
+    CFG.defaultBase = PACK12.twelveWeek.defaultBase;
+    CFG.trainer.standard = PACK12.twelveWeek.trainer.standard;
+    CFG.trainer.advanced = PACK12.twelveWeek.trainer.advanced;
+    CFG.couple = PACK12.twelveWeek.couple;
+    CFG.nutrition = PACK12.twelveWeek.nutrition;
+    CFG.ext = PACK12.twelveWeek.ext;
+  }
+
   var GROUPS = ["session", "couple", "nutrition", "trainer", "extension"];
 
   var totalEl = document.getElementById("mvTotal");
@@ -599,7 +610,7 @@
 
   function checked(name) { return form.querySelector('input[name="' + name + '"]:checked'); }
   function val(name) { var el = checked(name); return el ? el.value : ""; }
-  function money(n) { return "₹" + Number(n).toLocaleString("en-IN"); }
+  function money(n) { return window.TFI && window.TFI.money ? window.TFI.money(n) : "₹" + Number(n).toLocaleString("en-IN"); }
 
   function total() {
     var t = CFG.base[val("session")] || CFG.defaultBase;

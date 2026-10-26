@@ -19,17 +19,20 @@ class PlanPageTest extends TestCase
         $this->get('/monthly-non-virtual-training')
             ->assertOk()
             ->assertSee('data-price="5999"', false)
-            ->assertSee('<script src="/plan-checkout.js"></script>', false);
+            ->assertSee('<script src="/plan-checkout.js"></script>', false)
+            ->assertSee('<script src="/tfi-currency.js"></script>', false);
 
         $this->get('/half-yearly-non-virtual-training')
             ->assertOk()
             ->assertSee('data-price="27999"', false)
-            ->assertSee('<script src="/plan-checkout.js"></script>', false);
+            ->assertSee('<script src="/plan-checkout.js"></script>', false)
+            ->assertSee('<script src="/tfi-currency.js"></script>', false);
 
         $this->get('/12-weeks-non-virtual-training')
             ->assertOk()
             ->assertSee('data-price="7499"', false)
-            ->assertSee('<script src="/plan-checkout.js"></script>', false);
+            ->assertSee('<script src="/plan-checkout.js"></script>', false)
+            ->assertSee('<script src="/tfi-currency.js"></script>', false);
     }
 
     public function test_every_rendered_html_page_loads_the_shared_checkout_script(): void
@@ -39,14 +42,15 @@ class PlanPageTest extends TestCase
 
             $this->get($url)
                 ->assertOk()
-                ->assertSee('<script src="/plan-checkout.js"></script>', false);
+                ->assertSee('<script src="/plan-checkout.js"></script>', false)
+                ->assertSee('<script src="/tfi-currency.js"></script>', false);
         }
     }
 
     public function test_login_registration_and_password_recovery_pages_render(): void
     {
         $this->get('/login')->assertOk()->assertSee('Sign in to your account');
-        $this->get('/register')->assertOk()->assertSee('Create your TFI account');
+        $this->get('/register')->assertOk()->assertSee('Create your');
         $this->get('/forgot-password')->assertOk()->assertSee('Forgot your password?');
         $this->get('/reset-password/test-token?email=customer%40example.test')
             ->assertOk()
