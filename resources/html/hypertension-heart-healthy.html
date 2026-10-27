@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -493,7 +493,8 @@
 
         <!-- Gallery -->
         <div class="mvp-gallery">
-          <div class="mvp-stage" aria-hidden="true">
+          <div class="mvp-stage">
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
             <span class="mvp-tag">Specialized Live Personal Training</span>
             <div class="mvp-ring mvp-ring--1"></div>
             <div class="mvp-ring mvp-ring--2"></div>
@@ -520,17 +521,17 @@
         <div class="mvp-info">
           <span class="mvp-cat"><i class="fa-solid fa-heart-pulse"></i> Personal Training</span>
 
-          <h1 class="mvp-title">
+          <h1 class="mvp-title" data-cms="hero.title">
             Hypertension Heart-Healthy Workouts
           </h1>
 
-          <p class="mvp-desc">Controlled, heart-healthy training for people managing high blood pressure: smart intensity, steady breathing and clear boundaries.</p>
+          <p class="mvp-desc" data-cms="hero.body">Controlled, heart-healthy training for people managing high blood pressure: smart intensity, steady breathing and clear boundaries.</p>
 
           <ul class="mvp-bul">
-            <li><i class="fa-solid fa-check"></i><span>Gradual, low-risk progression for heart-healthy training</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Breathing and intensity control to avoid unsafe strain</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Lifestyle guidance: salt awareness, sleep and stress</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Works alongside your doctor's advice and medication</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.0">Gradual, low-risk progression for heart-healthy training</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.1">Breathing and intensity control to avoid unsafe strain</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.2">Lifestyle guidance: salt awareness, sleep and stress</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.3">Works alongside your doctor's advice and medication</span></li>
           </ul>
 
           <div class="mvp-hero-cta">
@@ -806,13 +807,13 @@
   <section class="mvp-journey">
     <div class="mvp-wrap">
       <div class="mvp-head">
-        <div class="mvp-eyebrow">What to expect</div>
-        <h2>Your <span>journey</span></h2>
+        <div class="mvp-eyebrow" data-cms="journey.kicker">What to expect</div>
+        <h2 data-cms-prefix="journey.heading">Your <span data-cms="journey.heading_accent">journey</span></h2>
       </div>
       <div class="mvp-road-grid">
-        <div class="mvp-road-item"><b>01</b><small>WEEK 1</small><h3>Assess</h3><p>Health history, medication, resting readings you share and your goals.</p></div>
-        <div class="mvp-road-item"><b>02</b><small>WEEKS 2–6</small><h3>Build</h3><p>Gradual cardio and strength progressions, adjusted to how you feel each session.</p></div>
-        <div class="mvp-road-item"><b>03</b><small>ONGOING</small><h3>Sustain</h3><p>Regular reviews and a routine you can keep for the long term.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.0.number">01</b><small data-cms="journey.steps.0.period">WEEK 1</small><h3 data-cms="journey.steps.0.title">Assess</h3><p data-cms="journey.steps.0.body">Health history, medication, resting readings you share and your goals.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.1.number">02</b><small data-cms="journey.steps.1.period">WEEKS 2–6</small><h3 data-cms="journey.steps.1.title">Build</h3><p data-cms="journey.steps.1.body">Gradual cardio and strength progressions, adjusted to how you feel each session.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.2.number">03</b><small data-cms="journey.steps.2.period">ONGOING</small><h3 data-cms="journey.steps.2.title">Sustain</h3><p data-cms="journey.steps.2.body">Regular reviews and a routine you can keep for the long term.</p></div>
       </div>
     </div>
   </section>
@@ -825,38 +826,38 @@
     <div class="mvp-wrap">
 
       <div class="mvp-tablist" role="tablist" aria-label="Programme details">
-        <button class="mvp-tab" role="tab" type="button" aria-selected="true" data-tab="overview"><i class="fa-solid fa-circle-info"></i> Overview</button>
-        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="approach"><i class="fa-solid fa-dumbbell"></i> Our approach</button>
-        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="safety"><i class="fa-solid fa-shield-heart"></i> Safety</button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="true" data-tab="overview"><i class="fa-solid fa-circle-info"></i> <span data-cms="overview.tab">Overview</span></button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="approach"><i class="fa-solid fa-dumbbell"></i> <span data-cms="approach.tab">Our approach</span></button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="safety"><i class="fa-solid fa-shield-heart"></i> <span data-cms="safety.tab">Safety</span></button>
         <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="faq"><i class="fa-solid fa-circle-question"></i> FAQ</button>
       </div>
 
       <!-- Overview -->
       <div class="mvp-tabpanel active" id="t-overview" role="tabpanel">
         <div class="mvp-head mvp-x-head">
-          <div class="mvp-eyebrow">Who it's for</div>
-          <h2>Strong and safe, one session at a time.</h2>
-          <p>Exercise is a valuable part of lifestyle care when it is planned well.</p>
+          <div class="mvp-eyebrow" data-cms="overview.kicker">Who it's for</div>
+          <h2 data-cms="overview.heading">Strong and safe, one session at a time.</h2>
+          <p data-cms="overview.body">Exercise is a valuable part of lifestyle care when it is planned well.</p>
         </div>
         <div class="mvp-cards">
-          <article class="mvp-card"><i class="fa-solid fa-stethoscope"></i><p>Diagnosed with high blood pressure and cleared to exercise</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-pills"></i><p>Taking BP medication and wanting a safe routine</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-briefcase"></i><p>High-stress job, long hours and little movement</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-people-roof"></i><p>Family history and wanting to protect your heart</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-stethoscope"></i><p data-cms="overview.cards.0.body">Diagnosed with high blood pressure and cleared to exercise</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-pills"></i><p data-cms="overview.cards.1.body">Taking BP medication and wanting a safe routine</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-briefcase"></i><p data-cms="overview.cards.2.body">High-stress job, long hours and little movement</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-people-roof"></i><p data-cms="overview.cards.3.body">Family history and wanting to protect your heart</p></article>
         </div>
       </div>
 
       <!-- Approach -->
       <div class="mvp-tabpanel" id="t-approach" role="tabpanel">
         <div class="mvp-head mvp-x-head">
-          <div class="mvp-eyebrow">Our approach</div>
-          <h2>How we <span>support you</span></h2>
+          <div class="mvp-eyebrow" data-cms="approach.kicker">Our approach</div>
+          <h2 data-cms-prefix="approach.heading">How we <span data-cms="approach.heading_accent">support you</span></h2>
         </div>
         <div class="mvp-cards">
-          <article class="mvp-card"><i class="fa-solid fa-person-walking"></i><h3>Moderate cardio</h3><p>Walking, cycling and low-impact work that builds endurance without sudden spikes.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-dumbbell"></i><h3>Controlled strength</h3><p>Lighter loads, steady tempo and proper breathing, with no breath-holding or maximal lifts.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-bowl-food"></i><h3>Heart-friendly eating</h3><p>Practical guidance on salt, whole foods and portion habits.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-spa"></i><h3>Stress & sleep</h3><p>Recovery habits that support your overall cardiovascular health.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-person-walking"></i><h3 data-cms="approach.cards.0.title">Moderate cardio</h3><p data-cms="approach.cards.0.body">Walking, cycling and low-impact work that builds endurance without sudden spikes.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-dumbbell"></i><h3 data-cms="approach.cards.1.title">Controlled strength</h3><p data-cms="approach.cards.1.body">Lighter loads, steady tempo and proper breathing, with no breath-holding or maximal lifts.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-bowl-food"></i><h3 data-cms="approach.cards.2.title">Heart-friendly eating</h3><p data-cms="approach.cards.2.body">Practical guidance on salt, whole foods and portion habits.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-spa"></i><h3 data-cms="approach.cards.3.title">Stress & sleep</h3><p data-cms="approach.cards.3.body">Recovery habits that support your overall cardiovascular health.</p></article>
         </div>
       </div>
 
@@ -865,16 +866,16 @@
         <div class="mvp-safe">
           <div>
             <div class="mvp-safe-shield"><i class="fa-solid fa-shield-heart"></i></div>
-            <div class="mvp-eyebrow">Our promise</div>
-            <h2 class="mvp-safe-title">Safety comes first.</h2>
+            <div class="mvp-eyebrow" data-cms="safety.kicker">Our promise</div>
+            <h2 class="mvp-safe-title" data-cms="safety.heading">Safety comes first.</h2>
           </div>
           <ul class="mvp-safe-list">
-            <li><i class="fa-solid fa-circle-check"></i><span>We recommend medical clearance before you start</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We avoid breath-holding and sudden high-intensity efforts</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We pause training if you feel dizzy, short of breath or unwell</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We never advise changes to your medication</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.0">We recommend medical clearance before you start</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.1">We avoid breath-holding and sudden high-intensity efforts</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.2">We pause training if you feel dizzy, short of breath or unwell</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.3">We never advise changes to your medication</span></li>
           </ul>
-          <p class="mvp-safe-note"><b>Please note:</b> TFI programmes are fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult a qualified healthcare professional before starting a new exercise or nutrition plan.</p>
+          <p class="mvp-safe-note"><b>Please note:</b> <span data-cms="safety.note">TFI programmes are fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult a qualified healthcare professional before starting a new exercise or nutrition plan.</span></p>
         </div>
       </div>
 
@@ -1120,14 +1121,10 @@
     try {
 
       if (
-        localStorage.getItem(
-          "tfi-theme"
-        ) === "light"
+        localStorage.getItem("tfi-theme") === "dark"
       ) {
 
-        root.classList.remove(
-          "dark-mode"
-        );
+        root.classList.add("dark-mode");
 
       }
 

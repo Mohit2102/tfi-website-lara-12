@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" class="dark-mode">
+<html lang="en">
 
 <head>
 
@@ -537,6 +537,8 @@
 
           <div class="mvp-stage">
 
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
+
             <video autoplay
                    muted
                    loop
@@ -655,15 +657,13 @@
           </span>
 
 
-          <h1 class="mvp-title">
+          <h1 class="mvp-title" data-cms-prefix="hero.title">
             Monthly Virtual Training
-            <span>
-              Train anywhere
-            </span>
+            <span data-cms="hero.title_accent">Train anywhere</span>
           </h1>
 
 
-          <p class="mvp-desc">
+          <p class="mvp-desc" data-cms="hero.body">
             Live coaching, personalised workouts and consistent accountability, delivered online. Pick your sessions, training type, trainer level and add-ons below.
           </p>
 
@@ -672,28 +672,28 @@
 
             <li>
               <i class="fa-solid fa-check"></i>
-              <span>
+              <span data-cms="hero.bullets.0">
                 Live, coach-led sessions from wherever you are
               </span>
             </li>
 
             <li>
               <i class="fa-solid fa-check"></i>
-              <span>
+              <span data-cms="hero.bullets.1">
                 Training plan personalised to your goals
               </span>
             </li>
 
             <li>
               <i class="fa-solid fa-check"></i>
-              <span>
+              <span data-cms="hero.bullets.2">
                 Optional nutrition plan and couple training
               </span>
             </li>
 
             <li>
               <i class="fa-solid fa-check"></i>
-              <span>
+              <span data-cms="hero.bullets.3">
                 Progress tracking to keep you consistent
               </span>
             </li>
@@ -2125,14 +2125,10 @@
     try {
 
       if (
-        localStorage.getItem(
-          "tfi-theme"
-        ) === "light"
+        localStorage.getItem("tfi-theme") === "dark"
       ) {
 
-        root.classList.remove(
-          "dark-mode"
-        );
+        root.classList.add("dark-mode");
 
       }
 

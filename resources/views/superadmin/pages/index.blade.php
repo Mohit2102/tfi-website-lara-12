@@ -2,7 +2,7 @@
 
 @section('title', 'Website pages')
 @section('heading', 'Website pages')
-@section('subheading', 'Edit every public HTML page from the dashboard')
+@section('subheading', 'Edit program pages from the dashboard. Saved copy goes live immediately.')
 
 @section('content')
 <section class="card flush">

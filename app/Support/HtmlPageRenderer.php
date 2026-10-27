@@ -57,6 +57,12 @@ class HtmlPageRenderer
 
         if ($page === 'index') {
             $html = HomePageContent::apply($html, HomePageContent::merge($record?->content));
+        } elseif (ProgramPageContent::supports($page)) {
+            $html = CmsMarkup::applyChanged(
+                $html,
+                ProgramPageContent::defaults($page),
+                ProgramPageContent::merge($page, $record?->content)
+            );
         }
 
         return response($this->rewrite($html, $page, $record))
@@ -81,6 +87,20 @@ class HtmlPageRenderer
 
     private function rewrite(string $html, string $page, ?SitePage $record): string
     {
+        $html = preg_replace('/(<html\b[^>]*)\s+class="dark-mode"/i', '$1', $html, 1) ?? $html;
+        $html = preg_replace(
+            '/localStorage\.getItem\(\s*"tfi-theme"\s*\)\s*===\s*"light"/',
+            'localStorage.getItem("tfi-theme") === "dark"',
+            $html,
+            1
+        ) ?? $html;
+        $html = preg_replace(
+            '/root\.classList\.remove\(\s*"dark-mode"\s*\)/',
+            'root.classList.add("dark-mode")',
+            $html,
+            1
+        ) ?? $html;
+
         if ($record) {
             if (filled($record->title)) {
                 $title = e($record->title);
@@ -152,22 +172,19 @@ class HtmlPageRenderer
             }
         }
 
-        if ($page === 'index' && Auth::check()) {
-            $user = Auth::user();
-            $dashboard = e($user->getDashboardRoute());
-            $greeting = 'Hi, '.e($user->name);
-            $html = str_replace(
-                [
-                    '<a class="btn btn-solid nav-book-btn" href="/login">Login/Signup</a>',
-                    '<a class="btn btn-solid mobile-book-btn" href="/login">Login/Signup</a>',
-                ],
-                [
-                    '<a class="btn btn-solid nav-book-btn" href="'.$dashboard.'">'.$greeting.'</a>',
-                    '<a class="btn btn-solid mobile-book-btn" href="'.$dashboard.'">'.$greeting.'</a>',
-                ],
-                $html
-            );
-        }
+        $html = preg_replace_callback(
+            '/(<a\s[^>]*class="[^"]*(?:nav-book-btn|mobile-book-btn)[^"]*"[^>]*href=")([^"]*)("[^>]*>)(.*?)(<\/a>)/is',
+            function (array $match): string {
+                if (Auth::check()) {
+                    $user = Auth::user();
+
+                    return $match[1].e($user->getDashboardRoute()).$match[3].'Hi, '.e($user->name).$match[5];
+                }
+
+                return $match[1].'/login'.$match[3].'Login/Signup'.$match[5];
+            },
+            $html
+        ) ?? $html;
 
         $packs = json_encode(
             app(PlanPricing::class)->frontendPacks(),

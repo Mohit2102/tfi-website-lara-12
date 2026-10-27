@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -172,6 +172,62 @@
       data-price="27999"
       data-whatsapp="918951077599">
 
+  
+  <!-- ===================== INSIDE YOUR PLAN (2 images + 1 GIF) ===================== -->
+  <section class="ps-section" id="inside">
+    <div class="ps-wrap">
+
+      <header class="ps-head" data-reveal>
+        <span class="ps-eyebrow">What you get</span>
+        <h2>Inside your <span>plan</span></h2>
+        <p>A personalised diet plan, a day-wise workout schedule and exercise demos, built around you.</p>
+      </header>
+
+      <div class="ps-triptych">
+
+        <figure class="ps-card ps-card--poster" data-reveal>
+          <button class="ps-media" type="button" aria-label="Enlarge: Personalised diet plan">
+            <img src="images/plan-diet.jpeg" alt="Sample personalised diet plan with meals, macros and hydration" data-cms-src="inside.0.image" data-cms-alt="inside.0.alt" loading="lazy" decoding="async">
+            <span class="ps-tag">Sample</span>
+            <span class="ps-zoom" aria-hidden="true"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          </button>
+          <figcaption>
+            <span class="ps-idx">01</span>
+            <b>Personalised diet plan</b>
+            <small>Meals, macros and hydration mapped to your goal.</small>
+          </figcaption>
+        </figure>
+
+        <figure class="ps-card ps-card--poster" style="--d:.12s" data-reveal>
+          <button class="ps-media" type="button" aria-label="Enlarge: Day-wise workout schedule">
+            <img src="images/plan-workout.png" alt="Sample day-wise workout schedule with warm-up, main workout, sets and reps" data-cms-src="inside.1.image" data-cms-alt="inside.1.alt" loading="lazy" decoding="async">
+            <span class="ps-tag">Sample</span>
+            <span class="ps-zoom" aria-hidden="true"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          </button>
+          <figcaption>
+            <span class="ps-idx">02</span>
+            <b>Day-wise workout schedule</b>
+            <small>Warm-up, main workout, sets, reps and cool-down.</small>
+          </figcaption>
+        </figure>
+
+        <figure class="ps-card ps-card--gif" style="--d:.24s" data-reveal>
+          <button class="ps-media" type="button" aria-label="Enlarge: Exercise demo">
+            <img src="images/plan-exercise.gif" alt="Exercise demo" data-cms-src="inside.2.image" data-cms-alt="inside.2.alt" loading="lazy" decoding="async">
+            <span class="ps-tag">Demo</span>
+            <span class="ps-zoom" aria-hidden="true"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+          </button>
+          <figcaption>
+            <span class="ps-idx">03</span>
+            <b>Exercise demos</b>
+            <small>See the movement before you do it.</small>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>    
+
   <!-- ===================== HERO ===================== -->
   <section class="ps-hero">
     <span class="ps-orb ps-orb--a" aria-hidden="true"></span>
@@ -188,12 +244,12 @@
       <div class="ps-grid">
 
         <div class="ps-info">
-          <span class="ps-kicker ps-rise">TFI Studio · 6 Months · In person</span>
+          <span class="ps-kicker ps-rise" data-cms="hero.kicker">TFI Studio · 6 Months · In person</span>
 
-          <h1 class="ps-title ps-rise" style="--d:.08s">Half Yearly Non-Virtual <span>Transformation</span></h1>
+          <h1 class="ps-title ps-rise" style="--d:.08s" data-cms-prefix="hero.title">Half Yearly Non-Virtual <span data-cms="hero.title_accent">Transformation</span></h1>
 
-          <p class="ps-lead ps-rise" style="--d:.16s"><strong>How much can you change your body in 6 months?</strong> More than you think – but only if you have three things: a good exercise plan, smart eating rules, and the right attitude to follow both with focus and determination.</p>
-          <p class="ps-copy ps-rise" style="--d:.24s">A combination of nutrition &amp; workout, this plan gives you an added advantage of weekly check-ins with the nutritionist, and you can book a call with your coach as well.</p>
+          <p class="ps-lead ps-rise" style="--d:.16s" data-cms="hero.lead"><strong>How much can you change your body in 6 months?</strong> More than you think – but only if you have three things: a good exercise plan, smart eating rules, and the right attitude to follow both with focus and determination.</p>
+          <p class="ps-copy ps-rise" style="--d:.24s" data-cms="hero.body">A combination of nutrition &amp; workout, this plan gives you an added advantage of weekly check-ins with the nutritionist, and you can book a call with your coach as well.</p>
 
           <ul class="ps-pills ps-rise" style="--d:.32s">
             <li><i class="fa-solid fa-shield-heart" aria-hidden="true"></i> Certified coaches</li>
@@ -203,10 +259,10 @@
         </div>
 
         <aside class="ps-buy ps-rise" style="--d:.18s" aria-label="Plan price">
-          <span class="ps-buy-label">6-month plan</span>
+          <span class="ps-buy-label" data-cms="hero.price_label">6-month plan</span>
 
           <div class="ps-price" data-ps-price><span class="ps-sr">₹₹9,999.00</span><span class="ps-cur" aria-hidden="true">₹</span><span class="ps-amt" aria-hidden="true">₹9,999</span><span class="ps-dec" aria-hidden="true">.00</span></div>
-          <p class="ps-per">for the full 6 months · workout and nutrition included</p>
+          <p class="ps-per" data-cms="hero.price_per">for the full 6 months · workout and nutrition included</p>
 
           <div class="ps-rule"></div>
 
@@ -238,78 +294,34 @@
   </section>
 
 
-  <!-- ===================== INSIDE YOUR PLAN (2 images + 1 GIF) ===================== -->
-  <section class="ps-section" id="inside">
-    <div class="ps-wrap">
-
-      <header class="ps-head" data-reveal>
-        <span class="ps-eyebrow">What you get</span>
-        <h2>Inside your <span>plan</span></h2>
-        <p>A personalised diet plan, a day-wise workout schedule and exercise demos, built around you.</p>
-      </header>
-
-      <div class="ps-triptych">
-
-        <figure class="ps-card ps-card--poster" data-reveal>
-          <button class="ps-media" type="button" aria-label="Enlarge: Personalised diet plan">
-            <img src="images/plan-diet.jpeg" alt="Sample personalised diet plan with meals, macros and hydration" loading="lazy" decoding="async">
-            <span class="ps-tag">Sample</span>
-            <span class="ps-zoom" aria-hidden="true"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
-          </button>
-          <figcaption><span class="ps-idx">01</span><b>Personalised diet plan</b><small>Meals, macros and hydration mapped to your goal.</small></figcaption>
-        </figure>
-
-        <figure class="ps-card ps-card--poster" style="--d:.12s" data-reveal>
-          <button class="ps-media" type="button" aria-label="Enlarge: Day-wise workout schedule">
-            <img src="images/plan-workout.png" alt="Sample day-wise workout schedule with warm-up, main workout, sets and reps" loading="lazy" decoding="async">
-            <span class="ps-tag">Sample</span>
-            <span class="ps-zoom" aria-hidden="true"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
-          </button>
-          <figcaption><span class="ps-idx">02</span><b>Day-wise workout schedule</b><small>Warm-up, main workout, sets, reps and cool-down.</small></figcaption>
-        </figure>
-
-        <figure class="ps-card ps-card--gif" style="--d:.24s" data-reveal>
-          <button class="ps-media" type="button" aria-label="Enlarge: Exercise demo">
-            <img src="images/plan-exercise.gif" alt="Exercise demo" loading="lazy" decoding="async">
-            <span class="ps-tag">Demo</span>
-            <span class="ps-zoom" aria-hidden="true"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
-          </button>
-          <figcaption><span class="ps-idx">03</span><b>Exercise demos</b><small>See the movement before you do it.</small></figcaption>
-        </figure>
-
-      </div>
-    </div>
-  </section>
-
-
   <!-- ===================== THREE THINGS ===================== -->
   <section class="ps-section">
     <div class="ps-wrap">
 
       <header class="ps-head" data-reveal>
-        <span class="ps-eyebrow">The formula</span>
-        <h2>Three things. <span>One plan.</span></h2>
-        <p>Your body changes when all three work together, and this plan puts them in one place.</p>
+        <span class="ps-eyebrow" data-cms="formula.kicker">The formula</span>
+        <h2 data-cms-prefix="formula.heading">Three things. <span data-cms="formula.heading_accent">One plan.</span></h2>
+        <p data-cms="formula.body">Your body changes when all three work together, and this plan puts them in one place.</p>
       </header>
 
       <div class="ps-three">
         <article class="ps-tile" data-reveal>
-          <span class="ps-num" aria-hidden="true">01</span>
+          <span class="ps-num" aria-hidden="true" data-cms="formula.steps.0.number">01</span>
           <div class="ps-ico"><i class="fa-solid fa-dumbbell" aria-hidden="true"></i></div>
-          <h3>A good exercise plan</h3>
-          <p>A structured, day-wise schedule with sets, reps and intensity, built around your goal.</p>
+          <h3 data-cms="formula.steps.0.title">A good exercise plan</h3>
+          <p data-cms="formula.steps.0.body">A structured, day-wise schedule with sets, reps and intensity, built around your goal.</p>
         </article>
         <article class="ps-tile" style="--d:.12s" data-reveal>
-          <span class="ps-num" aria-hidden="true">02</span>
+          <span class="ps-num" aria-hidden="true" data-cms="formula.steps.1.number">02</span>
           <div class="ps-ico"><i class="fa-solid fa-apple-whole" aria-hidden="true"></i></div>
-          <h3>Smart eating rules</h3>
-          <p>A personalised diet plan, with weekly check-ins with the nutritionist to keep you on track.</p>
+          <h3 data-cms="formula.steps.1.title">Smart eating rules</h3>
+          <p data-cms="formula.steps.1.body">A personalised diet plan, with weekly check-ins with the nutritionist to keep you on track.</p>
         </article>
         <article class="ps-tile" style="--d:.24s" data-reveal>
-          <span class="ps-num" aria-hidden="true">03</span>
+          <span class="ps-num" aria-hidden="true" data-cms="formula.steps.2.number">03</span>
           <div class="ps-ico"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div>
-          <h3>The right attitude</h3>
-          <p>Focus and determination to follow both. Your coach is beside you for every rep, and you can book a call with your coach as well.</p>
+          <h3 data-cms="formula.steps.2.title">The right attitude</h3>
+          <p data-cms="formula.steps.2.body">Focus and determination to follow both. Your coach is beside you for every rep, and you can book a call with your coach as well.</p>
         </article>
       </div>
 
@@ -322,28 +334,28 @@
     <div class="ps-wrap">
 
       <header class="ps-head" data-reveal>
-        <span class="ps-eyebrow">What to expect</span>
-        <h2>Your six-month <span>journey</span></h2>
+        <span class="ps-eyebrow" data-cms="journey.kicker">What to expect</span>
+        <h2 data-cms-prefix="journey.heading">Your six-month <span data-cms="journey.heading_accent">journey</span></h2>
       </header>
 
       <div class="ps-road">
         <article class="ps-step" data-reveal>
-          <b>01</b>
-          <small>MONTHS 1–2</small>
-          <h3>Foundation</h3>
-          <p>Assessment, technique and routine. We build the base that everything else sits on.</p>
+          <b data-cms="journey.steps.0.number">01</b>
+          <small data-cms="journey.steps.0.period">MONTHS 1–2</small>
+          <h3 data-cms="journey.steps.0.title">Foundation</h3>
+          <p data-cms="journey.steps.0.body">Assessment, technique and routine. We build the base that everything else sits on.</p>
         </article>
         <article class="ps-step" style="--d:0.12s" data-reveal>
-          <b>02</b>
-          <small>MONTHS 3–4</small>
-          <h3>Build</h3>
-          <p>Progressive overload, new skills and higher volume. Real strength and stamina gains.</p>
+          <b data-cms="journey.steps.1.number">02</b>
+          <small data-cms="journey.steps.1.period">MONTHS 3–4</small>
+          <h3 data-cms="journey.steps.1.title">Build</h3>
+          <p data-cms="journey.steps.1.body">Progressive overload, new skills and higher volume. Real strength and stamina gains.</p>
         </article>
         <article class="ps-step" style="--d:0.24s" data-reveal>
-          <b>03</b>
-          <small>MONTHS 5–6</small>
-          <h3>Transform</h3>
-          <p>Peak and consolidate. You finish with results, habits and a plan to keep going.</p>
+          <b data-cms="journey.steps.2.number">03</b>
+          <small data-cms="journey.steps.2.period">MONTHS 5–6</small>
+          <h3 data-cms="journey.steps.2.title">Transform</h3>
+          <p data-cms="journey.steps.2.body">Peak and consolidate. You finish with results, habits and a plan to keep going.</p>
         </article>
       </div>
 
@@ -493,8 +505,8 @@
     }
 
     try {
-      if (localStorage.getItem("tfi-theme") === "light") {
-        root.classList.remove("dark-mode");
+      if (localStorage.getItem("tfi-theme") === "dark") {
+        root.classList.add("dark-mode");
       }
     } catch (e) {}
 

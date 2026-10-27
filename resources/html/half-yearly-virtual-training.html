@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -214,7 +214,7 @@
         <!-- Gallery -->
         <div class="mvp-gallery">
           <div class="mvp-stage">
-            <img class="mvp-stage-img" src="images/half-yearly-training.png" alt="Half yearly virtual transformation training" loading="eager" decoding="async">
+            <img class="mvp-stage-img" src="images/half-yearly-training.png" alt="Half yearly virtual transformation training" data-cms-src="hero.image" data-cms-alt="hero.image_alt" loading="eager" decoding="async">
             <span class="mvp-tag">TFI VIRTUAL · 6 MONTHS</span>
             <!-- <div class="mvp-ring mvp-ring--1"></div>/ -->
             <!-- <div class="mvp-ring mvp-ring--2"></div> -->
@@ -235,13 +235,13 @@
         <!-- Info -->
         <div class="mvp-info">
           <span class="mvp-cat"><i class="fa-solid fa-video"></i>Virtual Training</span>
-          <h1 class="mvp-title">Half Yearly Virtual Transformation<span>A lasting change</span></h1>
-          <p class="mvp-desc">Our deepest virtual programme: 24 weeks of live coaching, evolving programming and long-term accountability. Build yours below and watch the price update.</p>
+          <h1 class="mvp-title" data-cms-prefix="hero.title">Half Yearly Virtual Transformation<span data-cms="hero.title_accent">A lasting change</span></h1>
+          <p class="mvp-desc" data-cms="hero.body">Our deepest virtual programme: 24 weeks of live coaching, evolving programming and long-term accountability. Build yours below and watch the price update.</p>
           <ul class="mvp-bul">
-            <li><i class="fa-solid fa-check"></i><span>Live, coach-led sessions 3 to 5 times a week for 24 weeks</span></li>
-            <li><i class="fa-solid fa-check"></i><span>A programme that evolves as you do</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Monthly deep progress reviews and resets</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Optional nutrition plan and couple training</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.0">Live, coach-led sessions 3 to 5 times a week for 24 weeks</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.1">A programme that evolves as you do</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.2">Monthly deep progress reviews and resets</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.3">Optional nutrition plan and couple training</span></li>
           </ul>
           <div class="mvp-hero-cta">
             <a href="#build" class="mvp-hero-btn">Build my plan <span>↓</span></a>
@@ -422,13 +422,13 @@
   <section class="mvp-journey">
     <div class="mvp-wrap">
       <div class="mvp-head">
-        <div class="mvp-eyebrow">What to expect</div>
-        <h2>Your six-month <span>journey</span></h2>
+        <div class="mvp-eyebrow" data-cms="journey.kicker">What to expect</div>
+        <h2 data-cms-prefix="journey.heading">Your six-month <span data-cms="journey.heading_accent">journey</span></h2>
       </div>
       <div class="mvp-road-grid">
-        <div class="mvp-road-item"><b>01</b><small>MONTHS 1–2</small><h3>Foundation</h3><p>Assessment, technique and routine. We build the base that everything else sits on.</p></div>
-        <div class="mvp-road-item"><b>02</b><small>MONTHS 3–4</small><h3>Build</h3><p>Progressive overload, new skills and higher volume. Real strength and stamina gains.</p></div>
-        <div class="mvp-road-item"><b>03</b><small>MONTHS 5–6</small><h3>Transform</h3><p>Peak and consolidate. You finish with results, habits and a plan to keep going.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.0.number">01</b><small data-cms="journey.steps.0.period">MONTHS 1–2</small><h3 data-cms="journey.steps.0.title">Foundation</h3><p data-cms="journey.steps.0.body">Assessment, technique and routine. We build the base that everything else sits on.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.1.number">02</b><small data-cms="journey.steps.1.period">MONTHS 3–4</small><h3 data-cms="journey.steps.1.title">Build</h3><p data-cms="journey.steps.1.body">Progressive overload, new skills and higher volume. Real strength and stamina gains.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.2.number">03</b><small data-cms="journey.steps.2.period">MONTHS 5–6</small><h3 data-cms="journey.steps.2.title">Transform</h3><p data-cms="journey.steps.2.body">Peak and consolidate. You finish with results, habits and a plan to keep going.</p></div>
       </div>
     </div>
   </section>
@@ -538,8 +538,8 @@
     }
 
     try {
-      if (localStorage.getItem("tfi-theme") === "light") {
-        root.classList.remove("dark-mode");
+      if (localStorage.getItem("tfi-theme") === "dark") {
+        root.classList.add("dark-mode");
       }
     } catch (e) {}
 

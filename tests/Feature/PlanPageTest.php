@@ -64,6 +64,15 @@ class PlanPageTest extends TestCase
             ->assertSee('href="/login"', false);
     }
 
+    public function test_public_pages_default_to_light_theme(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertDontSee('<html lang="en" class="dark-mode">', false)
+            ->assertSee('localStorage.getItem("tfi-theme") === "dark"', false)
+            ->assertSee('root.classList.add("dark-mode")', false);
+    }
+
     public function test_logged_in_user_sees_a_personalized_dashboard_link_on_homepage(): void
     {
         $customer = User::factory()->create([
@@ -73,6 +82,35 @@ class PlanPageTest extends TestCase
 
         $this->actingAs($customer)
             ->get('/')
+            ->assertOk()
+            ->assertSee('href="/customer/dashboard">Hi, Taylor Customer</a>', false)
+            ->assertDontSee('href="/login">Login/Signup</a>', false);
+    }
+
+    public function test_program_pages_send_visitors_to_login_and_show_dashboard_copy(): void
+    {
+        $this->get('/virtual-training')
+            ->assertOk()
+            ->assertSee('href="/login"', false)
+            ->assertSee('FIND YOUR PLAN')
+            ->assertSee('data-cms="kicker"', false);
+
+        $this->get('/diabetes-management')
+            ->assertOk()
+            ->assertSee('href="/login"', false)
+            ->assertSee('Diabetes Management')
+            ->assertSee('data-cms-prefix="hero.title"', false);
+    }
+
+    public function test_logged_in_user_sees_a_personalized_dashboard_link_on_program_pages(): void
+    {
+        $customer = User::factory()->create([
+            'name' => 'Taylor Customer',
+            'role' => User::ROLE_CUSTOMER,
+        ]);
+
+        $this->actingAs($customer)
+            ->get('/monthly-virtual-training')
             ->assertOk()
             ->assertSee('href="/customer/dashboard">Hi, Taylor Customer</a>', false)
             ->assertDontSee('href="/login">Login/Signup</a>', false);

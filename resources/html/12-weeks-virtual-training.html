@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -180,6 +180,7 @@
         <!-- Gallery -->
         <div class="mvp-gallery">
           <div class="mvp-stage">
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
             <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
               <source src="videos/12-weeks-training.mp4" type="video/mp4">
             </video>
@@ -203,13 +204,13 @@
         <!-- Info -->
         <div class="mvp-info">
           <span class="mvp-cat"><i class="fa-solid fa-video"></i>Virtual Training</span>
-          <h1 class="mvp-title">12 Weeks Virtual Transformation<span>A stronger you</span></h1>
-          <p class="mvp-desc">A focused 12-week virtual transformation programme with live coaching, evolving workouts and consistent accountability. Build your plan below and see your price update instantly.</p>
+          <h1 class="mvp-title" data-cms-prefix="hero.title">12 Weeks Virtual Transformation<span data-cms="hero.title_accent">A stronger you</span></h1>
+          <p class="mvp-desc" data-cms="hero.body">A focused 12-week virtual transformation programme with live coaching, evolving workouts and consistent accountability. Build your plan below and see your price update instantly.</p>
           <ul class="mvp-bul">
-            <li><i class="fa-solid fa-check"></i><span>Live, coach-led sessions 3 to 5 times a week</span></li>
-            <li><i class="fa-solid fa-check"></i><span>A plan that evolves through every phase</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Weekly progress tracking and adjustments</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Optional nutrition plan and couple training</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.0">Live, coach-led sessions 3 to 5 times a week</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.1">A plan that evolves through every phase</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.2">Weekly progress tracking and adjustments</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.3">Optional nutrition plan and couple training</span></li>
           </ul>
           <div class="mvp-hero-cta">
             <a href="#build" class="mvp-hero-btn">Build my plan <span>↓</span></a>
@@ -384,13 +385,13 @@
   <section class="mvp-journey">
     <div class="mvp-wrap">
       <div class="mvp-head">
-        <div class="mvp-eyebrow">What to expect</div>
-        <h2>Your 12-week <span>journey</span></h2>
+        <div class="mvp-eyebrow" data-cms="journey.kicker">What to expect</div>
+        <h2 data-cms-prefix="journey.heading">Your 12-week <span data-cms="journey.heading_accent">journey</span></h2>
       </div>
       <div class="mvp-road-grid">
-        <div class="mvp-road-item"><b>01</b><small>WEEKS 1–4</small><h3>Foundation</h3><p>Assessment, movement technique and routine. We establish your baseline and build consistency from the first week.</p></div>
-        <div class="mvp-road-item"><b>02</b><small>WEEKS 5–8</small><h3>Build</h3><p>Progressive training, improved conditioning and stronger movement patterns. Your body starts adapting to the work.</p></div>
-        <div class="mvp-road-item"><b>03</b><small>WEEKS 9–12</small><h3>Transform</h3><p>Push performance, consolidate your progress and finish with stronger habits and a clear path for your next phase.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.0.number">01</b><small data-cms="journey.steps.0.period">WEEKS 1–4</small><h3 data-cms="journey.steps.0.title">Foundation</h3><p data-cms="journey.steps.0.body">Assessment, movement technique and routine. We establish your baseline and build consistency from the first week.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.1.number">02</b><small data-cms="journey.steps.1.period">WEEKS 5–8</small><h3 data-cms="journey.steps.1.title">Build</h3><p data-cms="journey.steps.1.body">Progressive training, improved conditioning and stronger movement patterns. Your body starts adapting to the work.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.2.number">03</b><small data-cms="journey.steps.2.period">WEEKS 9–12</small><h3 data-cms="journey.steps.2.title">Transform</h3><p data-cms="journey.steps.2.body">Push performance, consolidate your progress and finish with stronger habits and a clear path for your next phase.</p></div>
       </div>
     </div>
   </section>
@@ -500,8 +501,8 @@
     }
 
     try {
-      if (localStorage.getItem("tfi-theme") === "light") {
-        root.classList.remove("dark-mode");
+      if (localStorage.getItem("tfi-theme") === "dark") {
+        root.classList.add("dark-mode");
       }
     } catch (e) {}
 

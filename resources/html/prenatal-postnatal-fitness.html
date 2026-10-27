@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -493,7 +493,8 @@
 
         <!-- Gallery -->
         <div class="mvp-gallery">
-          <div class="mvp-stage" aria-hidden="true">
+          <div class="mvp-stage">
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
             <span class="mvp-tag">Specialized Live Personal Training</span>
             <div class="mvp-ring mvp-ring--1"></div>
             <div class="mvp-ring mvp-ring--2"></div>
@@ -520,17 +521,17 @@
         <div class="mvp-info">
           <span class="mvp-cat"><i class="fa-solid fa-baby"></i> Personal Training</span>
 
-          <h1 class="mvp-title">
+          <h1 class="mvp-title" data-cms="hero.title">
             Pre and Post Natal Fitness Safe Workouts
           </h1>
 
-          <p class="mvp-desc">Gentle, safe and effective training for pregnancy and recovery after birth, with posture, breathing and core re-connection at the heart of it.</p>
+          <p class="mvp-desc" data-cms="hero.body">Gentle, safe and effective training for pregnancy and recovery after birth, with posture, breathing and core re-connection at the heart of it.</p>
 
           <ul class="mvp-bul">
-            <li><i class="fa-solid fa-check"></i><span>Trimester-aware training for a safe, comfortable pregnancy</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Postnatal recovery: core, pelvic floor and posture</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Gentle progression with your doctor's clearance</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Energy, mood and sleep support through every stage</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.0">Trimester-aware training for a safe, comfortable pregnancy</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.1">Postnatal recovery: core, pelvic floor and posture</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.2">Gentle progression with your doctor's clearance</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.3">Energy, mood and sleep support through every stage</span></li>
           </ul>
 
           <div class="mvp-hero-cta">
@@ -806,13 +807,13 @@
   <section class="mvp-journey">
     <div class="mvp-wrap">
       <div class="mvp-head">
-        <div class="mvp-eyebrow">What to expect</div>
-        <h2>Your <span>journey</span></h2>
+        <div class="mvp-eyebrow" data-cms="journey.kicker">What to expect</div>
+        <h2 data-cms-prefix="journey.heading">Your <span data-cms="journey.heading_accent">journey</span></h2>
       </div>
       <div class="mvp-road-grid">
-        <div class="mvp-road-item"><b>01</b><small>STEP 1</small><h3>Clearance & assess</h3><p>We start with your doctor's clearance and your stage, history and goals.</p></div>
-        <div class="mvp-road-item"><b>02</b><small>STEP 2</small><h3>Train safely</h3><p>Stage-appropriate sessions with exercises modified or avoided as needed.</p></div>
-        <div class="mvp-road-item"><b>03</b><small>STEP 3</small><h3>Rebuild & return</h3><p>Gradual progression back to full fitness after delivery, at your pace.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.0.number">01</b><small data-cms="journey.steps.0.period">STEP 1</small><h3 data-cms="journey.steps.0.title">Clearance & assess</h3><p data-cms="journey.steps.0.body">We start with your doctor's clearance and your stage, history and goals.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.1.number">02</b><small data-cms="journey.steps.1.period">STEP 2</small><h3 data-cms="journey.steps.1.title">Train safely</h3><p data-cms="journey.steps.1.body">Stage-appropriate sessions with exercises modified or avoided as needed.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.2.number">03</b><small data-cms="journey.steps.2.period">STEP 3</small><h3 data-cms="journey.steps.2.title">Rebuild & return</h3><p data-cms="journey.steps.2.body">Gradual progression back to full fitness after delivery, at your pace.</p></div>
       </div>
     </div>
   </section>
@@ -825,38 +826,38 @@
     <div class="mvp-wrap">
 
       <div class="mvp-tablist" role="tablist" aria-label="Programme details">
-        <button class="mvp-tab" role="tab" type="button" aria-selected="true" data-tab="overview"><i class="fa-solid fa-circle-info"></i> Overview</button>
-        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="approach"><i class="fa-solid fa-dumbbell"></i> Our approach</button>
-        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="safety"><i class="fa-solid fa-shield-heart"></i> Safety</button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="true" data-tab="overview"><i class="fa-solid fa-circle-info"></i> <span data-cms="overview.tab">Overview</span></button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="approach"><i class="fa-solid fa-dumbbell"></i> <span data-cms="approach.tab">Our approach</span></button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="safety"><i class="fa-solid fa-shield-heart"></i> <span data-cms="safety.tab">Safety</span></button>
         <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="faq"><i class="fa-solid fa-circle-question"></i> FAQ</button>
       </div>
 
       <!-- Overview -->
       <div class="mvp-tabpanel active" id="t-overview" role="tabpanel">
         <div class="mvp-head mvp-x-head">
-          <div class="mvp-eyebrow">Who it's for</div>
-          <h2>Support for you and your baby.</h2>
-          <p>Every pregnancy and every recovery is different, so we plan around you.</p>
+          <div class="mvp-eyebrow" data-cms="overview.kicker">Who it's for</div>
+          <h2 data-cms="overview.heading">Support for you and your baby.</h2>
+          <p data-cms="overview.body">Every pregnancy and every recovery is different, so we plan around you.</p>
         </div>
         <div class="mvp-cards">
-          <article class="mvp-card"><i class="fa-solid fa-person-pregnant"></i><p>Expecting and cleared by your doctor to stay active</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-baby"></i><p>New mums returning to exercise after delivery</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-spa"></i><p>Dealing with posture strain, back ache or low energy</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-heart"></i><p>Wanting to feel strong, confident and in control</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-person-pregnant"></i><p data-cms="overview.cards.0.body">Expecting and cleared by your doctor to stay active</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-baby"></i><p data-cms="overview.cards.1.body">New mums returning to exercise after delivery</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-spa"></i><p data-cms="overview.cards.2.body">Dealing with posture strain, back ache or low energy</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-heart"></i><p data-cms="overview.cards.3.body">Wanting to feel strong, confident and in control</p></article>
         </div>
       </div>
 
       <!-- Approach -->
       <div class="mvp-tabpanel" id="t-approach" role="tabpanel">
         <div class="mvp-head mvp-x-head">
-          <div class="mvp-eyebrow">Our approach</div>
-          <h2>How we <span>support you</span></h2>
+          <div class="mvp-eyebrow" data-cms="approach.kicker">Our approach</div>
+          <h2 data-cms-prefix="approach.heading">How we <span data-cms="approach.heading_accent">support you</span></h2>
         </div>
         <div class="mvp-cards">
-          <article class="mvp-card"><i class="fa-solid fa-person-walking"></i><h3>Low-impact movement</h3><p>Walking, mobility and gentle conditioning matched to your trimester or recovery stage.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-lungs"></i><h3>Breathing & core</h3><p>Deep breathing and gentle core work that supports your body through change.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-dumbbell"></i><h3>Safe strength</h3><p>Light, controlled resistance to support posture, carrying and daily demands.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-bed"></i><h3>Rest & recovery</h3><p>Realistic sessions that respect energy, sleep and a new routine.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-person-walking"></i><h3 data-cms="approach.cards.0.title">Low-impact movement</h3><p data-cms="approach.cards.0.body">Walking, mobility and gentle conditioning matched to your trimester or recovery stage.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-lungs"></i><h3 data-cms="approach.cards.1.title">Breathing & core</h3><p data-cms="approach.cards.1.body">Deep breathing and gentle core work that supports your body through change.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-dumbbell"></i><h3 data-cms="approach.cards.2.title">Safe strength</h3><p data-cms="approach.cards.2.body">Light, controlled resistance to support posture, carrying and daily demands.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-bed"></i><h3 data-cms="approach.cards.3.title">Rest & recovery</h3><p data-cms="approach.cards.3.body">Realistic sessions that respect energy, sleep and a new routine.</p></article>
         </div>
       </div>
 
@@ -865,16 +866,16 @@
         <div class="mvp-safe">
           <div>
             <div class="mvp-safe-shield"><i class="fa-solid fa-shield-heart"></i></div>
-            <div class="mvp-eyebrow">Our promise</div>
-            <h2 class="mvp-safe-title">Safety comes first.</h2>
+            <div class="mvp-eyebrow" data-cms="safety.kicker">Our promise</div>
+            <h2 class="mvp-safe-title" data-cms="safety.heading">Safety comes first.</h2>
           </div>
           <ul class="mvp-safe-list">
-            <li><i class="fa-solid fa-circle-check"></i><span>We require medical clearance before pregnancy or postnatal training</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We adapt or remove exercises that are not suitable for your stage</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We stop immediately if you experience pain, bleeding, dizziness or concern</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>Postnatal return is gradual, with no rush to 'bounce back'</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.0">We require medical clearance before pregnancy or postnatal training</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.1">We adapt or remove exercises that are not suitable for your stage</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.2">We stop immediately if you experience pain, bleeding, dizziness or concern</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.3">Postnatal return is gradual, with no rush to 'bounce back'</span></li>
           </ul>
-          <p class="mvp-safe-note"><b>Please note:</b> TFI programmes are fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult a qualified healthcare professional before starting a new exercise or nutrition plan.</p>
+          <p class="mvp-safe-note"><b>Please note:</b> <span data-cms="safety.note">TFI programmes are fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult a qualified healthcare professional before starting a new exercise or nutrition plan.</span></p>
         </div>
       </div>
 
@@ -1120,14 +1121,10 @@
     try {
 
       if (
-        localStorage.getItem(
-          "tfi-theme"
-        ) === "light"
+        localStorage.getItem("tfi-theme") === "dark"
       ) {
 
-        root.classList.remove(
-          "dark-mode"
-        );
+        root.classList.add("dark-mode");
 
       }
 

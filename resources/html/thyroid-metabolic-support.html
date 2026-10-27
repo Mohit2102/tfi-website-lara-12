@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -493,7 +493,8 @@
 
         <!-- Gallery -->
         <div class="mvp-gallery">
-          <div class="mvp-stage" aria-hidden="true">
+          <div class="mvp-stage">
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
             <span class="mvp-tag">Specialized Live Personal Training</span>
             <div class="mvp-ring mvp-ring--1"></div>
             <div class="mvp-ring mvp-ring--2"></div>
@@ -520,18 +521,18 @@
         <div class="mvp-info">
           <span class="mvp-cat"><i class="fa-solid fa-bolt"></i> Personal Training</span>
 
-          <h1 class="mvp-title">
+          <h1 class="mvp-title" data-cms-prefix="hero.title">
             Thyroid Management
-            <span>Metabolic Support</span>
+            <span data-cms="hero.title_accent">Metabolic Support</span>
           </h1>
 
-          <p class="mvp-desc">Consistent training, balanced nutrition and recovery habits for people managing thyroid conditions, with realistic expectations and steady progress.</p>
+          <p class="mvp-desc" data-cms="hero.body">Consistent training, balanced nutrition and recovery habits for people managing thyroid conditions, with realistic expectations and steady progress.</p>
 
           <ul class="mvp-bul">
-            <li><i class="fa-solid fa-check"></i><span>Training and nutrition tuned for energy and metabolism</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Strength work to support body composition</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Realistic routines that respect fatigue and recovery</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Works alongside your medical care and lab follow-ups</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.0">Training and nutrition tuned for energy and metabolism</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.1">Strength work to support body composition</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.2">Realistic routines that respect fatigue and recovery</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.3">Works alongside your medical care and lab follow-ups</span></li>
           </ul>
 
           <div class="mvp-hero-cta">
@@ -807,13 +808,13 @@
   <section class="mvp-journey">
     <div class="mvp-wrap">
       <div class="mvp-head">
-        <div class="mvp-eyebrow">What to expect</div>
-        <h2>Your <span>journey</span></h2>
+        <div class="mvp-eyebrow" data-cms="journey.kicker">What to expect</div>
+        <h2 data-cms-prefix="journey.heading">Your <span data-cms="journey.heading_accent">journey</span></h2>
       </div>
       <div class="mvp-road-grid">
-        <div class="mvp-road-item"><b>01</b><small>WEEK 1</small><h3>Assess</h3><p>History, medication timing you share, symptoms and your goals.</p></div>
-        <div class="mvp-road-item"><b>02</b><small>WEEKS 2–8</small><h3>Build</h3><p>Gradual strength and activity progression with a simple nutrition plan.</p></div>
-        <div class="mvp-road-item"><b>03</b><small>ONGOING</small><h3>Sustain</h3><p>Review, adjust and build habits that last.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.0.number">01</b><small data-cms="journey.steps.0.period">WEEK 1</small><h3 data-cms="journey.steps.0.title">Assess</h3><p data-cms="journey.steps.0.body">History, medication timing you share, symptoms and your goals.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.1.number">02</b><small data-cms="journey.steps.1.period">WEEKS 2–8</small><h3 data-cms="journey.steps.1.title">Build</h3><p data-cms="journey.steps.1.body">Gradual strength and activity progression with a simple nutrition plan.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.2.number">03</b><small data-cms="journey.steps.2.period">ONGOING</small><h3 data-cms="journey.steps.2.title">Sustain</h3><p data-cms="journey.steps.2.body">Review, adjust and build habits that last.</p></div>
       </div>
     </div>
   </section>
@@ -826,38 +827,38 @@
     <div class="mvp-wrap">
 
       <div class="mvp-tablist" role="tablist" aria-label="Programme details">
-        <button class="mvp-tab" role="tab" type="button" aria-selected="true" data-tab="overview"><i class="fa-solid fa-circle-info"></i> Overview</button>
-        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="approach"><i class="fa-solid fa-dumbbell"></i> Our approach</button>
-        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="safety"><i class="fa-solid fa-shield-heart"></i> Safety</button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="true" data-tab="overview"><i class="fa-solid fa-circle-info"></i> <span data-cms="overview.tab">Overview</span></button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="approach"><i class="fa-solid fa-dumbbell"></i> <span data-cms="approach.tab">Our approach</span></button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="safety"><i class="fa-solid fa-shield-heart"></i> <span data-cms="safety.tab">Safety</span></button>
         <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="faq"><i class="fa-solid fa-circle-question"></i> FAQ</button>
       </div>
 
       <!-- Overview -->
       <div class="mvp-tabpanel active" id="t-overview" role="tabpanel">
         <div class="mvp-head mvp-x-head">
-          <div class="mvp-eyebrow">Who it's for</div>
-          <h2>Patient, steady and sustainable.</h2>
-          <p>Progress may look different for everyone, so we focus on routines and results you can measure.</p>
+          <div class="mvp-eyebrow" data-cms="overview.kicker">Who it's for</div>
+          <h2 data-cms="overview.heading">Patient, steady and sustainable.</h2>
+          <p data-cms="overview.body">Progress may look different for everyone, so we focus on routines and results you can measure.</p>
         </div>
         <div class="mvp-cards">
-          <article class="mvp-card"><i class="fa-solid fa-stethoscope"></i><p>Diagnosed with a thyroid condition and under medical care</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-battery-quarter"></i><p>Feeling tired, sluggish or struggling with energy</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-weight-scale"></i><p>Finding weight management harder than expected</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-calendar-check"></i><p>Wanting a consistent routine and clear guidance</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-stethoscope"></i><p data-cms="overview.cards.0.body">Diagnosed with a thyroid condition and under medical care</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-battery-quarter"></i><p data-cms="overview.cards.1.body">Feeling tired, sluggish or struggling with energy</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-weight-scale"></i><p data-cms="overview.cards.2.body">Finding weight management harder than expected</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-calendar-check"></i><p data-cms="overview.cards.3.body">Wanting a consistent routine and clear guidance</p></article>
         </div>
       </div>
 
       <!-- Approach -->
       <div class="mvp-tabpanel" id="t-approach" role="tabpanel">
         <div class="mvp-head mvp-x-head">
-          <div class="mvp-eyebrow">Our approach</div>
-          <h2>How we <span>support you</span></h2>
+          <div class="mvp-eyebrow" data-cms="approach.kicker">Our approach</div>
+          <h2 data-cms-prefix="approach.heading">How we <span data-cms="approach.heading_accent">support you</span></h2>
         </div>
         <div class="mvp-cards">
-          <article class="mvp-card"><i class="fa-solid fa-dumbbell"></i><h3>Strength training</h3><p>Preserving and building muscle supports metabolism and daily energy.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-person-walking"></i><h3>Regular movement</h3><p>Cardio and daily activity scaled to your energy on the day.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-bowl-food"></i><h3>Balanced nutrition</h3><p>Whole-food meal structure, protein and fibre, without extreme restriction.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-bed"></i><h3>Sleep & recovery</h3><p>Rest and stress habits that support overall wellbeing.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-dumbbell"></i><h3 data-cms="approach.cards.0.title">Strength training</h3><p data-cms="approach.cards.0.body">Preserving and building muscle supports metabolism and daily energy.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-person-walking"></i><h3 data-cms="approach.cards.1.title">Regular movement</h3><p data-cms="approach.cards.1.body">Cardio and daily activity scaled to your energy on the day.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-bowl-food"></i><h3 data-cms="approach.cards.2.title">Balanced nutrition</h3><p data-cms="approach.cards.2.body">Whole-food meal structure, protein and fibre, without extreme restriction.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-bed"></i><h3 data-cms="approach.cards.3.title">Sleep & recovery</h3><p data-cms="approach.cards.3.body">Rest and stress habits that support overall wellbeing.</p></article>
         </div>
       </div>
 
@@ -866,16 +867,16 @@
         <div class="mvp-safe">
           <div>
             <div class="mvp-safe-shield"><i class="fa-solid fa-shield-heart"></i></div>
-            <div class="mvp-eyebrow">Our promise</div>
-            <h2 class="mvp-safe-title">Safety comes first.</h2>
+            <div class="mvp-eyebrow" data-cms="safety.kicker">Our promise</div>
+            <h2 class="mvp-safe-title" data-cms="safety.heading">Safety comes first.</h2>
           </div>
           <ul class="mvp-safe-list">
-            <li><i class="fa-solid fa-circle-check"></i><span>We do not give medical advice or adjust medication or timing</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We scale sessions to your energy and avoid overtraining</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We encourage regular check-ups and blood work with your doctor</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We keep goals realistic and progress measurable</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.0">We do not give medical advice or adjust medication or timing</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.1">We scale sessions to your energy and avoid overtraining</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.2">We encourage regular check-ups and blood work with your doctor</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.3">We keep goals realistic and progress measurable</span></li>
           </ul>
-          <p class="mvp-safe-note"><b>Please note:</b> TFI programmes are fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult a qualified healthcare professional before starting a new exercise or nutrition plan.</p>
+          <p class="mvp-safe-note"><b>Please note:</b> <span data-cms="safety.note">TFI programmes are fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult a qualified healthcare professional before starting a new exercise or nutrition plan.</span></p>
         </div>
       </div>
 
@@ -1121,14 +1122,10 @@
     try {
 
       if (
-        localStorage.getItem(
-          "tfi-theme"
-        ) === "light"
+        localStorage.getItem("tfi-theme") === "dark"
       ) {
 
-        root.classList.remove(
-          "dark-mode"
-        );
+        root.classList.add("dark-mode");
 
       }
 

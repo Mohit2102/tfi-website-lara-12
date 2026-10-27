@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\SitePage;
 use App\Support\HtmlPageRenderer;
 use App\Support\PlanPriceCatalog;
+use App\Support\ProgramPageContent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class SitePageController extends Controller
@@ -52,10 +55,22 @@ class SitePageController extends Controller
             $page->html = $fileHtml;
         }
 
+        $name = PlanPriceCatalog::pageTitles()[$slug] ?? $slug;
+
+        if (ProgramPageContent::supports($slug)) {
+            return view('superadmin.pages.program', [
+                'page' => $page,
+                'slug' => $slug,
+                'name' => $name,
+                'layout' => ProgramPageContent::layout($slug),
+                'content' => ProgramPageContent::merge($slug, $page->content),
+            ]);
+        }
+
         return view('superadmin.pages.edit', [
             'page' => $page,
             'slug' => $slug,
-            'name' => PlanPriceCatalog::pageTitles()[$slug] ?? $slug,
+            'name' => $name,
         ]);
     }
 
@@ -63,22 +78,40 @@ class SitePageController extends Controller
     {
         $this->assertKnownPage($slug);
 
-        $data = $request->validate([
+        $rules = [
             'title' => ['required', 'string', 'max:180'],
             'meta_description' => ['nullable', 'string', 'max:500'],
-            'html' => ['required', 'string'],
             'is_published' => ['nullable', 'boolean'],
-        ]);
+        ];
 
-        SitePage::query()->updateOrCreate(
-            ['slug' => $slug],
-            [
-                'title' => $data['title'],
-                'meta_description' => $data['meta_description'] ?? null,
-                'html' => $data['html'],
-                'is_published' => $request->boolean('is_published'),
-            ]
-        );
+        if (ProgramPageContent::supports($slug)) {
+            $rules['content'] = ['required', 'array'];
+            $rules['uploads.hero'] = ['nullable', 'file', 'max:8192', 'mimes:jpg,jpeg,png,webp,gif'];
+            $rules['uploads.inside'] = ['nullable', 'array'];
+            $rules['uploads.inside.*'] = ['nullable', 'file', 'max:8192', 'mimes:jpg,jpeg,png,webp,gif'];
+        } else {
+            $rules['html'] = ['required', 'string'];
+        }
+
+        $data = $request->validate($rules);
+
+        $payload = [
+            'title' => $data['title'],
+            'meta_description' => $data['meta_description'] ?? null,
+            'is_published' => $request->boolean('is_published'),
+        ];
+
+        if (ProgramPageContent::supports($slug)) {
+            $payload['content'] = $this->storeUploads(
+                $request,
+                $slug,
+                ProgramPageContent::merge($slug, $data['content'] ?? [])
+            );
+        } else {
+            $payload['html'] = $data['html'];
+        }
+
+        SitePage::query()->updateOrCreate(['slug' => $slug], $payload);
 
         return redirect()
             ->route('superadmin.pages.edit', $slug)
@@ -94,6 +127,43 @@ class SitePageController extends Controller
         return redirect()
             ->route('superadmin.pages.edit', $slug)
             ->with('success', 'Restored the original HTML file for this page.');
+    }
+
+    /**
+     * @param  array<string, mixed>  $content
+     * @return array<string, mixed>
+     */
+    private function storeUploads(Request $request, string $slug, array $content): array
+    {
+        $hero = $request->file('uploads.hero');
+
+        if ($hero instanceof UploadedFile && $hero->isValid()) {
+            $content['hero']['image'] = $this->storePublic($hero, $slug);
+        }
+
+        foreach ([0, 1, 2] as $i) {
+            $file = $request->file('uploads.inside.'.$i);
+
+            if ($file instanceof UploadedFile && $file->isValid()) {
+                $content['inside'][$i]['image'] = $this->storePublic($file, $slug);
+            }
+        }
+
+        return $content;
+    }
+
+    private function storePublic(UploadedFile $file, string $slug): string
+    {
+        $directory = public_path('uploads/programs/'.$slug);
+
+        if (! is_dir($directory)) {
+            mkdir($directory, 0755, true);
+        }
+
+        $name = Str::uuid()->toString().'.'.$file->getClientOriginalExtension();
+        $file->move($directory, $name);
+
+        return 'uploads/programs/'.$slug.'/'.$name;
     }
 
     private function assertKnownPage(string $slug): void

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -493,7 +493,8 @@
 
         <!-- Gallery -->
         <div class="mvp-gallery">
-          <div class="mvp-stage" aria-hidden="true">
+          <div class="mvp-stage">
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
             <span class="mvp-tag">Specialized Live Personal Training</span>
             <div class="mvp-ring mvp-ring--1"></div>
             <div class="mvp-ring mvp-ring--2"></div>
@@ -520,18 +521,18 @@
         <div class="mvp-info">
           <span class="mvp-cat"><i class="fa-solid fa-heart"></i> Personal Training</span>
 
-          <h1 class="mvp-title">
+          <h1 class="mvp-title" data-cms-prefix="hero.title">
             Cardiovascular Health
-            <span>Cardio Conditioning</span>
+            <span data-cms="hero.title_accent">Cardio Conditioning</span>
           </h1>
 
-          <p class="mvp-desc">Progressive, well-paced cardio programming that improves stamina, recovery and everyday energy, for beginners through to the returning athlete.</p>
+          <p class="mvp-desc" data-cms="hero.body">Progressive, well-paced cardio programming that improves stamina, recovery and everyday energy, for beginners through to the returning athlete.</p>
 
           <ul class="mvp-bul">
-            <li><i class="fa-solid fa-check"></i><span>Structured cardio built on heart-rate zones</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Progressive stamina training for daily life and sport</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Strength work that supports heart and lung health</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Recovery, sleep and tracking to keep gains consistent</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.0">Structured cardio built on heart-rate zones</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.1">Progressive stamina training for daily life and sport</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.2">Strength work that supports heart and lung health</span></li>
+            <li><i class="fa-solid fa-check"></i><span data-cms="hero.bullets.3">Recovery, sleep and tracking to keep gains consistent</span></li>
           </ul>
 
           <div class="mvp-hero-cta">
@@ -807,13 +808,13 @@
   <section class="mvp-journey">
     <div class="mvp-wrap">
       <div class="mvp-head">
-        <div class="mvp-eyebrow">What to expect</div>
-        <h2>Your <span>journey</span></h2>
+        <div class="mvp-eyebrow" data-cms="journey.kicker">What to expect</div>
+        <h2 data-cms-prefix="journey.heading">Your <span data-cms="journey.heading_accent">journey</span></h2>
       </div>
       <div class="mvp-road-grid">
-        <div class="mvp-road-item"><b>01</b><small>WEEK 1</small><h3>Assess</h3><p>Current fitness, history and goals, with a simple baseline test.</p></div>
-        <div class="mvp-road-item"><b>02</b><small>WEEKS 2–8</small><h3>Build</h3><p>Gradual increase in duration and intensity, week by week.</p></div>
-        <div class="mvp-road-item"><b>03</b><small>ONGOING</small><h3>Sustain</h3><p>Retest, refine and set new targets as you improve.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.0.number">01</b><small data-cms="journey.steps.0.period">WEEK 1</small><h3 data-cms="journey.steps.0.title">Assess</h3><p data-cms="journey.steps.0.body">Current fitness, history and goals, with a simple baseline test.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.1.number">02</b><small data-cms="journey.steps.1.period">WEEKS 2–8</small><h3 data-cms="journey.steps.1.title">Build</h3><p data-cms="journey.steps.1.body">Gradual increase in duration and intensity, week by week.</p></div>
+        <div class="mvp-road-item"><b data-cms="journey.steps.2.number">03</b><small data-cms="journey.steps.2.period">ONGOING</small><h3 data-cms="journey.steps.2.title">Sustain</h3><p data-cms="journey.steps.2.body">Retest, refine and set new targets as you improve.</p></div>
       </div>
     </div>
   </section>
@@ -826,38 +827,38 @@
     <div class="mvp-wrap">
 
       <div class="mvp-tablist" role="tablist" aria-label="Programme details">
-        <button class="mvp-tab" role="tab" type="button" aria-selected="true" data-tab="overview"><i class="fa-solid fa-circle-info"></i> Overview</button>
-        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="approach"><i class="fa-solid fa-dumbbell"></i> Our approach</button>
-        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="safety"><i class="fa-solid fa-shield-heart"></i> Safety</button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="true" data-tab="overview"><i class="fa-solid fa-circle-info"></i> <span data-cms="overview.tab">Overview</span></button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="approach"><i class="fa-solid fa-dumbbell"></i> <span data-cms="approach.tab">Our approach</span></button>
+        <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="safety"><i class="fa-solid fa-shield-heart"></i> <span data-cms="safety.tab">Safety</span></button>
         <button class="mvp-tab" role="tab" type="button" aria-selected="false" data-tab="faq"><i class="fa-solid fa-circle-question"></i> FAQ</button>
       </div>
 
       <!-- Overview -->
       <div class="mvp-tabpanel active" id="t-overview" role="tabpanel">
         <div class="mvp-head mvp-x-head">
-          <div class="mvp-eyebrow">Who it's for</div>
-          <h2>From first walk to first 10K.</h2>
-          <p>Cardio fitness is built gradually, and we pace it so you get stronger without burning out.</p>
+          <div class="mvp-eyebrow" data-cms="overview.kicker">Who it's for</div>
+          <h2 data-cms="overview.heading">From first walk to first 10K.</h2>
+          <p data-cms="overview.body">Cardio fitness is built gradually, and we pace it so you get stronger without burning out.</p>
         </div>
         <div class="mvp-cards">
-          <article class="mvp-card"><i class="fa-solid fa-shoe-prints"></i><p>Beginners wanting to build stamina safely</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-person-running"></i><p>Runners and walkers working towards a goal</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-battery-quarter"></i><p>Low energy or easily out of breath on stairs</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-rotate-left"></i><p>Returning to fitness after a long break</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-shoe-prints"></i><p data-cms="overview.cards.0.body">Beginners wanting to build stamina safely</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-person-running"></i><p data-cms="overview.cards.1.body">Runners and walkers working towards a goal</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-battery-quarter"></i><p data-cms="overview.cards.2.body">Low energy or easily out of breath on stairs</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-rotate-left"></i><p data-cms="overview.cards.3.body">Returning to fitness after a long break</p></article>
         </div>
       </div>
 
       <!-- Approach -->
       <div class="mvp-tabpanel" id="t-approach" role="tabpanel">
         <div class="mvp-head mvp-x-head">
-          <div class="mvp-eyebrow">Our approach</div>
-          <h2>How we <span>support you</span></h2>
+          <div class="mvp-eyebrow" data-cms="approach.kicker">Our approach</div>
+          <h2 data-cms-prefix="approach.heading">How we <span data-cms="approach.heading_accent">support you</span></h2>
         </div>
         <div class="mvp-cards">
-          <article class="mvp-card"><i class="fa-solid fa-heart-pulse"></i><h3>Effort zones</h3><p>Training at the right intensity, using heart rate or perceived effort.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-stopwatch"></i><h3>Intervals</h3><p>Structured intervals introduced only when your base is ready.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-dumbbell"></i><h3>Supporting strength</h3><p>Leg and core strength that makes your cardio efficient and injury-resistant.</p></article>
-          <article class="mvp-card"><i class="fa-solid fa-bed"></i><h3>Smart recovery</h3><p>Rest days, sleep and fuelling that let your body adapt.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-heart-pulse"></i><h3 data-cms="approach.cards.0.title">Effort zones</h3><p data-cms="approach.cards.0.body">Training at the right intensity, using heart rate or perceived effort.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-stopwatch"></i><h3 data-cms="approach.cards.1.title">Intervals</h3><p data-cms="approach.cards.1.body">Structured intervals introduced only when your base is ready.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-dumbbell"></i><h3 data-cms="approach.cards.2.title">Supporting strength</h3><p data-cms="approach.cards.2.body">Leg and core strength that makes your cardio efficient and injury-resistant.</p></article>
+          <article class="mvp-card"><i class="fa-solid fa-bed"></i><h3 data-cms="approach.cards.3.title">Smart recovery</h3><p data-cms="approach.cards.3.body">Rest days, sleep and fuelling that let your body adapt.</p></article>
         </div>
       </div>
 
@@ -866,16 +867,16 @@
         <div class="mvp-safe">
           <div>
             <div class="mvp-safe-shield"><i class="fa-solid fa-shield-heart"></i></div>
-            <div class="mvp-eyebrow">Our promise</div>
-            <h2 class="mvp-safe-title">Safety comes first.</h2>
+            <div class="mvp-eyebrow" data-cms="safety.kicker">Our promise</div>
+            <h2 class="mvp-safe-title" data-cms="safety.heading">Safety comes first.</h2>
           </div>
           <ul class="mvp-safe-list">
-            <li><i class="fa-solid fa-circle-check"></i><span>We recommend medical clearance if you have any known heart condition</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We build volume and intensity gradually to protect your body</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We stop sessions for chest pain, unusual breathlessness or dizziness</span></li>
-            <li><i class="fa-solid fa-circle-check"></i><span>We balance cardio with strength and recovery</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.0">We recommend medical clearance if you have any known heart condition</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.1">We build volume and intensity gradually to protect your body</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.2">We stop sessions for chest pain, unusual breathlessness or dizziness</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span data-cms="safety.items.3">We balance cardio with strength and recovery</span></li>
           </ul>
-          <p class="mvp-safe-note"><b>Please note:</b> TFI programmes are fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult a qualified healthcare professional before starting a new exercise or nutrition plan.</p>
+          <p class="mvp-safe-note"><b>Please note:</b> <span data-cms="safety.note">TFI programmes are fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult a qualified healthcare professional before starting a new exercise or nutrition plan.</span></p>
         </div>
       </div>
 
@@ -1121,14 +1122,10 @@
     try {
 
       if (
-        localStorage.getItem(
-          "tfi-theme"
-        ) === "light"
+        localStorage.getItem("tfi-theme") === "dark"
       ) {
 
-        root.classList.remove(
-          "dark-mode"
-        );
+        root.classList.add("dark-mode");
 
       }
 

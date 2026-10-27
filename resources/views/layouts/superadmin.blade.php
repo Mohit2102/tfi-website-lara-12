@@ -528,7 +528,7 @@
 
             <p class="nav-label">Website</p>
             <a href="{{ route('superadmin.home.edit') }}" class="{{ $navClass('superadmin.home.*') }}"><svg class="ic"><use href="#i-file"/></svg> Home page</a>
-            {{-- <a href="{{ route('superadmin.pages.index') }}" class="{{ $navClass('superadmin.pages.*') }}"><svg class="ic"><use href="#i-globe"/></svg> Other pages</a> --}}
+            <a href="{{ route('superadmin.pages.index') }}" class="{{ $navClass('superadmin.pages.*') }}"><svg class="ic"><use href="#i-globe"/></svg> Programs</a>
             <a href="{{ route('superadmin.prices.edit') }}" class="{{ $navClass('superadmin.prices.*') }}"><svg class="ic"><use href="#i-sliders"/></svg> Plan prices</a>
             <a href="{{ route('superadmin.enquiries.index') }}" class="{{ $navClass('superadmin.enquiries.*') }}">
                 <svg class="ic"><use href="#i-bell"/></svg> Enquiries
