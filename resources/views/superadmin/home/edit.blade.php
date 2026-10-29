@@ -143,6 +143,35 @@
                 <input name="content[journey][footer]" value="{{ old('content.journey.footer', $content['journey']['footer']) }}">
             </div>
         </div>
+        @foreach ($content['journey']['steps'] as $i => $step)
+            <div class="cms-block" style="margin-top:1rem">
+                <h4>Timeline step {{ $i + 1 }}</h4>
+                <div class="cms-grid">
+                    <div class="field">
+                        <label>Number</label>
+                        <input name="content[journey][steps][{{ $i }}][number]" value="{{ old('content.journey.steps.'.$i.'.number', $step['number']) }}">
+                    </div>
+                    <div class="field">
+                        <label>Label</label>
+                        <input name="content[journey][steps][{{ $i }}][label]" value="{{ old('content.journey.steps.'.$i.'.label', $step['label']) }}">
+                    </div>
+                    <div class="field">
+                        <label>Title</label>
+                        <input name="content[journey][steps][{{ $i }}][title]" value="{{ old('content.journey.steps.'.$i.'.title', $step['title']) }}">
+                    </div>
+                    <div class="field full">
+                        <label>Description</label>
+                        <textarea class="short" name="content[journey][steps][{{ $i }}][description]">{{ old('content.journey.steps.'.$i.'.description', $step['description']) }}</textarea>
+                    </div>
+                    @foreach ($step['points'] as $p => $point)
+                        <div class="field">
+                            <label>Point {{ $p + 1 }}</label>
+                            <input name="content[journey][steps][{{ $i }}][points][{{ $p }}]" value="{{ old('content.journey.steps.'.$i.'.points.'.$p, $point) }}">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endforeach
     </section>
 
     <section class="card">
