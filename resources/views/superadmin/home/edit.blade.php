@@ -159,11 +159,7 @@
                         <label>Title</label>
                         <input name="content[journey][steps][{{ $i }}][title]" value="{{ old('content.journey.steps.'.$i.'.title', $step['title']) }}">
                     </div>
-                    <div class="field full">
-                        <label>Description</label>
-                        <textarea class="short" name="content[journey][steps][{{ $i }}][description]">{{ old('content.journey.steps.'.$i.'.description', $step['description']) }}</textarea>
-                    </div>
-                    @foreach ($step['points'] as $p => $point)
+                    @foreach (array_slice($step['points'], 0, 5) as $p => $point)
                         <div class="field">
                             <label>Point {{ $p + 1 }}</label>
                             <input name="content[journey][steps][{{ $i }}][points][{{ $p }}]" value="{{ old('content.journey.steps.'.$i.'.points.'.$p, $point) }}">

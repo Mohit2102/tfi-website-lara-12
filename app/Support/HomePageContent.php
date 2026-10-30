@@ -43,37 +43,30 @@ class HomePageContent
                         'number' => '01',
                         'label' => '01 — START HERE',
                         'title' => 'UNDERSTAND',
-                        'description' => 'Understand what works best for you and fits your life.',
                         'points' => [
                             'Lifestyle & daily routine',
                             'Goals & expectations',
                             'Exercise experience',
                             'Exercise preferences',
                             'Preferred training intensity',
-                            'Time, challenges & limitations',
-                            'Health considerations',
                         ],
                     ],
                     [
                         'number' => '02',
                         'label' => '02 — KNOW YOUR NUMBERS',
                         'title' => 'ASSESS',
-                        'description' => 'Measure your current fitness and health background.',
                         'points' => [
                             'Readiness & health screening',
                             'Health & injury history',
                             'Body composition',
                             'Cardio fitness',
                             'Strength & endurance',
-                            'Flexibility & mobility',
-                            'Posture & movement',
                         ],
                     ],
                     [
                         'number' => '03',
                         'label' => '03 — BUILD YOUR PATH',
                         'title' => 'PLAN',
-                        'description' => 'Turn what we learn about you into a plan built around your goals.',
                         'points' => [
                             'Personalised exercise plan',
                             'Training frequency & intensity',
@@ -86,7 +79,6 @@ class HomePageContent
                         'number' => '04',
                         'label' => '04 — PUT IT INTO ACTION',
                         'title' => 'TRAIN WITH PURPOSE',
-                        'description' => 'Start where you are and train towards where you want to be.',
                         'points' => [
                             'Based on your current fitness level',
                             'Beginner, intermediate or advanced',
@@ -99,7 +91,6 @@ class HomePageContent
                         'number' => '05',
                         'label' => '05 — KEEP MOVING',
                         'title' => 'PROGRESS',
-                        'description' => 'Track your progress, learn from your results and adapt as you improve.',
                         'points' => [
                             'Track fitness & performance',
                             'Monitor key changes',
