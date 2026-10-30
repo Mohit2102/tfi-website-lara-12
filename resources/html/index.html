@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="bmi-float.css">
 </head>
 
-<body>
+<body class="page-home">
 
   <!-- =========================================================
        HEADER & NAVIGATION
@@ -1559,15 +1559,35 @@
 
           <div class="cta-flag" data-cms="contact.flag">Get a free trial session when you enquire this week</div>
 
-          <div style="margin-top: 28px; display: flex; gap: 14px; flex-wrap: wrap;">
-            <a class="btn btn-solid" href="#contact">Book now</a>
+          <div class="cta-actions">
+            <a class="btn btn-solid" href="#enquiryForm">Book now</a>
             <a class="btn btn-quiet" href="#programs">Explore programs</a>
           </div>
+
+          <ul class="cta-contact">
+            <li>
+              <a href="tel:+918951077599">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                <span><small>Call us</small>+91 89510 77599</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/918951077599" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                <span><small>WhatsApp</small>Chat with a coach</span>
+              </a>
+            </li>
+          </ul>
         </div>
 
         <!-- Right: form -->
         <div>
           <form class="enquiry" id="enquiryForm" novalidate>
+
+            <div class="enquiry-head">
+              <strong>Book your free consultation</strong>
+              <span>Takes less than a minute</span>
+            </div>
 
             <input
               type="text"
@@ -1663,8 +1683,7 @@
 
             <button
               type="submit"
-              class="btn btn-solid"
-              style="width: 100%; justify-content: center; margin-top: 4px;"
+              class="btn btn-solid enquiry-submit"
             >
               Submit enquiry
             </button>
@@ -1691,11 +1710,12 @@
 
       <div class="foot-grid">
 
-        <div>
+        <div class="foot-brand">
           <a class="foot-logo" href="#top">
             <img src="logo/logo.png" alt="TFI logo">
+            <span>Time to Fit India</span>
           </a>
-          <p style="max-width: 280px;">
+          <p>
             Personal training and fitness programs that build strength — and confident people.
           </p>
         </div>
@@ -1705,7 +1725,7 @@
           <ul>
             <li><a href="about.html">About</a></li>
             <li><a href="#programs">Programs</a></li>
-            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="trainers.html">Trainers</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
@@ -1713,19 +1733,18 @@
         <div>
           <h5>Programs</h5>
           <ul>
-            <li><a href="#programs">Personal Training</a></li>
-            <li><a href="#programs">Weight Loss</a></li>
-            <li><a href="#programs">Strength &amp; Conditioning</a></li>
-            <li><a href="#programs">Group Fitness</a></li>
+            <li><a href="virtual-training.html">Virtual Personal Training</a></li>
+            <li><a href="non-virtual-training.html">Workout &amp; Nutrition Plans</a></li>
+            <li><a href="personal-training.html">Specialized Personal Training</a></li>
           </ul>
         </div>
 
         <div>
           <h5>Contact</h5>
-          <ul>
-            <li>kumaraswamy layout bhanashankari 2nd stage, Bengaluru</li>
-            <li>8951077599</li>
-            <li>timetofit@gmail.com</li>
+          <ul class="foot-contact">
+            <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>Kumaraswamy Layout, Banashankari 2nd Stage, Bengaluru</span></li>
+            <li><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:+918951077599">+91 89510 77599</a></li>
+            <li><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:timetofit@gmail.com">timetofit@gmail.com</a></li>
           </ul>
         </div>
 
@@ -1733,6 +1752,7 @@
 
       <div class="foot-bottom">
         <span>© 2026 TFI — Time To Fit India. All rights reserved.</span>
+        <a href="#top">Back to top ↑</a>
       </div>
 
     </div>
@@ -1981,6 +2001,110 @@
         }, { threshold: 0.2 });
 
         observer.observe(el);
+      }
+
+
+      /* =======================================================
+         04b. JOURNEY HEADING
+         Wraps each word of the CMS heading so the steps can
+         light up one by one, in sync with the progress dots.
+      ======================================================= */
+
+      function initJourneyHeading() {
+        var heading = document.querySelector(".journey-intro h2");
+        if (!heading) return;
+
+        var count = 0;
+
+        Array.prototype.slice.call(heading.childNodes).forEach(function (node) {
+          if (node.nodeType !== 3) return;
+
+          var fragment = document.createDocumentFragment();
+
+          node.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+
+            if (/^\s+$/.test(part)) {
+              fragment.appendChild(document.createTextNode(" "));
+              return;
+            }
+
+            count++;
+
+            var word = document.createElement("span");
+            var num = document.createElement("em");
+            var text = document.createElement("span");
+
+            word.className = "jh-word";
+            num.setAttribute("aria-hidden", "true");
+            num.textContent = (count < 10 ? "0" : "") + count;
+            text.className = "jh-text";
+            text.textContent = part;
+
+            word.appendChild(num);
+            word.appendChild(text);
+            fragment.appendChild(word);
+          });
+
+          heading.replaceChild(fragment, node);
+        });
+
+        var words = heading.querySelectorAll(".jh-word");
+        var steps = document.querySelectorAll(".journey-progress .progress-item");
+        var syncSteps = steps.length === words.length;
+        var last = words.length - 1;
+        var current = 0;
+        var timer = null;
+
+        if (!words.length) return;
+
+        heading.classList.add("jh-ready");
+
+        function show(index) {
+          Array.prototype.forEach.call(words, function (word, i) {
+            word.classList.toggle("is-active", i === index);
+            word.classList.toggle("is-done", i < index);
+          });
+
+          if (syncSteps) {
+            Array.prototype.forEach.call(steps, function (step, i) {
+              step.classList.toggle("active", i === index);
+            });
+          }
+
+          current = index;
+        }
+
+        function tick() {
+          show(current >= last ? 0 : current + 1);
+          timer = setTimeout(tick, current === last ? 2800 : 1500);
+        }
+
+        function start() {
+          if (timer) return;
+          show(0);
+          timer = setTimeout(tick, 1500);
+        }
+
+        function stop() {
+          clearTimeout(timer);
+          timer = null;
+        }
+
+        if (reduceMotion) {
+          show(last);
+          return;
+        }
+
+        if (!("IntersectionObserver" in window)) {
+          start();
+          return;
+        }
+
+        new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) start();
+          else stop();
+        }, { threshold: 0.35 }).observe(heading);
       }
 
 
@@ -2585,6 +2709,7 @@
       initNavigation();
       initHeroCarousel();
       initReveal();
+      initJourneyHeading();
       initCounters();
       initTestimonials();
       initBMI();
