@@ -919,12 +919,50 @@
 
             <!-- Training options -->
             <div class="founder-programs">
-              <div class="program-heading">Three ways to train with TFI</div>
+              <div class="program-heading">
+                <span class="program-heading-line"></span>
+                Three ways to train with TFI
+              </div>
 
-              <div class="program-tags">
-                <span>LIVE ONE-ON-ONE PERSONAL TRAINING</span>
-                <span>PERSONALIZED EXERCISE & NUTRITION GUIDANCE</span>
-                <span>SPECIALIZED PERSONAL TRAINING</span>
+              <div class="program-cards">
+                <div class="program-card">
+                  <div class="program-card-top">
+                    <span class="program-card-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="2" y="6" width="14" height="12" rx="2"></rect>
+                        <path d="M16 10l6-3v10l-6-3"></path>
+                      </svg>
+                    </span>
+                    <span class="program-card-num">01</span>
+                  </div>
+                  <div class="program-card-title">Live One-on-One Personal Training</div>
+                </div>
+
+                <div class="program-card">
+                  <div class="program-card-top">
+                    <span class="program-card-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                      </svg>
+                    </span>
+                    <span class="program-card-num">02</span>
+                  </div>
+                  <div class="program-card-title">Personalized Exercise &amp; Nutrition Guidance</div>
+                </div>
+
+                <div class="program-card">
+                  <div class="program-card-top">
+                    <span class="program-card-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                      </svg>
+                    </span>
+                    <span class="program-card-num">03</span>
+                  </div>
+                  <div class="program-card-title">Specialized Personal Training</div>
+                </div>
               </div>
             </div>
 
@@ -2014,8 +2052,6 @@
         var heading = document.querySelector(".journey-intro h2");
         if (!heading) return;
 
-        var count = 0;
-
         Array.prototype.slice.call(heading.childNodes).forEach(function (node) {
           if (node.nodeType !== 3) return;
 
@@ -2029,19 +2065,13 @@
               return;
             }
 
-            count++;
-
             var word = document.createElement("span");
-            var num = document.createElement("em");
             var text = document.createElement("span");
 
             word.className = "jh-word";
-            num.setAttribute("aria-hidden", "true");
-            num.textContent = (count < 10 ? "0" : "") + count;
             text.className = "jh-text";
             text.textContent = part;
 
-            word.appendChild(num);
             word.appendChild(text);
             fragment.appendChild(word);
           });

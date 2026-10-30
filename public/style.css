@@ -3095,42 +3095,152 @@ html.dark-mode #mobilemenu {
 /* ---------- Programs tags ---------- */
 
 .founder-programs {
-  margin-top: 30px;
+  margin-top: 34px;
 }
 
 .program-heading {
-  margin-bottom: 13px;
-  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: var(--gold);
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.program-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
+.program-heading-line {
+  width: 28px;
+  height: 2px;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright));
 }
 
-.program-tags span {
+.program-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.program-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 16px 18px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background:
+    linear-gradient(160deg, rgba(201, 162, 77, 0.10) 0%, rgba(201, 162, 77, 0.02) 55%, transparent 100%);
+  cursor: default;
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.program-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold-light), var(--gold-bright));
+  transform: scaleX(0.25);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.program-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(160deg, var(--gold) 0%, var(--gold-deep) 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.program-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.program-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.program-card-icon {
   display: inline-flex;
   align-items: center;
-  padding: 9px 13px;
-  border: 1px solid var(--line);
-  background: rgba(168, 131, 47, 0.05);
-  color: var(--text);
-  font-size: 12px;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(201, 162, 77, 0.45);
+  border-radius: 50%;
+  background: rgba(201, 162, 77, 0.12);
+  color: var(--gold);
   transition:
-    border-color 0.25s ease,
-    background 0.25s ease,
-    transform 0.25s ease;
+    background 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.35s ease;
 }
 
-.program-tags span:hover {
+.program-card-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.program-card-num {
+  color: var(--gold);
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+  opacity: 0.35;
+  transition: color 0.35s ease, opacity 0.35s ease;
+}
+
+.program-card-title {
+  color: var(--text);
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.35;
+  transition: color 0.35s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-5px);
   border-color: var(--gold);
-  background: rgba(168, 131, 47, 0.09);
-  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(168, 131, 47, 0.28);
+}
+
+.program-card:hover::before {
+  transform: scaleX(1);
+}
+
+.program-card:hover::after {
+  opacity: 1;
+}
+
+.program-card:hover .program-card-icon {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  transform: rotate(-8deg) scale(1.06);
+}
+
+.program-card:hover .program-card-num {
+  color: #fff;
+  opacity: 0.55;
+}
+
+.program-card:hover .program-card-title {
+  color: #fff;
 }
 
 /* ---------- Quote ---------- */
@@ -3235,13 +3345,25 @@ html.dark-mode #mobilemenu {
     padding-top: 2px;
   }
 
-  .program-tags {
-    display: grid;
+  .program-cards {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 
-  .program-tags span {
-    width: 100%;
+  .program-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+  }
+
+  .program-card-num {
+    display: none;
+  }
+
+  .program-card-title {
+    font-size: 14px;
   }
 
   .founder-quote {
@@ -16697,24 +16819,6 @@ html.dark-mode .page-home .journey-intro h2.jh-ready {
   white-space: nowrap;
 }
 
-.page-home .jh-word em {
-  display: inline-block;
-  margin: 0.5em 0.28em 0 0;
-  vertical-align: top;
-  color: var(--gold);
-  font-size: max(11px, 0.15em);
-  font-style: normal;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  opacity: 0.55;
-  transition: opacity 0.4s ease, color 0.4s ease;
-}
-
-html:not(.dark-mode) .page-home .jh-word em {
-  color: var(--gold-deep);
-}
-
 .page-home .jh-text {
   position: relative;
   display: inline-block;
@@ -16759,11 +16863,6 @@ html:not(.dark-mode) .page-home .jh-word em {
   -webkit-text-fill-color: var(--jh-done);
 }
 
-.page-home .jh-word.is-active em,
-.page-home .jh-word.is-done em {
-  opacity: 1;
-}
-
 @media (max-width: 550px) {
   .page-home .journey-intro h2.jh-ready {
     font-size: clamp(38px, 11vw, 48px);
@@ -16777,8 +16876,7 @@ html:not(.dark-mode) .page-home .jh-word em {
 
 @media (prefers-reduced-motion: reduce) {
   .page-home .jh-text,
-  .page-home .jh-text::after,
-  .page-home .jh-word em {
+  .page-home .jh-text::after {
     transition: none;
   }
 }
