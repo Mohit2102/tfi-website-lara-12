@@ -3025,11 +3025,68 @@ html.dark-mode #mobilemenu {
 
 .founder-lead {
   max-width: 600px;
-  margin: 32px 0 20px;
+  margin: 28px 0 22px;
+  padding-left: 18px;
+  border-left: 3px solid var(--gold);
   color: var(--text);
-  font-size: clamp(19px, 2vw, 23px);
+  font-size: clamp(17px, 1.6vw, 20px);
   font-weight: 500;
-  line-height: 1.55;
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+}
+
+.founder-bio {
+  max-width: 610px;
+  margin: 0 0 15px;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.founder-bio.is-clamped {
+  max-height: calc(1.8em * 5);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+
+.founder-bio-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: -4px 0 6px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--gold);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.founder-bio-toggle[hidden] {
+  display: none;
+}
+
+.founder-bio-toggle:hover span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.founder-bio-toggle:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.founder-bio-toggle svg {
+  transition: transform 0.25s ease;
+}
+
+.founder-bio-toggle.is-expanded svg {
+  transform: rotate(180deg);
 }
 
 .founder-content > p:not(.founder-lead) {
@@ -3326,8 +3383,14 @@ html.dark-mode #mobilemenu {
   }
 
   .founder-lead {
-    margin-top: 25px;
-    font-size: 18px;
+    margin-top: 24px;
+    padding-left: 14px;
+    font-size: 16.5px;
+  }
+
+  .founder-bio {
+    font-size: 14.5px;
+    line-height: 1.75;
   }
 
   .approach-list {

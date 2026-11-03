@@ -869,14 +869,21 @@
               the person — their goals, lifestyle and individual needs.
             </p>
 
-            <div data-cms="founder.bio">
+            <div class="founder-bio" id="founderBio" data-cms="founder.bio">
               I'm Santhosh M, an ACE-Certified Personal Trainer with
-              12+ years of experience in the fitness industry.
-
+              12+ years of experience in the fitness industry.<br><br>
               Over the years, I've worked with people across different
               fitness levels and goals, including people over 40 and
               individuals with specific health considerations.
             </div>
+            <button type="button" class="founder-bio-toggle" id="founderBioToggle"
+              aria-controls="founderBio" aria-expanded="false" hidden>
+              <span>View more</span>
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
 
             <!-- <p>
               This experience shaped my approach to fitness:
@@ -1891,6 +1898,7 @@
        07. BMI calculator
        08. Enquiry form
        09. BMI floating button
+       10. Founder bio "View more"
   ========================================================== -->
   <script>
     (function () {
@@ -2732,6 +2740,60 @@
 
 
       /* =======================================================
+         10. FOUNDER BIO "VIEW MORE"
+         Collapses the bio only when it is taller than the
+         clamped height, so short copy shows no button.
+      ======================================================= */
+
+      function initFounderBio() {
+        var bio = document.getElementById("founderBio");
+        var toggle = document.getElementById("founderBioToggle");
+
+        if (!bio || !toggle) return;
+
+        var label = toggle.querySelector("span");
+        var expanded = false;
+
+        function measure() {
+          if (expanded) return;
+
+          bio.classList.add("is-clamped");
+          var overflows = bio.scrollHeight > bio.clientHeight + 2;
+
+          bio.classList.toggle("is-clamped", overflows);
+          toggle.hidden = !overflows;
+        }
+
+        toggle.addEventListener("click", function () {
+          expanded = !expanded;
+
+          bio.classList.toggle("is-clamped", !expanded);
+          toggle.classList.toggle("is-expanded", expanded);
+          toggle.setAttribute("aria-expanded", String(expanded));
+          label.textContent = expanded ? "View less" : "View more";
+
+          if (!expanded) {
+            var top = bio.getBoundingClientRect().top;
+            if (top < 0) {
+              window.scrollBy({ top: top - 120, behavior: reduceMotion ? "auto" : "smooth" });
+            }
+          }
+        });
+
+        var resizeTimer;
+        window.addEventListener("resize", function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(measure, 150);
+        });
+
+        measure();
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(measure);
+        }
+      }
+
+
+      /* =======================================================
          START
       ======================================================= */
 
@@ -2745,6 +2807,7 @@
       initBMI();
       initEnquiryForm();
       initBmiFloat();
+      initFounderBio();
 
     })();
 
