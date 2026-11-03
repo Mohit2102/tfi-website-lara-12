@@ -32,6 +32,7 @@
     <div class="card-head">
         <h3><svg class="ic"><use href="#i-shield-check"/></svg> Trainer cards</h3>
         <div class="form-actions">
+            <a href="{{ route('superadmin.pages.edit', 'trainers') }}" class="link">Edit page copy <svg class="ic"><use href="#i-arrow"/></svg></a>
             <a href="{{ url('/trainers') }}" class="link" target="_blank" rel="noopener">View page <svg class="ic"><use href="#i-up-right"/></svg></a>
             <a class="btn-gold" href="{{ route('superadmin.trainers.create') }}" style="height:38px; padding:0 1rem">
                 <svg class="ic"><use href="#i-user-plus"/></svg> Add trainer

@@ -107,6 +107,54 @@ class TrainersPageTest extends TestCase
         $this->assertDatabaseMissing('trainers', ['id' => $second->id]);
     }
 
+    public function test_combined_experience_is_calculated_from_published_trainers(): void
+    {
+        $this->get('/trainers')
+            ->assertOk()
+            ->assertSee('data-cms="trainers.experience">50+<', false);
+
+        Trainer::query()->where('name', 'Vikram Iyer')->update(['is_published' => false]);
+
+        $this->get('/trainers')
+            ->assertSee('data-cms="trainers.experience">38+<', false);
+    }
+
+    public function test_superadmin_can_edit_trainers_page_copy(): void
+    {
+        $admin = User::factory()->create(['role' => User::ROLE_SUPERADMIN]);
+
+        $this->actingAs($admin)
+            ->get('/superadmin/pages/trainers/edit')
+            ->assertOk()
+            ->assertSee('Heading accent')
+            ->assertSee('Your Goals. Our Expertise.');
+
+        $this->actingAs($admin)
+            ->put('/superadmin/pages/trainers', [
+                'title' => 'Our Coaches | TFI',
+                'is_published' => '1',
+                'content' => [
+                    'hero' => ['kicker' => 'Coached by experts', 'title' => 'Meet the', 'title_accent' => 'Coaches', 'body' => 'Find your coach.'],
+                    'stats' => ['coaches_label' => 'Coaches', 'experience_label' => 'Years', 'clients_value' => '2000+', 'clients_label' => 'Happy clients'],
+                    'cards' => ['button' => 'Train with me', 'empty' => 'Coming soon'],
+                    'cta' => ['heading' => 'Still deciding on a', 'heading_accent' => 'coach', 'heading_tail' => '?', 'body' => 'We will help.', 'button' => 'Talk to us'],
+                ],
+            ])
+            ->assertRedirect('/superadmin/pages/trainers/edit');
+
+        $this->get('/trainers')
+            ->assertOk()
+            ->assertSee('<title>Our Coaches | TFI</title>', false)
+            ->assertSee('data-cms="hero.kicker">Coached by experts<', false)
+            ->assertSee('data-cms="hero.title_accent">Coaches<', false)
+            ->assertSee('data-cms="stats.clients_value">2000+<', false)
+            ->assertSee('Train with me')
+            ->assertSee('data-cms="cta.heading_accent">coach<', false)
+            ->assertSee('data-cms="cta.button">Talk to us<', false)
+            ->assertSee('Arjun Mehta')
+            ->assertSee('data-cms="trainers.count">6<', false);
+    }
+
     public function test_customers_cannot_manage_trainers(): void
     {
         $customer = User::factory()->create(['role' => User::ROLE_CUSTOMER]);

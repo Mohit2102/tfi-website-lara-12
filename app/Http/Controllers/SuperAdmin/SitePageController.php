@@ -7,6 +7,7 @@ use App\Models\SitePage;
 use App\Support\HtmlPageRenderer;
 use App\Support\PlanPriceCatalog;
 use App\Support\ProgramPageContent;
+use App\Support\TrainersPageContent;
 use App\Support\UploadCleanup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -68,6 +69,15 @@ class SitePageController extends Controller
             ]);
         }
 
+        if ($slug === 'trainers') {
+            return view('superadmin.pages.trainers', [
+                'page' => $page,
+                'slug' => $slug,
+                'name' => $name,
+                'content' => TrainersPageContent::merge($page->content),
+            ]);
+        }
+
         return view('superadmin.pages.edit', [
             'page' => $page,
             'slug' => $slug,
@@ -90,6 +100,9 @@ class SitePageController extends Controller
             $rules['uploads.hero'] = ['nullable', 'file', 'max:8192', 'mimes:jpg,jpeg,png,webp,gif'];
             $rules['uploads.inside'] = ['nullable', 'array'];
             $rules['uploads.inside.*'] = ['nullable', 'file', 'max:8192', 'mimes:jpg,jpeg,png,webp,gif'];
+        } elseif ($slug === 'trainers') {
+            $rules['content'] = ['required', 'array'];
+            $rules['content.*.*'] = ['nullable', 'string', 'max:600'];
         } else {
             $rules['html'] = ['required', 'string'];
         }
@@ -114,6 +127,9 @@ class SitePageController extends Controller
                 $payload['content'],
                 'uploads/programs/'.$slug.'/'
             );
+        } elseif ($slug === 'trainers') {
+            $payload['content'] = $this->trainersContent($data['content']);
+            $payload['html'] = null;
         } else {
             $payload['html'] = $data['html'];
         }
@@ -153,6 +169,23 @@ class SitePageController extends Controller
 
             if ($file instanceof UploadedFile && $file->isValid()) {
                 $content['inside'][$i]['image'] = $this->storePublic($file, $slug);
+            }
+        }
+
+        return $content;
+    }
+
+    /**
+     * @param  array<string, mixed>  $input
+     * @return array<string, array<string, string>>
+     */
+    private function trainersContent(array $input): array
+    {
+        $content = [];
+
+        foreach (TrainersPageContent::defaults() as $section => $fields) {
+            foreach ($fields as $key => $default) {
+                $content[$section][$key] = trim((string) ($input[$section][$key] ?? $default));
             }
         }
 

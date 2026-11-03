@@ -458,7 +458,7 @@
       text-transform: uppercase;
     }
 
-    .tr-cta h2 span { color: var(--gold); }
+    .tr-cta h2 .tr-accent { color: var(--gold); }
 
     .tr-cta p {
       max-width: 520px;
@@ -704,21 +704,21 @@
         <b>Trainers</b>
       </nav>
 
-      <span class="tr-kicker">Your Goals. Our Expertise.</span>
+      <span class="tr-kicker" data-cms="hero.kicker">Your Goals. Our Expertise.</span>
 
-      <h1>
+      <h1 data-cms-prefix="hero.title">
         Meet Our
-        <span>Trainers</span>
+        <span data-cms="hero.title_accent">Trainers</span>
       </h1>
 
-      <p>
+      <p data-cms="hero.body">
         Qualified people. Professional coaching. Explore each coach's certifications, experience and specialization to find the right fit for your fitness journey.
       </p>
 
       <div class="tr-hero-stats">
-        <div class="tr-hero-stat"><strong data-cms="trainers.count">6</strong><small>Expert Coaches</small></div>
-        <div class="tr-hero-stat"><strong>50+</strong><small>Years Combined Experience</small></div>
-        <div class="tr-hero-stat"><strong>1500+</strong><small>Clients Trained</small></div>
+        <div class="tr-hero-stat"><strong data-cms="trainers.count">6</strong><small data-cms="stats.coaches_label">Expert Coaches</small></div>
+        <div class="tr-hero-stat"><strong data-cms="trainers.experience">50+</strong><small data-cms="stats.experience_label">Years Combined Experience</small></div>
+        <div class="tr-hero-stat"><strong data-cms="stats.clients_value">1500+</strong><small data-cms="stats.clients_label">Clients Trained</small></div>
       </div>
 
     </div>
@@ -930,10 +930,10 @@
     <div class="wrap">
       <div class="tr-cta-inner">
         <div>
-          <h2>Not sure which <span>trainer</span> is right for you?</h2>
-          <p>Tell us your goal and our team will match you with the perfect coach.</p>
+          <h2><span data-cms="cta.heading">Not sure which</span> <span class="tr-accent" data-cms="cta.heading_accent">trainer</span> <span data-cms="cta.heading_tail">is right for you?</span></h2>
+          <p data-cms="cta.body">Tell us your goal and our team will match you with the perfect coach.</p>
         </div>
-        <a href="index.html#contact" class="btn btn-solid">Get Matched →</a>
+        <a href="index.html#contact" class="btn btn-solid" data-cms="cta.button">Get Matched →</a>
       </div>
     </div>
   </section>

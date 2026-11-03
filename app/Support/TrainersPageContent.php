@@ -22,8 +22,54 @@ class TrainersPageContent
         'linear-gradient(135deg, #8f6819, #17110a)',
     ];
 
-    public static function apply(string $html): string
+    /**
+     * @return array<string, mixed>
+     */
+    public static function defaults(): array
     {
+        return [
+            'hero' => [
+                'kicker' => 'Your Goals. Our Expertise.',
+                'title' => 'Meet Our',
+                'title_accent' => 'Trainers',
+                'body' => "Qualified people. Professional coaching. Explore each coach's certifications, experience and specialization to find the right fit for your fitness journey.",
+            ],
+            'stats' => [
+                'coaches_label' => 'Expert Coaches',
+                'experience_label' => 'Years Combined Experience',
+                'clients_value' => '1500+',
+                'clients_label' => 'Clients Trained',
+            ],
+            'cards' => [
+                'button' => 'Book Now',
+                'empty' => 'Our coaching team will be introduced here soon.',
+            ],
+            'cta' => [
+                'heading' => 'Not sure which',
+                'heading_accent' => 'trainer',
+                'heading_tail' => 'is right for you?',
+                'body' => 'Tell us your goal and our team will match you with the perfect coach.',
+                'button' => 'Get Matched →',
+            ],
+        ];
+    }
+
+    /**
+     * @param  array<string, mixed>|null  $saved
+     * @return array<string, mixed>
+     */
+    public static function merge(?array $saved): array
+    {
+        return array_replace_recursive(self::defaults(), $saved ?? []);
+    }
+
+    /**
+     * @param  array<string, mixed>|null  $saved
+     */
+    public static function apply(string $html, ?array $saved = null): string
+    {
+        $content = self::merge($saved);
+        $html = CmsMarkup::applyChanged($html, self::defaults(), $content);
         $trainers = self::published();
 
         if ($trainers === null) {
@@ -35,15 +81,37 @@ class TrainersPageContent
 
         if ($start !== false && $end !== false && $end > $start) {
             $html = substr($html, 0, $start + strlen(self::START))
-                ."\n".self::cards($trainers)."\n"
+                ."\n".self::cards($trainers, $content['cards'])."\n"
                 .substr($html, $end);
         }
 
-        return preg_replace(
+        $html = preg_replace(
             '/(data-cms="trainers\.count"[^>]*>)[^<]*/',
             '${1}'.$trainers->count(),
             $html
         ) ?? $html;
+
+        $years = self::combinedYears($trainers);
+
+        if ($years === 0) {
+            return $html;
+        }
+
+        return preg_replace(
+            '/(data-cms="trainers\.experience"[^>]*>)[^<]*/',
+            '${1}'.$years.'+',
+            $html
+        ) ?? $html;
+    }
+
+    /**
+     * @param  Collection<int, Trainer>  $trainers
+     */
+    private static function combinedYears(Collection $trainers): int
+    {
+        return (int) $trainers->sum(
+            fn (Trainer $trainer) => preg_match('/\d+/', (string) $trainer->experience, $match) ? (int) $match[0] : 0
+        );
     }
 
     /**
@@ -60,19 +128,20 @@ class TrainersPageContent
 
     /**
      * @param  Collection<int, Trainer>  $trainers
+     * @param  array<string, mixed>  $copy
      */
-    private static function cards(Collection $trainers): string
+    private static function cards(Collection $trainers, array $copy): string
     {
         if ($trainers->isEmpty()) {
-            return '<p class="tr-empty">Our coaching team will be introduced here soon.</p>';
+            return '<p class="tr-empty">'.e((string) $copy['empty']).'</p>';
         }
 
         return $trainers->values()
-            ->map(fn (Trainer $trainer, int $i) => self::card($trainer, $i))
+            ->map(fn (Trainer $trainer, int $i) => self::card($trainer, $i, (string) $copy['button']))
             ->implode("\n");
     }
 
-    private static function card(Trainer $trainer, int $index): string
+    private static function card(Trainer $trainer, int $index, string $button): string
     {
         $fallback = self::FALLBACKS[$index % count(self::FALLBACKS)];
         $photo = $trainer->photoUrl();
@@ -129,7 +198,7 @@ class TrainersPageContent
             .$metaHtml
             .'<div class="tr-foot">'
             .$socialsHtml
-            .'<a href="index.html#contact" class="btn btn-solid tr-book">Book Now <span>→</span></a>'
+            .'<a href="index.html#contact" class="btn btn-solid tr-book">'.e($button).' <span>→</span></a>'
             .'</div>'
             .'</div>'
             .'</article>';

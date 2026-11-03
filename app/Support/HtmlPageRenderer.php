@@ -64,7 +64,7 @@ class HtmlPageRenderer
                 ProgramPageContent::merge($page, $record?->content)
             );
         } elseif ($page === 'trainers') {
-            $html = TrainersPageContent::apply($html);
+            $html = TrainersPageContent::apply($html, $record?->content);
         }
 
         return response($this->rewrite($html, $page, $record))
