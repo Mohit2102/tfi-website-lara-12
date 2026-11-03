@@ -236,6 +236,8 @@
       color: rgba(255, 255, 255, .14);
     }
 
+    .tr-photo.has-photo::before { content: none; }
+
     .tr-photo::after {
       content: "";
       position: absolute;
@@ -392,6 +394,15 @@
       border-color: var(--gold);
       color: #17130a;
       transform: translateY(-3px);
+    }
+
+    .tr-empty {
+      grid-column: 1 / -1;
+      padding: 60px 20px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 18px;
+      text-align: center;
+      color: var(--text-muted);
     }
 
     .tr-book {
@@ -705,7 +716,7 @@
       </p>
 
       <div class="tr-hero-stats">
-        <div class="tr-hero-stat"><strong>6</strong><small>Expert Coaches</small></div>
+        <div class="tr-hero-stat"><strong data-cms="trainers.count">6</strong><small>Expert Coaches</small></div>
         <div class="tr-hero-stat"><strong>50+</strong><small>Years Combined Experience</small></div>
         <div class="tr-hero-stat"><strong>1500+</strong><small>Clients Trained</small></div>
       </div>
@@ -719,6 +730,7 @@
     <div class="wrap">
 
       <div class="tr-grid">
+        <!-- trainers:start -->
 
         <!-- 1 -->
         <article class="tr-card">
@@ -906,6 +918,7 @@
           </div>
         </article>
 
+        <!-- trainers:end -->
       </div>
 
     </div>
