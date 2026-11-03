@@ -16,11 +16,7 @@
             <div class="cms-block" style="align-content:start">
                 <h4>Photo</h4>
                 @if ($trainer->photoUrl())
-                    <img class="thumb" src="{{ $trainer->photoUrl() }}" alt="{{ $trainer->name }}" style="height:220px; object-position:center top">
-                    <label class="check-row">
-                        <input type="checkbox" name="remove_photo" value="1">
-                        Remove current photo
-                    </label>
+                    <x-cms-image :src="$trainer->photoUrl()" remove-name="remove_photo" :alt="$trainer->name" img-style="height:220px; object-position:center top" />
                 @else
                     <p class="help">No photo yet — the card shows a gold gradient with a placeholder icon.</p>
                 @endif

@@ -7,6 +7,7 @@ use App\Models\SitePage;
 use App\Support\HtmlPageRenderer;
 use App\Support\PlanPriceCatalog;
 use App\Support\ProgramPageContent;
+use App\Support\UploadCleanup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -105,7 +106,13 @@ class SitePageController extends Controller
             $payload['content'] = $this->storeUploads(
                 $request,
                 $slug,
-                ProgramPageContent::merge($slug, $data['content'] ?? [])
+                UploadCleanup::blankClearedImages(ProgramPageContent::merge($slug, $data['content'] ?? []))
+            );
+
+            UploadCleanup::orphans(
+                SitePage::query()->where('slug', $slug)->first()?->content,
+                $payload['content'],
+                'uploads/programs/'.$slug.'/'
             );
         } else {
             $payload['html'] = $data['html'];

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\SitePage;
 use App\Support\HomePageContent;
+use App\Support\UploadCleanup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -34,8 +35,14 @@ class HomePageController extends Controller
             'content' => ['required', 'array'],
         ]);
 
-        $content = HomePageContent::merge($data['content']);
+        $content = UploadCleanup::blankClearedImages(HomePageContent::merge($data['content']));
         $content = $this->storeUploads($request, $content);
+
+        UploadCleanup::orphans(
+            SitePage::query()->where('slug', 'index')->value('content'),
+            $content,
+            'uploads/home/'
+        );
 
         SitePage::query()->updateOrCreate(
             ['slug' => 'index'],

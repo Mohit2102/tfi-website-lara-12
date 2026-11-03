@@ -30,6 +30,12 @@ class ProfileController extends Controller
 
         if ($request->file('photo') instanceof UploadedFile) {
             $user->avatar = $this->storePhoto($request->file('photo'), $user->avatar);
+        } elseif ($request->boolean('remove_photo')) {
+            if (is_string($user->avatar) && str_starts_with($user->avatar, 'uploads/avatars/') && is_file(public_path($user->avatar))) {
+                @unlink(public_path($user->avatar));
+            }
+
+            $user->avatar = null;
         }
 
         $user->save();

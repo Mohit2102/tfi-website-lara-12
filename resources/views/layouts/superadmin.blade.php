@@ -407,6 +407,31 @@
         .thumb { width: 100%; height: 90px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); }
         @media (max-width: 900px) { .cms-grid, .cms-grid-3 { grid-template-columns: 1fr; } }
 
+        /* image preview with delete icon */
+        .img-box { position: relative; }
+        .img-box--avatar { display: inline-block; }
+        .img-del {
+            position: absolute; top: 8px; right: 8px; z-index: 2;
+            width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+            color: #fff; background: rgba(17, 14, 8, .72); border: 1px solid rgba(255, 255, 255, .28);
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, .25);
+            transition: background .2s, border-color .2s, transform .2s;
+        }
+        .img-del:hover, .img-del:focus-visible { background: #dc2626; border-color: #dc2626; transform: scale(1.08); }
+        .img-del .ic { width: 15px; height: 15px; }
+        .img-box--avatar .img-del { top: -2px; right: -2px; }
+        .img-removed {
+            position: absolute; inset: 0; z-index: 3; display: none; place-content: center; justify-items: center; gap: .45rem;
+            border-radius: 10px; background: rgba(9, 8, 6, .72); color: #fff;
+            font-size: .74rem; font-weight: 600; text-align: center; padding: .5rem;
+        }
+        .img-box--avatar .img-removed { border-radius: 50%; font-size: .58rem; }
+        .img-removed button { padding: .3rem .85rem; border-radius: 100px; background: var(--gold-bright); color: #17130a; font-size: .72rem; font-weight: 700; }
+        .img-field.is-removed .img-removed { display: grid; }
+        .img-field.is-removed .img-del { display: none; }
+        .img-field.is-removed img { filter: grayscale(1); opacity: .45; }
+
         /* website CTA */
         .site-cta {
             position: relative; overflow: hidden; isolation: isolate;
@@ -495,6 +520,7 @@
     <symbol id="i-pie" viewBox="0 0 24 24"><path d="M21 12A9 9 0 1 1 12 3v9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
     <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6"/></symbol>
 </svg>
 
 <div class="app">
@@ -610,6 +636,19 @@
     document.getElementById('themeBtn').addEventListener('click', () => {
         const dark = document.documentElement.classList.toggle('dark-mode');
         try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+    });
+
+    // Image delete / undo (saved when the form is submitted)
+    document.addEventListener('click', e => {
+        const btn = e.target.closest('[data-img-del], [data-img-undo]');
+        if (!btn) return;
+        const field = btn.closest('[data-img-field]');
+        const removing = btn.hasAttribute('data-img-del');
+        field.classList.toggle('is-removed', removing);
+        const value = field.querySelector('[data-img-value]');
+        if (value) value.value = removing ? '' : value.dataset.original;
+        const flag = field.querySelector('[data-img-remove]');
+        if (flag) flag.value = removing ? '1' : '0';
     });
 
     // Mobile sidebar

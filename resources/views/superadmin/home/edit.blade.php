@@ -5,9 +5,6 @@
 @section('subheading', 'This is the public homepage. Saved fields go live immediately.')
 
 @section('content')
-@php
-    $assetUrl = fn ($path) => $path ? (str_starts_with($path, 'http') ? $path : asset($path)) : '';
-@endphp
 <form method="POST" action="{{ route('superadmin.home.update') }}" enctype="multipart/form-data" class="cms-stack">
     @csrf
     @method('PUT')
@@ -35,16 +32,13 @@
             @foreach ($content['hero'] as $i => $slide)
                 <div class="cms-block">
                     <h4>Slide {{ $i + 1 }}</h4>
-                    @if ($slide['image'])
-                        <img class="thumb" src="{{ $assetUrl($slide['image']) }}" alt="">
-                    @endif
                     {{-- Image path
                     <div class="field">
                         <label>Image path</label>
                         <input name="content[hero][{{ $i }}][image]" value="{{ old('content.hero.'.$i.'.image', $slide['image']) }}">
                     </div>
                     --}}
-                    <input type="hidden" name="content[hero][{{ $i }}][image]" value="{{ old('content.hero.'.$i.'.image', $slide['image']) }}">
+                    <x-cms-image name="content[hero][{{ $i }}][image]" :value="old('content.hero.'.$i.'.image', $slide['image'])" />
                     <div class="field">
                         <label>Replace image</label>
                         <input type="file" name="uploads[hero][{{ $i }}]" accept="image/*">
@@ -190,9 +184,6 @@
             @foreach ($content['programs']['cards'] as $i => $card)
                 <div class="cms-block">
                     <h4>Card {{ $i + 1 }}</h4>
-                    @if ($card['image'])
-                        <img class="thumb" src="{{ $assetUrl($card['image']) }}" alt="">
-                    @endif
                     <div class="field">
                         <label>Title</label>
                         <input name="content[programs][cards][{{ $i }}][title]" value="{{ old('content.programs.cards.'.$i.'.title', $card['title']) }}">
@@ -211,7 +202,7 @@
                         <input name="content[programs][cards][{{ $i }}][image]" value="{{ old('content.programs.cards.'.$i.'.image', $card['image']) }}">
                     </div>
                     --}}
-                    <input type="hidden" name="content[programs][cards][{{ $i }}][image]" value="{{ old('content.programs.cards.'.$i.'.image', $card['image']) }}">
+                    <x-cms-image name="content[programs][cards][{{ $i }}][image]" :value="old('content.programs.cards.'.$i.'.image', $card['image'])" />
                     <div class="field">
                         <label>Replace image</label>
                         <input type="file" name="uploads[programs][{{ $i }}]" accept="image/*">
@@ -260,7 +251,7 @@
                             <input name="content[why][cards][{{ $i }}][image]" value="{{ old('content.why.cards.'.$i.'.image', $card['image']) }}">
                         </div>
                         --}}
-                        <input type="hidden" name="content[why][cards][{{ $i }}][image]" value="{{ old('content.why.cards.'.$i.'.image', $card['image']) }}">
+                        <x-cms-image name="content[why][cards][{{ $i }}][image]" :value="old('content.why.cards.'.$i.'.image', $card['image'])" />
                         <div class="field">
                             <label>Replace image</label>
                             <input type="file" name="uploads[why][{{ $i }}]" accept="image/*">
@@ -284,7 +275,7 @@
                 <input name="content[why][team_image]" value="{{ old('content.why.team_image', $content['why']['team_image']) }}">
             </div>
             --}}
-            <input type="hidden" name="content[why][team_image]" value="{{ old('content.why.team_image', $content['why']['team_image']) }}">
+            <x-cms-image name="content[why][team_image]" :value="old('content.why.team_image', $content['why']['team_image'])" />
             <div class="field">
                 <label>Replace team image</label>
                 <input type="file" name="uploads[why_team]" accept="image/*">
@@ -337,7 +328,7 @@
                 <input name="content[founder][image]" value="{{ old('content.founder.image', $content['founder']['image']) }}">
             </div>
             --}}
-            <input type="hidden" name="content[founder][image]" value="{{ old('content.founder.image', $content['founder']['image']) }}">
+            <x-cms-image name="content[founder][image]" :value="old('content.founder.image', $content['founder']['image'])" />
             <div class="field">
                 <label>Replace photo</label>
                 <input type="file" name="uploads[founder]" accept="image/*">
@@ -427,7 +418,7 @@
                 <input name="content[bmi][image]" value="{{ old('content.bmi.image', $content['bmi']['image']) }}">
             </div>
             --}}
-            <input type="hidden" name="content[bmi][image]" value="{{ old('content.bmi.image', $content['bmi']['image']) }}">
+            <x-cms-image name="content[bmi][image]" :value="old('content.bmi.image', $content['bmi']['image'])" />
             <div class="field">
                 <label>Replace BMI image</label>
                 <input type="file" name="uploads[bmi]" accept="image/*">

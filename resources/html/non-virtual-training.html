@@ -263,18 +263,43 @@
                         <!-- Video -->
                         <div class="virtual-plan-media">
 
-                            <video
-                                autoplay
-                                muted
-                                loop
-                                playsinline
-                                preload="metadata"
-                            >
-                                <source
-                                    src="videos/nonvirtual-monthly.mp4"
-                                    type="video/mp4"
-                                >
-                            </video>
+                            <!-- Animated scene: hands-on form check -->
+                            <div class="vp-scene vp-scene--form" aria-hidden="true">
+                                <div class="vp-grid"></div>
+                                <div class="vp-glow"></div>
+
+                                <div class="vp-viewfinder">
+                                    <span class="vp-corner vp-corner--tl"></span>
+                                    <span class="vp-corner vp-corner--tr"></span>
+                                    <span class="vp-corner vp-corner--bl"></span>
+                                    <span class="vp-corner vp-corner--br"></span>
+                                    <span class="vp-scanline"></span>
+
+                                    <svg class="vp-curl" viewBox="0 0 120 110">
+                                        <line class="vp-guide" x1="56" y1="6" x2="56" y2="106" />
+                                        <ellipse class="vp-floor" cx="56" cy="103" rx="26" ry="3.5" />
+                                        <circle class="vp-head" cx="56" cy="18" r="7" />
+                                        <path d="M56 27 L56 62 M56 62 L49 100 M56 62 L63 100 M56 32 L59 52" />
+                                        <g class="vp-forearm">
+                                            <line x1="59" y1="52" x2="77" y2="52" />
+                                            <rect x="74" y="44" width="6" height="16" rx="2" />
+                                        </g>
+                                        <circle class="vp-joint" cx="56" cy="32" r="3" />
+                                        <circle class="vp-joint vp-joint--live" cx="59" cy="52" r="3.4" />
+                                        <circle class="vp-joint" cx="56" cy="62" r="3" />
+                                    </svg>
+                                </div>
+
+                                <div class="vp-chip vp-chip--a">
+                                    <b>FORM ✓</b>
+                                    <small>COACH CHECKED</small>
+                                </div>
+
+                                <div class="vp-chip vp-chip--b">
+                                    <b>SET 3</b>
+                                    <small>/ 4</small>
+                                </div>
+                            </div>
 
                             <div class="virtual-plan-overlay"></div>
 
@@ -365,18 +390,41 @@
                         <!-- Video -->
                         <div class="virtual-plan-media">
 
-                            <video
-                                autoplay
-                                muted
-                                loop
-                                playsinline
-                                preload="metadata"
-                            >
-                                <source
-                                    src="videos/nonvirtual-half-yearly.mp4"
-                                    type="video/mp4"
-                                >
-                            </video>
+                            <!-- Animated scene: 12-week strength build -->
+                            <div class="vp-scene vp-scene--load" aria-hidden="true">
+                                <div class="vp-grid"></div>
+                                <div class="vp-glow"></div>
+
+                                <svg class="vp-barbell" viewBox="0 0 240 90">
+                                    <rect class="vp-barbell-bar" x="6" y="42" width="228" height="6" rx="3" />
+                                    <rect class="vp-barbell-collar" x="68" y="36" width="6" height="18" rx="2" />
+                                    <rect class="vp-barbell-collar" x="166" y="36" width="6" height="18" rx="2" />
+                                    <g class="vp-plates vp-plates--l">
+                                        <rect style="--p:0" x="56" y="8" width="11" height="74" rx="3" />
+                                        <rect style="--p:1" x="44" y="16" width="11" height="58" rx="3" />
+                                        <rect style="--p:2" x="34" y="25" width="9" height="40" rx="3" />
+                                    </g>
+                                    <g class="vp-plates vp-plates--r">
+                                        <rect style="--p:0" x="173" y="8" width="11" height="74" rx="3" />
+                                        <rect style="--p:1" x="185" y="16" width="11" height="58" rx="3" />
+                                        <rect style="--p:2" x="197" y="25" width="9" height="40" rx="3" />
+                                    </g>
+                                </svg>
+
+                                <div class="vp-weeks">
+                                    <div class="vp-weeks-track">
+                                        <i style="--w:0"></i><i style="--w:1"></i><i style="--w:2"></i><i style="--w:3"></i>
+                                        <i style="--w:4"></i><i style="--w:5"></i><i style="--w:6"></i><i style="--w:7"></i>
+                                        <i style="--w:8"></i><i style="--w:9"></i><i style="--w:10"></i><i style="--w:11"></i>
+                                    </div>
+                                    <div class="vp-weeks-label"><span>WK 01</span><span>WK 12</span></div>
+                                </div>
+
+                                <div class="vp-chip vp-chip--a">
+                                    <b>80 KG</b>
+                                    <small>NEW PR</small>
+                                </div>
+                            </div>
 
                             <div class="virtual-plan-overlay"></div>
 
@@ -462,18 +510,33 @@
                         <!-- Video -->
                         <div class="virtual-plan-media">
 
-                            <video
-                                autoplay
-                                muted
-                                loop
-                                playsinline
-                                preload="metadata"
-                            >
-                                <source
-                                    src="videos/nonvirtual-half-yearly.mp4"
-                                    type="video/mp4"
-                                >
-                            </video>
+                            <!-- Animated scene: workout + nutrition plan -->
+                            <div class="vp-scene vp-scene--plan" aria-hidden="true">
+                                <div class="vp-grid"></div>
+                                <div class="vp-glow"></div>
+
+                                <div class="vp-macros">
+                                    <svg viewBox="0 0 64 64">
+                                        <circle class="vp-macro-track" cx="32" cy="32" r="24" />
+                                        <circle class="vp-macro vp-macro--1" cx="32" cy="32" r="24" />
+                                        <circle class="vp-macro vp-macro--2" cx="32" cy="32" r="24" />
+                                        <circle class="vp-macro vp-macro--3" cx="32" cy="32" r="24" />
+                                    </svg>
+                                    <div class="vp-macros-label"><b>2,100</b><span>KCAL</span></div>
+                                </div>
+
+                                <ul class="vp-checklist">
+                                    <li style="--c:0"><i></i><span>Upper body strength</span></li>
+                                    <li style="--c:1"><i></i><span>High-protein meals</span></li>
+                                    <li style="--c:2"><i></i><span>Lower body &amp; core</span></li>
+                                    <li style="--c:3"><i></i><span>Recovery &amp; mobility</span></li>
+                                </ul>
+
+                                <div class="vp-chip vp-chip--a">
+                                    <b>P · C · F</b>
+                                    <small>BALANCED</small>
+                                </div>
+                            </div>
 
                             <div class="virtual-plan-overlay"></div>
 

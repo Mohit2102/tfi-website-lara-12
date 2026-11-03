@@ -216,9 +216,6 @@
         @endif
     @endif
 
-    @php
-        $assetUrl = fn ($path) => $path ? (str_starts_with($path, 'http') ? $path : asset($path)) : '';
-    @endphp
     @if (array_key_exists('image', $content['hero'] ?? []) || ! empty($content['inside']))
         <section class="card">
             <div class="card-head"><h3>Images</h3></div>
@@ -227,10 +224,7 @@
                 @if (array_key_exists('image', $content['hero'] ?? []))
                     <div class="cms-block">
                         <h4>Gallery image</h4>
-                        @if (! empty($content['hero']['image']))
-                            <img class="thumb" src="{{ $assetUrl($content['hero']['image']) }}" alt="">
-                        @endif
-                        <input type="hidden" name="content[hero][image]" value="{{ old('content.hero.image', $content['hero']['image']) }}">
+                        <x-cms-image name="content[hero][image]" :value="old('content.hero.image', $content['hero']['image'])" />
                         <div class="field">
                             <label>Replace image</label>
                             <input type="file" name="uploads[hero]" accept="image/*">
@@ -244,10 +238,7 @@
                 @foreach ($content['inside'] ?? [] as $i => $item)
                     <div class="cms-block">
                         <h4>Gallery {{ $i + 1 }}</h4>
-                        @if (! empty($item['image']))
-                            <img class="thumb" src="{{ $assetUrl($item['image']) }}" alt="">
-                        @endif
-                        <input type="hidden" name="content[inside][{{ $i }}][image]" value="{{ old('content.inside.'.$i.'.image', $item['image']) }}">
+                        <x-cms-image name="content[inside][{{ $i }}][image]" :value="old('content.inside.'.$i.'.image', $item['image'])" />
                         <div class="field">
                             <label>Replace image</label>
                             <input type="file" name="uploads[inside][{{ $i }}]" accept="image/*,.gif">

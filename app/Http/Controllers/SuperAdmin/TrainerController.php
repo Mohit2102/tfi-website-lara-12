@@ -59,11 +59,11 @@ class TrainerController extends Controller
     {
         $data = $this->validated($request);
 
-        if ($request->boolean('remove_photo')) {
+        if ($request->file('photo') instanceof UploadedFile) {
+            $data['photo'] = $this->storePhoto($request->file('photo'), $trainer->photo);
+        } elseif ($request->boolean('remove_photo')) {
             $this->deletePhoto($trainer->photo);
             $data['photo'] = null;
-        } elseif ($request->file('photo') instanceof UploadedFile) {
-            $data['photo'] = $this->storePhoto($request->file('photo'), $trainer->photo);
         }
 
         $trainer->update($data);

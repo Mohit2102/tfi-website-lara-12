@@ -102,6 +102,9 @@ class UserController extends Controller
 
         if ($request->file('photo') instanceof UploadedFile) {
             $data['avatar'] = $this->storePhoto($request->file('photo'), $user->avatar);
+        } elseif ($request->boolean('remove_photo')) {
+            $this->deletePhoto($user->avatar);
+            $data['avatar'] = null;
         }
 
         if (! filled($data['password'] ?? null)) {
@@ -207,10 +210,15 @@ class UserController extends Controller
         $name = Str::uuid()->toString().'.'.$file->getClientOriginalExtension();
         $file->move($directory, $name);
 
-        if (is_string($previous) && str_starts_with($previous, 'uploads/avatars/') && is_file(public_path($previous))) {
-            @unlink(public_path($previous));
-        }
+        $this->deletePhoto($previous);
 
         return 'uploads/avatars/'.$name;
+    }
+
+    private function deletePhoto(?string $path): void
+    {
+        if (is_string($path) && str_starts_with($path, 'uploads/avatars/') && is_file(public_path($path))) {
+            @unlink(public_path($path));
+        }
     }
 }

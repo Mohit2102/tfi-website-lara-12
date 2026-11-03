@@ -21,13 +21,13 @@
 
         <div class="cms-grid">
             <div class="cms-block" style="justify-items:center; text-align:center">
-                <div class="avatar avatar-lg">
-                    @if ($user->avatarUrl())
-                        <img src="{{ $user->avatarUrl() }}" alt="{{ $user->name }}">
-                    @else
+                @if ($user->avatarUrl())
+                    <x-cms-image variant="avatar" :src="$user->avatarUrl()" remove-name="remove_photo" :alt="$user->name" />
+                @else
+                    <div class="avatar avatar-lg">
                         {{ collect(preg_split('/\s+/', trim($user->name ?: 'U')))->filter()->map(fn ($p) => mb_strtoupper(mb_substr($p, 0, 1)))->take(2)->implode('') ?: 'U' }}
-                    @endif
-                </div>
+                    </div>
+                @endif
                 <div class="field" style="width:100%; margin-top:.6rem">
                     <label for="photo">Photo</label>
                     <input id="photo" type="file" name="photo" accept="image/*">
