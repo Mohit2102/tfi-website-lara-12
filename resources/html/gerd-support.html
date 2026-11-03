@@ -494,26 +494,93 @@
         <!-- Gallery -->
         <div class="mvp-gallery">
           <div class="mvp-stage">
-            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
-            <span class="mvp-tag">Specialized Live Personal Training</span>
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt" onerror="this.onerror=null;this.setAttribute('src','')">
+            <!-- Animated scene: shown until a gallery image is uploaded -->
+            <div class="vp-scene vp-scene--live vp-scene--stage vp-scene--gerd" aria-hidden="true">
+              <div class="vp-grid"></div>
+              <div class="vp-glow"></div>
+
+              <div class="vp-call">
+                <div class="vp-call-bar">
+                  <span class="vp-live"><i></i>LIVE</span>
+                  <span class="vp-range"><i class="fa-solid fa-clock"></i>2H AFTER MEAL</span>
+                </div>
+
+                <svg class="vp-athlete vp-marcher" viewBox="0 0 120 110">
+                  <ellipse class="vp-floor" cx="60" cy="104" rx="34" ry="4" />
+                  <line class="vp-swing vp-swing--back" x1="56" y1="42" x2="56" y2="62" />
+                  <g class="vp-thigh vp-thigh--back">
+                    <line x1="56" y1="66" x2="56" y2="83" />
+                    <g class="vp-shin">
+                      <path d="M56 83 L56 100 L63 100" />
+                    </g>
+                  </g>
+                  <path d="M56 66 L56 38" />
+                  <circle cx="56" cy="28" r="8" />
+                  <g class="vp-thigh">
+                    <line x1="56" y1="66" x2="56" y2="83" />
+                    <g class="vp-shin">
+                      <path d="M56 83 L56 100 L63 100" />
+                    </g>
+                  </g>
+                  <line class="vp-swing" x1="56" y1="42" x2="56" y2="62" />
+                </svg>
+
+                <div class="vp-cycle vp-cycle--meal">
+                  <div class="vp-cycle-track">
+                    <i></i><i></i><i></i><i></i>
+                    <span class="vp-cycle-dot"></span>
+                  </div>
+                  <div class="vp-cycle-labels">
+                    <small>MEAL</small><small>1 HOUR</small><small>2 HOURS</small><small>TRAIN</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Coach picture-in-picture -->
+              <div class="vp-pip">
+                <svg class="vp-pip-coach" viewBox="0 0 80 80">
+                  <circle cx="40" cy="30" r="13" />
+                  <path d="M14 80 C 14 58, 26 50, 40 50 C 54 50, 66 58, 66 80 Z" />
+                </svg>
+                <div class="vp-pip-foot">
+                  <span>COACH</span>
+                  <span class="vp-wave"><i></i><i></i><i></i><i></i><i></i></span>
+                </div>
+              </div>
+
+              <!-- Coach messages (cycle) -->
+              <div class="vp-bubble">
+                <span>Stay tall, breathe easy</span>
+                <span>Great meal timing</span>
+                <span>Comfortable pace</span>
+              </div>
+
+              <!-- Session stats dock -->
+              <div class="vp-dock">
+                <span class="vp-dock-progress"></span>
+                <div class="vp-dock-item">
+                  <small>MEAL GAP</small>
+                  <b class="vp-reps"><span>1h<br>1.5h<br>2h<br>2.5h<br>3h</span></b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>HEART</small>
+                  <b><i class="vp-heart">♥</i> 108</b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>EFFORT</small>
+                  <b>EASY</b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>COMFORT</small>
+                  <b><i class="fa-solid fa-face-smile vp-leaf"></i> GOOD</b>
+                </div>
+              </div>
+            </div>
+
+            <span class="mvp-tag">TFI SPECIALIZED · GERD SUPPORT</span>
             <div class="mvp-ring mvp-ring--1"></div>
             <div class="mvp-ring mvp-ring--2"></div>
-            <div class="mvp-core"><i class="fa-solid fa-utensils"></i></div>
-
-            <div class="mvp-float mvp-float--a">
-              <i class="fa-solid fa-clock"></i>
-              <div><strong>Smart timing</strong><small>Train away from big meals</small></div>
-            </div>
-
-            <div class="mvp-float mvp-float--b">
-              <i class="fa-solid fa-person-walking"></i>
-              <div><strong>Comfortable moves</strong><small>Avoid trigger positions</small></div>
-            </div>
-
-            <div class="mvp-float mvp-float--c">
-              <i class="fa-solid fa-wind"></i>
-              <div><strong>Breath & posture</strong><small>Less pressure, more ease</small></div>
-            </div>
           </div>
         </div>
 
@@ -521,8 +588,9 @@
         <div class="mvp-info">
           <span class="mvp-cat"><i class="fa-solid fa-utensils"></i> Personal Training</span>
 
-          <h1 class="mvp-title" data-cms="hero.title">
-            GERD (Gastroesophageal Reflux Disease)
+          <h1 class="mvp-title" data-cms-prefix="hero.title">
+            GERD
+            <span data-cms="hero.title_accent">Gastro&shy;esophageal Reflux Disease</span>
           </h1>
 
           <p class="mvp-desc" data-cms="hero.body">Reflux-aware training and eating guidance, with smart timing, positions and pacing to help you stay active comfortably.</p>

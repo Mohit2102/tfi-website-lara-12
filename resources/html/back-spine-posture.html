@@ -494,26 +494,91 @@
         <!-- Gallery -->
         <div class="mvp-gallery">
           <div class="mvp-stage">
-            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
-            <span class="mvp-tag">Specialized Live Personal Training</span>
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt" onerror="this.onerror=null;this.setAttribute('src','')">
+            <!-- Animated scene: shown until a gallery image is uploaded -->
+            <div class="vp-scene vp-scene--live vp-scene--stage vp-scene--posture" aria-hidden="true">
+              <div class="vp-grid"></div>
+              <div class="vp-glow"></div>
+
+              <div class="vp-call">
+                <div class="vp-call-bar">
+                  <span class="vp-live"><i></i>LIVE</span>
+                  <span class="vp-range"><i class="fa-solid fa-person"></i>POSTURE CHECK</span>
+                </div>
+
+                <svg class="vp-athlete vp-aligner" viewBox="0 0 120 110">
+                  <ellipse class="vp-floor" cx="60" cy="104" rx="34" ry="4" />
+                  <path d="M56 66 L56 100 L64 100" />
+                  <path d="M56 66 L56 52" />
+                  <circle class="vp-vert" cx="56" cy="62" r="1.6" />
+                  <circle class="vp-vert" cx="56" cy="56" r="1.6" />
+                  <g class="vp-bend vp-bend--upper">
+                    <path d="M56 52 L56 38" />
+                    <path d="M56 41 L59 63" />
+                    <circle class="vp-vert" cx="56" cy="48" r="1.6" />
+                    <circle class="vp-vert" cx="56" cy="42" r="1.6" />
+                    <g class="vp-bend vp-bend--head">
+                      <circle cx="56" cy="27" r="8" />
+                    </g>
+                  </g>
+                  <line class="vp-plumb" x1="56" y1="8" x2="56" y2="104" />
+                </svg>
+
+                <div class="vp-cycle vp-cycle--posture">
+                  <div class="vp-cycle-track">
+                    <i></i><i></i><i></i><i></i>
+                    <span class="vp-cycle-dot"></span>
+                  </div>
+                  <div class="vp-cycle-labels">
+                    <small>SLOUCH</small><small>FAIR</small><small>GOOD</small><small>ALIGNED</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Coach picture-in-picture -->
+              <div class="vp-pip">
+                <svg class="vp-pip-coach" viewBox="0 0 80 80">
+                  <circle cx="40" cy="30" r="13" />
+                  <path d="M14 80 C 14 58, 26 50, 40 50 C 54 50, 66 58, 66 80 Z" />
+                </svg>
+                <div class="vp-pip-foot">
+                  <span>COACH</span>
+                  <span class="vp-wave"><i></i><i></i><i></i><i></i><i></i></span>
+                </div>
+              </div>
+
+              <!-- Coach messages (cycle) -->
+              <div class="vp-bubble">
+                <span>Shoulders back, chin tucked</span>
+                <span>Core switched on</span>
+                <span>Spine nicely stacked</span>
+              </div>
+
+              <!-- Session stats dock -->
+              <div class="vp-dock">
+                <span class="vp-dock-progress"></span>
+                <div class="vp-dock-item">
+                  <small>POSTURE</small>
+                  <b class="vp-reps"><span>62%<br>70%<br>78%<br>86%<br>94%</span></b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>DESK BREAKS</small>
+                  <b>6</b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>MOBILITY</small>
+                  <b>15m</b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>PAIN</small>
+                  <b><i class="fa-solid fa-arrow-trend-down vp-leaf"></i> LOW</b>
+                </div>
+              </div>
+            </div>
+
+            <span class="mvp-tag">TFI SPECIALIZED · BACK &amp; POSTURE</span>
             <div class="mvp-ring mvp-ring--1"></div>
             <div class="mvp-ring mvp-ring--2"></div>
-            <div class="mvp-core"><i class="fa-solid fa-bone"></i></div>
-
-            <div class="mvp-float mvp-float--a">
-              <i class="fa-solid fa-bone"></i>
-              <div><strong>Spine health</strong><small>Mobility with stability</small></div>
-            </div>
-
-            <div class="mvp-float mvp-float--b">
-              <i class="fa-solid fa-dumbbell"></i>
-              <div><strong>Core strength</strong><small>Support from within</small></div>
-            </div>
-
-            <div class="mvp-float mvp-float--c">
-              <i class="fa-solid fa-chair"></i>
-              <div><strong>Desk resets</strong><small>Simple daily habits</small></div>
-            </div>
           </div>
         </div>
 

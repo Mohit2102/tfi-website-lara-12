@@ -400,8 +400,8 @@ class ProgramPageContent
             ),
             'hypertension-heart-healthy' => [
                 'hero' => [
-                    'title' => 'Hypertension Heart-Healthy Workouts',
-                    'title_accent' => '',
+                    'title' => 'Hypertension',
+                    'title_accent' => 'Heart-Healthy Workouts',
                     'body' => 'Controlled, heart-healthy training for people managing high blood pressure: smart intensity, steady breathing and clear boundaries.',
                     'bullets' => [
                         'Gradual, low-risk progression for heart-healthy training',
@@ -441,8 +441,8 @@ class ProgramPageContent
             ),
             'prenatal-postnatal-fitness' => [
                 'hero' => [
-                    'title' => 'Pre and Post Natal Fitness Safe Workouts',
-                    'title_accent' => '',
+                    'title' => 'Pre and Post Natal',
+                    'title_accent' => 'Fitness Safe Workouts',
                     'body' => 'Gentle, safe and effective training for pregnancy and recovery after birth, with posture, breathing and core re-connection at the heart of it.',
                     'bullets' => [
                         'Trimester-aware training for a safe, comfortable pregnancy',
@@ -605,8 +605,8 @@ class ProgramPageContent
             ),
             'gerd-support' => [
                 'hero' => [
-                    'title' => 'GERD (Gastroesophageal Reflux Disease)',
-                    'title_accent' => '',
+                    'title' => 'GERD',
+                    'title_accent' => "Gastro\u{00AD}esophageal Reflux Disease",
                     'body' => 'Reflux-aware training and eating guidance, with smart timing, positions and pacing to help you stay active comfortably.',
                     'bullets' => [
                         'Comfortable training positions that avoid reflux triggers',

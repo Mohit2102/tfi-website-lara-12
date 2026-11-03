@@ -494,26 +494,90 @@
         <!-- Gallery -->
         <div class="mvp-gallery">
           <div class="mvp-stage">
-            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
-            <span class="mvp-tag">Specialized Live Personal Training</span>
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt" onerror="this.onerror=null;this.setAttribute('src','')">
+            <!-- Animated scene: shown until a gallery image is uploaded -->
+            <div class="vp-scene vp-scene--live vp-scene--stage vp-scene--cycle" aria-hidden="true">
+              <div class="vp-grid"></div>
+              <div class="vp-glow"></div>
+
+              <div class="vp-call">
+                <div class="vp-call-bar">
+                  <span class="vp-live"><i></i>LIVE</span>
+                  <span class="vp-range vp-range--cycle"><i class="fa-solid fa-venus"></i>CYCLE-SYNCED</span>
+                </div>
+
+                <svg class="vp-athlete vp-squatter" viewBox="0 0 120 110">
+                  <ellipse class="vp-floor" cx="60" cy="104" rx="34" ry="4" />
+                  <line x1="52" y1="100" x2="66" y2="100" />
+                  <g class="vp-joint vp-joint--shin">
+                    <line x1="56" y1="100" x2="56" y2="78" />
+                    <g class="vp-joint vp-joint--thigh">
+                      <line x1="56" y1="78" x2="56" y2="56" />
+                      <g class="vp-joint vp-joint--torso">
+                        <path d="M56 56 L56 34" />
+                        <circle cx="56" cy="24" r="8" />
+                        <path d="M56 38 L65 45 L64 49" />
+                        <circle class="vp-bell" cx="64" cy="53" r="5" />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+
+                <div class="vp-cycle">
+                  <div class="vp-cycle-track">
+                    <i></i><i></i><i></i><i></i>
+                    <span class="vp-cycle-dot"></span>
+                  </div>
+                  <div class="vp-cycle-labels">
+                    <small>MENSTRUAL</small><small>FOLLICULAR</small><small>OVULATION</small><small>LUTEAL</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Coach picture-in-picture -->
+              <div class="vp-pip">
+                <svg class="vp-pip-coach" viewBox="0 0 80 80">
+                  <circle cx="40" cy="30" r="13" />
+                  <path d="M14 80 C 14 58, 26 50, 40 50 C 54 50, 66 58, 66 80 Z" />
+                </svg>
+                <div class="vp-pip-foot">
+                  <span>COACH</span>
+                  <span class="vp-wave"><i></i><i></i><i></i><i></i><i></i></span>
+                </div>
+              </div>
+
+              <!-- Coach messages (cycle) -->
+              <div class="vp-bubble">
+                <span>Strength day done!</span>
+                <span>Balanced plate logged</span>
+                <span>Energy feels steady</span>
+              </div>
+
+              <!-- Daily habit stats dock -->
+              <div class="vp-dock">
+                <span class="vp-dock-progress"></span>
+                <div class="vp-dock-item">
+                  <small>CYCLE DAY</small>
+                  <b class="vp-reps"><span>05<br>09<br>14<br>19<br>24</span></b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>PROTEIN</small>
+                  <b>92g</b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>SLEEP</small>
+                  <b><i class="fa-solid fa-moon vp-moon"></i> 7.5h</b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>STRESS</small>
+                  <b><i class="fa-solid fa-spa vp-leaf"></i> LOW</b>
+                </div>
+              </div>
+            </div>
+
+            <span class="mvp-tag">TFI SPECIALIZED · PCOS / PCOD</span>
             <div class="mvp-ring mvp-ring--1"></div>
             <div class="mvp-ring mvp-ring--2"></div>
-            <div class="mvp-core"><i class="fa-solid fa-venus"></i></div>
-
-            <div class="mvp-float mvp-float--a">
-              <i class="fa-solid fa-wheat-awn"></i>
-              <div><strong>Balanced meals</strong><small>Steady, not restrictive</small></div>
-            </div>
-
-            <div class="mvp-float mvp-float--b">
-              <i class="fa-solid fa-dumbbell"></i>
-              <div><strong>Strength first</strong><small>Smart, progressive load</small></div>
-            </div>
-
-            <div class="mvp-float mvp-float--c">
-              <i class="fa-solid fa-spa"></i>
-              <div><strong>Stress & sleep</strong><small>Built into your week</small></div>
-            </div>
           </div>
         </div>
 

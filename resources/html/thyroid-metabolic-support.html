@@ -494,26 +494,82 @@
         <!-- Gallery -->
         <div class="mvp-gallery">
           <div class="mvp-stage">
-            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
-            <span class="mvp-tag">Specialized Live Personal Training</span>
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt" onerror="this.onerror=null;this.setAttribute('src','')">
+            <!-- Animated scene: shown until a gallery image is uploaded -->
+            <div class="vp-scene vp-scene--live vp-scene--stage vp-scene--metabolic" aria-hidden="true">
+              <div class="vp-grid"></div>
+              <div class="vp-glow"></div>
+
+              <div class="vp-call">
+                <div class="vp-call-bar">
+                  <span class="vp-live"><i></i>LIVE</span>
+                  <span class="vp-range"><i class="fa-solid fa-bolt"></i>ENERGY UP</span>
+                </div>
+
+                <svg class="vp-athlete vp-curler" viewBox="0 0 120 110">
+                  <ellipse class="vp-floor" cx="60" cy="104" rx="34" ry="4" />
+                  <path d="M56 66 L52 100 L60 100 M56 66 L62 100 L70 100" />
+                  <path d="M56 66 L56 38" />
+                  <circle cx="56" cy="28" r="8" />
+                  <path d="M56 42 L56 60" />
+                  <g class="vp-forearm">
+                    <line x1="56" y1="60" x2="56" y2="76" />
+                    <rect class="vp-db" x="50" y="75" width="12" height="5" rx="1.5" />
+                  </g>
+                </svg>
+
+                <div class="vp-energy">
+                  <div class="vp-energy-cells">
+                    <i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i>
+                  </div>
+                  <div class="vp-energy-labels"><small>ENERGY</small><small>STEADY</small></div>
+                </div>
+              </div>
+
+              <!-- Coach picture-in-picture -->
+              <div class="vp-pip">
+                <svg class="vp-pip-coach" viewBox="0 0 80 80">
+                  <circle cx="40" cy="30" r="13" />
+                  <path d="M14 80 C 14 58, 26 50, 40 50 C 54 50, 66 58, 66 80 Z" />
+                </svg>
+                <div class="vp-pip-foot">
+                  <span>COACH</span>
+                  <span class="vp-wave"><i></i><i></i><i></i><i></i><i></i></span>
+                </div>
+              </div>
+
+              <!-- Coach messages (cycle) -->
+              <div class="vp-bubble">
+                <span>Slow, controlled curl</span>
+                <span>Energy is climbing</span>
+                <span>Consistency wins</span>
+              </div>
+
+              <!-- Daily habit stats dock -->
+              <div class="vp-dock">
+                <span class="vp-dock-progress"></span>
+                <div class="vp-dock-item">
+                  <small>ENERGY</small>
+                  <b class="vp-reps"><span>5/10<br>6/10<br>7/10<br>8/10<br>9/10</span></b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>PROTEIN</small>
+                  <b>96g</b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>SLEEP</small>
+                  <b><i class="fa-solid fa-moon vp-moon"></i> 7.5h</b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>STEPS</small>
+                  <b>9,100</b>
+                </div>
+              </div>
+            </div>
+
+            <span class="mvp-tag">TFI SPECIALIZED · THYROID &amp; METABOLISM</span>
             <div class="mvp-ring mvp-ring--1"></div>
             <div class="mvp-ring mvp-ring--2"></div>
-            <div class="mvp-core"><i class="fa-solid fa-bolt"></i></div>
-
-            <div class="mvp-float mvp-float--a">
-              <i class="fa-solid fa-bolt"></i>
-              <div><strong>Steady energy</strong><small>Plans that fit your days</small></div>
-            </div>
-
-            <div class="mvp-float mvp-float--b">
-              <i class="fa-solid fa-dumbbell"></i>
-              <div><strong>Strength</strong><small>Protect your muscle</small></div>
-            </div>
-
-            <div class="mvp-float mvp-float--c">
-              <i class="fa-solid fa-bed"></i>
-              <div><strong>Sleep & recovery</strong><small>Foundations of progress</small></div>
-            </div>
           </div>
         </div>
 

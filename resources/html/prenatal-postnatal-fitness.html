@@ -494,26 +494,90 @@
         <!-- Gallery -->
         <div class="mvp-gallery">
           <div class="mvp-stage">
-            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt">
-            <span class="mvp-tag">Specialized Live Personal Training</span>
+            <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt" onerror="this.onerror=null;this.setAttribute('src','')">
+            <!-- Animated scene: shown until a gallery image is uploaded -->
+            <div class="vp-scene vp-scene--live vp-scene--stage vp-scene--natal" aria-hidden="true">
+              <div class="vp-grid"></div>
+              <div class="vp-glow"></div>
+
+              <div class="vp-call">
+                <div class="vp-call-bar">
+                  <span class="vp-live"><i></i>LIVE</span>
+                  <span class="vp-range vp-range--cycle"><i class="fa-solid fa-person-pregnant"></i>GENTLE MODE</span>
+                </div>
+
+                <svg class="vp-athlete vp-mama" viewBox="0 0 120 110">
+                  <ellipse class="vp-floor" cx="60" cy="104" rx="34" ry="4" />
+                  <g class="vp-ball">
+                    <circle cx="50" cy="86" r="16" />
+                    <path class="vp-ball-seam" d="M35 82 C 42 92, 58 93, 65 82" />
+                    <circle class="vp-ball-shine" cx="43" cy="80" r="3.5" />
+                  </g>
+                  <g class="vp-seated">
+                    <path d="M50 68 L72 70 L74 100 L82 100" />
+                    <path d="M50 68 L50 40" />
+                    <circle class="vp-core-glow" cx="58" cy="56" r="10" />
+                    <path class="vp-belly" d="M52 45 C 67 48, 69 63, 52 66" />
+                    <path d="M50 42 L54 54 L62 57" />
+                    <circle cx="50" cy="30" r="8" />
+                  </g>
+                </svg>
+
+                <div class="vp-cycle">
+                  <div class="vp-cycle-track">
+                    <i></i><i></i><i></i><i></i>
+                    <span class="vp-cycle-dot"></span>
+                  </div>
+                  <div class="vp-cycle-labels">
+                    <small>TRIMESTER 1</small><small>TRIMESTER 2</small><small>TRIMESTER 3</small><small>POSTNATAL</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Coach picture-in-picture -->
+              <div class="vp-pip">
+                <svg class="vp-pip-coach" viewBox="0 0 80 80">
+                  <circle cx="40" cy="30" r="13" />
+                  <path d="M14 80 C 14 58, 26 50, 40 50 C 54 50, 66 58, 66 80 Z" />
+                </svg>
+                <div class="vp-pip-foot">
+                  <span>COACH</span>
+                  <span class="vp-wave"><i></i><i></i><i></i><i></i><i></i></span>
+                </div>
+              </div>
+
+              <!-- Coach messages (cycle) -->
+              <div class="vp-bubble">
+                <span>Breathe into your core</span>
+                <span>Lovely, gentle pace</span>
+                <span>Posture looking great</span>
+              </div>
+
+              <!-- Session stats dock -->
+              <div class="vp-dock">
+                <span class="vp-dock-progress"></span>
+                <div class="vp-dock-item">
+                  <small>WEEK</small>
+                  <b class="vp-reps"><span>08<br>16<br>24<br>32<br>40</span></b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>HEART</small>
+                  <b><i class="vp-heart">♥</i> 118</b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>SLEEP</small>
+                  <b><i class="fa-solid fa-moon vp-moon"></i> 7h</b>
+                </div>
+                <div class="vp-dock-item">
+                  <small>MOOD</small>
+                  <b><i class="fa-solid fa-face-smile vp-blush"></i> CALM</b>
+                </div>
+              </div>
+            </div>
+
+            <span class="mvp-tag">TFI SPECIALIZED · PRE &amp; POST NATAL</span>
             <div class="mvp-ring mvp-ring--1"></div>
             <div class="mvp-ring mvp-ring--2"></div>
-            <div class="mvp-core"><i class="fa-solid fa-baby"></i></div>
-
-            <div class="mvp-float mvp-float--a">
-              <i class="fa-solid fa-person-pregnant"></i>
-              <div><strong>Trimester-aware</strong><small>Adapted as you progress</small></div>
-            </div>
-
-            <div class="mvp-float mvp-float--b">
-              <i class="fa-solid fa-lungs"></i>
-              <div><strong>Breath & core</strong><small>Rebuild from within</small></div>
-            </div>
-
-            <div class="mvp-float mvp-float--c">
-              <i class="fa-solid fa-heart"></i>
-              <div><strong>Gentle strength</strong><small>Low-impact, high-value</small></div>
-            </div>
           </div>
         </div>
 
@@ -521,8 +585,9 @@
         <div class="mvp-info">
           <span class="mvp-cat"><i class="fa-solid fa-baby"></i> Personal Training</span>
 
-          <h1 class="mvp-title" data-cms="hero.title">
-            Pre and Post Natal Fitness Safe Workouts
+          <h1 class="mvp-title" data-cms-prefix="hero.title">
+            Pre and Post Natal
+            <span data-cms="hero.title_accent">Fitness Safe Workouts</span>
           </h1>
 
           <p class="mvp-desc" data-cms="hero.body">Gentle, safe and effective training for pregnancy and recovery after birth, with posture, breathing and core re-connection at the heart of it.</p>
