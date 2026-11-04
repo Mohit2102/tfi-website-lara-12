@@ -16,13 +16,21 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
+  <!-- Same URL as the @import in style.css, so the font starts downloading before style.css arrives -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
-    <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link
+    rel="preload"
+    as="style"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"></noscript>
   <!-- Styles -->
   <link rel="stylesheet" href="style.css">
   <!-- BMI floating button styles -->
@@ -246,7 +254,7 @@
   <!-- Slide 01 -->
   <div class="carousel-slide active">
     <img class="slide-bg" data-cms-src="hero.0.image" src="images/hero-7.png" alt="" aria-hidden="true">
-    <img class="slide-fg" data-cms-src="hero.0.image" data-cms-alt="hero.0.alt" src="images/hero-7.png" alt="Personal training">
+    <img class="slide-fg" data-cms-src="hero.0.image" data-cms-alt="hero.0.alt" src="images/hero-7.png" alt="Personal training" fetchpriority="high">
 
     <!-- <a href="virtual-training.html" class="hero-know-more">
       Know More
@@ -734,72 +742,126 @@
           </div>
         </header>
 
-        <div class="why-grid">
+        <div class="tfi-v2-board why-board">
 
-          <article class="why-card">
-            <div class="why-image" data-cms-bg="why.cards.0.image" style="background-image:url('images/why-coaches.jpg')">
-              <div class="why-image-overlay"></div>
-              <div class="why-image-content">
-                <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
-                <h3 data-cms="why.cards.0.title">YOUR BODY.<br>YOUR GOALS.<br>YOUR STARTING POINT.</h3>
-              </div>
-            </div>
-            <div class="why-description" data-cms="why.cards.0.body">
-              We assess your fitness level, lifestyle and goals to create a training approach that works for you.
-            </div>
-          </article>
+          <ol class="tfi-v2-board__steps">
 
-          <article class="why-card">
-            <div class="why-image" data-cms-bg="why.cards.1.image" style="background-image:url('images/why-small-batches.jpg')">
-              <div class="why-image-overlay"></div>
-              <div class="why-image-content">
-                <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></div>
-                <h3 data-cms="why.cards.1.title">YOUR GOALS.<br>YOUR PERSONAL<br>FITNESS PLAN.</h3>
+            <li class="tfi-v2-board__step">
+              <div class="tfi-v2-board__visual tfi-v2-board__visual--assess why-scan" aria-hidden="true">
+                <div class="why-scan__body">
+                  <span class="why-scan__ring"></span>
+                  <span class="why-scan__ring why-scan__ring--pulse"></span>
+                  <i class="fa-solid fa-person"></i>
+                  <span class="why-scan__beam"></span>
+                  <span class="why-scan__dot why-scan__dot--a"></span>
+                  <span class="why-scan__dot why-scan__dot--b"></span>
+                  <span class="why-scan__dot why-scan__dot--c"></span>
+                </div>
+                <div class="why-scan__stats">
+                  <div><small>Fitness<b>72%</b></small><span style="--w: 72%"></span></div>
+                  <div><small>Mobility<b>48%</b></small><span style="--w: 48%"></span></div>
+                  <div><small>Lifestyle<b>86%</b></small><span style="--w: 86%"></span></div>
+                </div>
+                <span class="why-viz__tag"><i class="fa-solid fa-wave-square"></i>Scanning</span>
               </div>
-            </div>
-            <div class="why-description" data-cms="why.cards.1.body">
-              Your personalized plan aligns your fitness goals, training level and daily schedule for consistent progress.
-            </div>
-          </article>
+              <span class="tfi-v2-board__icon" aria-hidden="true"><i class="fa-solid fa-user"></i></span>
+              <h4 data-cms="why.cards.0.title">YOUR BODY.<br>YOUR GOALS.<br>YOUR STARTING POINT.</h4>
+              <p data-cms="why.cards.0.body">We assess your fitness level, lifestyle and goals to create a training approach that works for you.</p>
+            </li>
 
-          <article class="why-card">
-            <div class="why-image" data-cms-bg="why.cards.2.image" style="background-image:url('images/why-nutrition.jpg')">
-              <div class="why-image-overlay"></div>
-              <div class="why-image-content">
-                <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-dumbbell"></i></div>
-                <h3 data-cms="why.cards.2.title">EXPERT GUIDANCE.<br>SMARTER MOVEMENT.<br>BETTER TRAINING.</h3>
+            <li class="tfi-v2-board__step">
+              <div class="tfi-v2-board__visual why-plan" aria-hidden="true">
+                <div class="why-plan__sheet">
+                  <strong><i class="fa-solid fa-clipboard-list"></i>My plan</strong>
+                  <ul>
+                    <li><i class="fa-solid fa-check"></i><span>Goals</span></li>
+                    <li><i class="fa-solid fa-check"></i><span>Training level</span></li>
+                    <li><i class="fa-solid fa-check"></i><span>Schedule</span></li>
+                    <li><i class="fa-solid fa-check"></i><span>Progress</span></li>
+                  </ul>
+                </div>
+                <div class="why-plan__ring"><i class="fa-solid fa-bullseye"></i></div>
+                <span class="why-viz__tag"><i class="fa-solid fa-wand-magic-sparkles"></i>Personalised</span>
               </div>
-            </div>
-            <div class="why-description" data-cms="why.cards.2.body">
-              Get expert coaching, exercise guidance and ongoing support to improve your technique and train with confidence.
-            </div>
-          </article>
+              <span class="tfi-v2-board__icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
+              <h4 data-cms="why.cards.1.title">YOUR GOALS.<br>YOUR PERSONAL<br>FITNESS PLAN.</h4>
+              <p data-cms="why.cards.1.body">Your personalized plan aligns your fitness goals, training level and daily schedule for consistent progress.</p>
+            </li>
 
-          <article class="why-card">
-            <div class="why-image" data-cms-bg="why.cards.3.image" style="background-image:url('images/why-scheduling.jpg')">
-              <div class="why-image-overlay"></div>
-              <div class="why-image-content">
-                <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-laptop"></i></div>
-                <h3 data-cms="why.cards.3.title">YOUR SPACE.<br>YOUR SCHEDULE.<br>YOUR FITNESS.</h3>
+            <li class="tfi-v2-board__step">
+              <div class="tfi-v2-board__visual why-coach" aria-hidden="true">
+                <div class="why-coach__lift">
+                  <span class="why-coach__ripple"></span>
+                  <span class="why-coach__ripple why-coach__ripple--late"></span>
+                  <i class="fa-solid fa-dumbbell"></i>
+                </div>
+                <div class="why-coach__gauge">
+                  <div class="why-coach__dial"><span class="why-coach__needle"></span></div>
+                  <small>Form<b>Great</b></small>
+                </div>
+                <span class="why-viz__tag"><span class="why-viz__live"></span>Coach live</span>
               </div>
-            </div>
-            <div class="why-description" data-cms="why.cards.3.body">
-              Train from your preferred location with flexible online sessions that fit your routine and schedule.
-            </div>
-          </article>
+              <span class="tfi-v2-board__icon" aria-hidden="true"><i class="fa-solid fa-dumbbell"></i></span>
+              <h4 data-cms="why.cards.2.title">EXPERT GUIDANCE.<br>SMARTER MOVEMENT.<br>BETTER TRAINING.</h4>
+              <p data-cms="why.cards.2.body">Get expert coaching, exercise guidance and ongoing support to improve your technique and train with confidence.</p>
+            </li>
 
-          <article class="why-card">
-            <div class="why-image" data-cms-bg="why.cards.4.image" style="background-image:url('images/why-results.jpg')">
-              <div class="why-image-overlay"></div>
-              <div class="why-image-content">
-                <div class="why-icon" aria-hidden="true"><i class="fa-solid fa-chart-line"></i></div>
-                <h3 data-cms="why.cards.4.title">TRACK YOUR EFFORT.<br>MEASURE YOUR RESULTS.<br>KEEP PROGRESSING.</h3>
+            <li class="tfi-v2-board__step">
+              <div class="tfi-v2-board__visual why-live" aria-hidden="true">
+                <div class="why-live__laptop">
+                  <div class="why-live__screen">
+                    <i class="fa-solid fa-person"></i>
+                    <span class="why-live__pip"><i class="fa-solid fa-user"></i></span>
+                    <span class="why-live__wave"><span></span><span></span><span></span><span></span><span></span></span>
+                  </div>
+                  <span class="why-live__base"></span>
+                </div>
+                <span class="why-live__chip why-live__chip--home"><i class="fa-solid fa-house"></i></span>
+                <span class="why-live__chip why-live__chip--time"><i class="fa-solid fa-clock"></i></span>
+                <span class="why-live__chip why-live__chip--date"><i class="fa-solid fa-calendar-days"></i></span>
+                <span class="why-viz__tag"><span class="why-viz__live"></span>Live online</span>
               </div>
-            </div>
-            <div class="why-description" data-cms="why.cards.4.body">
-              Track your consistency, strength and fitness improvements, then adjust your plan as you progress.
-            </div>
-          </article>
+              <span class="tfi-v2-board__icon" aria-hidden="true"><i class="fa-solid fa-laptop"></i></span>
+              <h4 data-cms="why.cards.3.title">YOUR SPACE.<br>YOUR SCHEDULE.<br>YOUR FITNESS.</h4>
+              <p data-cms="why.cards.3.body">Train from your preferred location with flexible online sessions that fit your routine and schedule.</p>
+            </li>
+
+            <li class="tfi-v2-board__step">
+              <div class="tfi-v2-board__visual why-chart" aria-hidden="true">
+                <div class="why-chart__plot">
+                  <div class="why-chart__bars">
+                    <span style="--h: 28%"></span>
+                    <span style="--h: 40%"></span>
+                    <span style="--h: 34%"></span>
+                    <span style="--h: 58%"></span>
+                    <span style="--h: 66%"></span>
+                    <span style="--h: 88%"></span>
+                  </div>
+                  <svg class="why-chart__svg" viewBox="0 0 160 80" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="whyChartFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#f3d98b" stop-opacity=".45"/>
+                        <stop offset="1" stop-color="#f3d98b" stop-opacity="0"/>
+                      </linearGradient>
+                      <linearGradient id="whyChartLine" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" stop-color="#8f6819"/>
+                        <stop offset="1" stop-color="#f3d98b"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M4 66 L34 56 L62 60 L92 38 L120 32 L154 12 L154 80 L4 80 Z" fill="url(#whyChartFill)"/>
+                    <path d="M4 66 L34 56 L62 60 L92 38 L120 32 L154 12" fill="none" stroke="url(#whyChartLine)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+                  </svg>
+                  <span class="why-chart__dot"></span>
+                </div>
+                <div class="why-chart__axis"><span>Start</span><span>Now</span></div>
+                <span class="why-viz__tag why-viz__tag--left"><i class="fa-solid fa-arrow-trend-up"></i>Trending up</span>
+              </div>
+              <span class="tfi-v2-board__icon" aria-hidden="true"><i class="fa-solid fa-chart-line"></i></span>
+              <h4 data-cms="why.cards.4.title">TRACK YOUR EFFORT.<br>MEASURE YOUR RESULTS.<br>KEEP PROGRESSING.</h4>
+              <p data-cms="why.cards.4.body">Track your consistency, strength and fitness improvements, then adjust your plan as you progress.</p>
+            </li>
+
+          </ol>
 
         </div>
 
@@ -1900,12 +1962,56 @@
        09. BMI floating button
        10. Founder bio "View more"
   ========================================================== -->
+  <script src="/vendor/lenis.min.js"></script>
   <script>
     (function () {
       "use strict";
 
       var reduceMotion = window.matchMedia &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+      /* =======================================================
+         00. SMOOTH SCROLL
+         Eased wheel/trackpad scrolling (touch stays native).
+         window.tfiScrollTo(target, offset) works with or
+         without it: target is a y position or an element.
+      ======================================================= */
+
+      var lenis = null;
+
+      function headerOffset() {
+        var header = document.getElementById("site-header");
+        return header ? -header.offsetHeight : 0;
+      }
+
+      function initSmoothScroll() {
+        if (reduceMotion || typeof window.Lenis !== "function") return;
+
+        lenis = new window.Lenis({
+          lerp: 0.085,
+          wheelMultiplier: 0.95,
+          smoothWheel: true,
+          allowNestedScroll: true,
+          anchors: { offset: headerOffset() },
+          autoRaf: true
+        });
+      }
+
+      window.tfiScrollTo = function (target, offset) {
+        var isY = typeof target === "number";
+
+        if (lenis) {
+          lenis.scrollTo(target, { offset: isY ? 0 : (offset || headerOffset()) });
+          return;
+        }
+
+        if (isY) {
+          window.scrollTo({ top: target, behavior: reduceMotion ? "auto" : "smooth" });
+        } else {
+          target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        }
+      };
 
 
       /* =======================================================
@@ -2143,6 +2249,112 @@
           if (entries[0].isIntersecting) start();
           else stop();
         }, { threshold: 0.35 }).observe(heading);
+      }
+
+
+      /* =======================================================
+         04c. WHY BOARD REVEAL
+         Steps rise in one by one as the board scrolls into view.
+      ======================================================= */
+
+      function initWhyBoard() {
+        var board = document.querySelector("#why .why-board");
+        if (!board || reduceMotion || !("IntersectionObserver" in window)) return;
+
+        board.classList.add("is-reveal");
+
+        new IntersectionObserver(function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("in");
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.2 }).observe(board);
+      }
+
+
+      /* =======================================================
+         04d. SECTION SCROLL MOTION
+         Content blocks below the fold fade up as they enter the
+         viewport, and CSS animations pause in off-screen sections.
+      ======================================================= */
+
+      function initSectionMotion() {
+        if (!("IntersectionObserver" in window)) return;
+
+        var sections = Array.prototype.filter.call(
+          document.querySelectorAll("section"),
+          function (section) { return !section.parentElement.closest("section"); }
+        );
+
+        var pauser = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            entry.target.classList.toggle("sr-paused", !entry.isIntersecting);
+          });
+        }, { rootMargin: "300px 0px" });
+
+        sections.forEach(function (section) { pauser.observe(section); });
+
+        if (reduceMotion) return;
+
+        // Card groups reveal card by card instead of as one block
+        var GROUPS = ".path-grid, .who-grid, .founder-grid";
+        var fold = window.innerHeight;
+        var items = [];
+
+        function prepare(block, delay, direction) {
+          if (block.getBoundingClientRect().top < fold) return;
+          block.style.setProperty("--sr-delay", delay + "s");
+          block.classList.add("sr-item");
+          if (direction) block.classList.add(direction);
+          items.push(block);
+        }
+
+        sections.forEach(function (section) {
+          var blocks = [];
+
+          Array.prototype.forEach.call(section.children, function (child) {
+            if (child.classList.contains("wrap")) {
+              Array.prototype.push.apply(blocks, child.children);
+            } else if (getComputedStyle(child).position !== "absolute") {
+              blocks.push(child);
+            }
+          });
+
+          blocks.forEach(function (block, i) {
+            var delay = Math.min(i, 3) * 0.08;
+
+            if (!block.matches(GROUPS)) {
+              prepare(block, delay);
+              return;
+            }
+
+            var sides = block.classList.contains("founder-grid");
+
+            Array.prototype.forEach.call(block.children, function (card, j) {
+              var direction = sides ? (j % 2 ? "sr-right" : "sr-left") : "";
+              prepare(card, delay + Math.min(j, 5) * 0.12, direction);
+            });
+          });
+        });
+
+        var revealer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+
+            var block = entry.target;
+            revealer.unobserve(block);
+            block.classList.add("sr-in");
+
+            // Hand transitions back to the block's own styles once it has settled
+            setTimeout(function () {
+              block.classList.remove("sr-item", "sr-in", "sr-left", "sr-right");
+              block.style.removeProperty("--sr-delay");
+            }, 2000);
+          });
+        }, { rootMargin: "0px 0px -8% 0px" });
+
+        items.forEach(function (block) { revealer.observe(block); });
       }
 
 
@@ -2719,10 +2931,7 @@
         btn.addEventListener("click", function (event) {
           event.preventDefault();
 
-          section.scrollIntoView({
-            behavior: reduceMotion ? "auto" : "smooth",
-            block: "start"
-          });
+          window.tfiScrollTo(section);
 
           setTimeout(function () {
             var input = document.getElementById("heightCm");
@@ -2775,7 +2984,7 @@
           if (!expanded) {
             var top = bio.getBoundingClientRect().top;
             if (top < 0) {
-              window.scrollBy({ top: top - 120, behavior: reduceMotion ? "auto" : "smooth" });
+              window.tfiScrollTo(window.scrollY + top - 120);
             }
           }
         });
@@ -2797,11 +3006,14 @@
          START
       ======================================================= */
 
+      initSmoothScroll();
       initTheme();
       initNavigation();
       initHeroCarousel();
       initReveal();
       initJourneyHeading();
+      initWhyBoard();
+      initSectionMotion();
       initCounters();
       initTestimonials();
       initBMI();
@@ -2831,6 +3043,9 @@
       */
 
       const circumference = 150.8;
+
+      let pageProgressComplete = null;
+      let pageProgressQueued = false;
 
 
       /* =========================================================
@@ -2873,7 +3088,13 @@
           PAGE COMPLETE
         ======================================================= */
 
-        if (progress >= 0.97) {
+        const complete = progress >= 0.97;
+
+        if (complete === pageProgressComplete) return;
+
+        pageProgressComplete = complete;
+
+        if (complete) {
 
           pageProgress.classList.add("complete");
 
@@ -2936,13 +3157,7 @@
 
         if (progress >= 0.97) {
 
-          window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
-
-          });
+          window.tfiScrollTo(0);
 
         }
 
@@ -2953,13 +3168,7 @@
 
         else {
 
-          window.scrollBy({
-
-            top: window.innerHeight * 0.75,
-
-            behavior: "smooth"
-
-          });
+          window.tfiScrollTo(scrollTop + window.innerHeight * 0.75);
 
         }
 
@@ -2972,7 +3181,14 @@
 
       window.addEventListener(
         "scroll",
-        updatePageProgress,
+        function () {
+          if (pageProgressQueued) return;
+          pageProgressQueued = true;
+          requestAnimationFrame(function () {
+            pageProgressQueued = false;
+            updatePageProgress();
+          });
+        },
         { passive: true }
       );
 

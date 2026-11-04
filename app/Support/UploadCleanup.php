@@ -43,8 +43,10 @@ class UploadCleanup
 
             $file = public_path($path);
 
-            if (is_file($file)) {
-                @unlink($file);
+            foreach ([$file, WebpImage::pathFor($file)] as $target) {
+                if (is_file($target)) {
+                    @unlink($target);
+                }
             }
         }
     }

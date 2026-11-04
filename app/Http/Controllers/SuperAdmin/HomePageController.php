@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SitePage;
 use App\Support\HomePageContent;
 use App\Support\UploadCleanup;
+use App\Support\WebpImage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -121,6 +122,7 @@ class HomePageController extends Controller
 
         $name = Str::uuid()->toString().'.'.$file->getClientOriginalExtension();
         $file->move($directory, $name);
+        WebpImage::create($directory.DIRECTORY_SEPARATOR.$name);
 
         return 'uploads/home/'.$name;
     }

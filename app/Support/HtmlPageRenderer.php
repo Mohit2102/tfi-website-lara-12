@@ -206,6 +206,6 @@ class HtmlPageRenderer
             1
         ) ?? $html;
 
-        return $html;
+        return WebpImage::rewrite($html);
     }
 }
