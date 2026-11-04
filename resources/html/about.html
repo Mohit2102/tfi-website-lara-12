@@ -20,17 +20,27 @@
   <!-- SAME FONT AS LANDING PAGE -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
   <link
     href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet"
   >
 
+  <!-- Same URL as the @import in style.css, so the font starts downloading before style.css arrives -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
   <!-- FONT AWESOME -->
   <link
-    rel="stylesheet"
+    rel="preload"
+    as="style"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
   >
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"></noscript>
 
   <!-- YOUR EXISTING LANDING PAGE CSS -->
   <link rel="stylesheet" href="style.css">
@@ -218,6 +228,7 @@
     <img
       src="images/about-hero.png"
       alt="Time To Fit India"
+      fetchpriority="high"
     >
 
   </div>
@@ -611,6 +622,7 @@
             src="images/santhosh-1.png"
             alt=""
             aria-hidden="true"
+            loading="lazy"
           >
 
         </div>
@@ -622,6 +634,7 @@
             id="tfiFounderImage"
             src="images/santhosh-1.png"
             alt="Santhosh M — TFI Founder"
+            loading="lazy"
           >
 
 
@@ -1269,7 +1282,7 @@
 
         <div class="foot-brand">
           <a class="foot-logo" href="index.html#top">
-            <img src="logo/logo.png" alt="TFI logo">
+            <img src="logo/logo.png" alt="TFI logo" loading="lazy">
             <span>Time to Fit India</span>
           </a>
           <p>
@@ -1347,6 +1360,8 @@
 
 
 
+<script src="/vendor/lenis.min.js"></script>
+<script src="/tfi-smooth-scroll.js"></script>
 <script>
 
 /* =========================================================
@@ -1589,7 +1604,7 @@
 
       },
       {
-        threshold: .12
+        rootMargin: "0px 0px 6% 0px"
       }
     );
 
@@ -1629,25 +1644,41 @@
     return;
 
 
+  if (
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches
+  )
+    return;
+
+
+  // The stylesheet eases transform changes; that would make the image lag behind the scroll
+  image.style.transition = "none";
+  image.style.willChange = "transform";
+
+  let heroHeight = hero.offsetHeight;
+  let queued = false;
+
+  function update() {
+
+    queued = false;
+
+    const scroll =
+      Math.min(window.scrollY, heroHeight);
+
+    image.style.transform =
+      "translate3d(0," + (scroll * .10).toFixed(1) + "px,0) scale(1.08)";
+
+  }
+
+
   window.addEventListener(
     "scroll",
     function () {
 
-      const scroll =
-        window.scrollY;
-
-
-      if (
-        scroll <
-        hero.offsetHeight
-      ) {
-
-        image.style.transform =
-          "scale(1.08) translateY(" +
-          scroll * .10 +
-          "px)";
-
-      }
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
 
     },
     {
@@ -1655,50 +1686,42 @@
     }
   );
 
+  window.addEventListener("resize", function () {
+    heroHeight = hero.offsetHeight;
+  });
+
+  update();
+
 })();
 
 
 
 /* =========================================================
-   MOUSE GOLD GLOW
+   PAUSE OFF-SCREEN ANIMATIONS
 ========================================================= */
 
 (function () {
 
-  const page =
-    document.querySelector(
-      ".tfi-about-v2"
-    );
-
-
-  if (!page)
+  if (!("IntersectionObserver" in window))
     return;
 
-
-  if (
-    window.matchMedia(
-      "(pointer: fine)"
-    ).matches
-  ) {
-
-    page.addEventListener(
-      "pointermove",
-      function (event) {
-
-        page.style.setProperty(
-          "--mouse-x",
-          event.clientX + "px"
-        );
-
-        page.style.setProperty(
-          "--mouse-y",
-          event.clientY + "px"
-        );
-
+  const pauser =
+    new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          entry.target.classList.toggle("sr-paused", !entry.isIntersecting);
+        });
+      },
+      {
+        rootMargin: "300px 0px"
       }
     );
 
-  }
+  document
+    .querySelectorAll(".tfi-about-v2 > section")
+    .forEach(function (section) {
+      pauser.observe(section);
+    });
 
 })();
 

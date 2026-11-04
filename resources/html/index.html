@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -1963,55 +1963,13 @@
        10. Founder bio "View more"
   ========================================================== -->
   <script src="/vendor/lenis.min.js"></script>
+  <script src="/tfi-smooth-scroll.js"></script>
   <script>
     (function () {
       "use strict";
 
       var reduceMotion = window.matchMedia &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-
-      /* =======================================================
-         00. SMOOTH SCROLL
-         Eased wheel/trackpad scrolling (touch stays native).
-         window.tfiScrollTo(target, offset) works with or
-         without it: target is a y position or an element.
-      ======================================================= */
-
-      var lenis = null;
-
-      function headerOffset() {
-        var header = document.getElementById("site-header");
-        return header ? -header.offsetHeight : 0;
-      }
-
-      function initSmoothScroll() {
-        if (reduceMotion || typeof window.Lenis !== "function") return;
-
-        lenis = new window.Lenis({
-          lerp: 0.085,
-          wheelMultiplier: 0.95,
-          smoothWheel: true,
-          allowNestedScroll: true,
-          anchors: { offset: headerOffset() },
-          autoRaf: true
-        });
-      }
-
-      window.tfiScrollTo = function (target, offset) {
-        var isY = typeof target === "number";
-
-        if (lenis) {
-          lenis.scrollTo(target, { offset: isY ? 0 : (offset || headerOffset()) });
-          return;
-        }
-
-        if (isY) {
-          window.scrollTo({ top: target, behavior: reduceMotion ? "auto" : "smooth" });
-        } else {
-          target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
-        }
-      };
 
 
       /* =======================================================
@@ -2322,7 +2280,7 @@
           });
 
           blocks.forEach(function (block, i) {
-            var delay = Math.min(i, 3) * 0.08;
+            var delay = Math.min(i, 3) * 0.05;
 
             if (!block.matches(GROUPS)) {
               prepare(block, delay);
@@ -2333,7 +2291,7 @@
 
             Array.prototype.forEach.call(block.children, function (card, j) {
               var direction = sides ? (j % 2 ? "sr-right" : "sr-left") : "";
-              prepare(card, delay + Math.min(j, 5) * 0.12, direction);
+              prepare(card, delay + Math.min(j, 5) * 0.07, direction);
             });
           });
         });
@@ -2350,9 +2308,9 @@
             setTimeout(function () {
               block.classList.remove("sr-item", "sr-in", "sr-left", "sr-right");
               block.style.removeProperty("--sr-delay");
-            }, 2000);
+            }, 1200);
           });
-        }, { rootMargin: "0px 0px -8% 0px" });
+        }, { rootMargin: "0px 0px 6% 0px" });
 
         items.forEach(function (block) { revealer.observe(block); });
       }
@@ -3006,7 +2964,6 @@
          START
       ======================================================= */
 
-      initSmoothScroll();
       initTheme();
       initNavigation();
       initHeroCarousel();
