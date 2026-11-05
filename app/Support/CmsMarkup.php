@@ -95,6 +95,18 @@ class CmsMarkup
         ) ?? $html;
 
         $html = preg_replace_callback(
+            '/href="[^"]*"([^>]*\s)?data-cms-href="'.$quoted.'"/',
+            fn (array $match): string => 'href="'.$attr.'"'.($match[1] ?? '').'data-cms-href="'.$key.'"',
+            $html
+        ) ?? $html;
+
+        $html = preg_replace_callback(
+            '/data-cms-href="'.$quoted.'"([^>]*)\shref="[^"]*"/',
+            fn (array $match): string => 'data-cms-href="'.$key.'"'.$match[1].' href="'.$attr.'"',
+            $html
+        ) ?? $html;
+
+        $html = preg_replace_callback(
             '/alt="[^"]*"([^>]*\s)?data-cms-alt="'.$quoted.'"/',
             fn (array $match): string => 'alt="'.$attr.'"'.($match[1] ?? '').'data-cms-alt="'.$key.'"',
             $html

@@ -47,8 +47,43 @@
                         <label>Alt text</label>
                         <input name="content[hero][{{ $i }}][alt]" value="{{ old('content.hero.'.$i.'.alt', $slide['alt']) }}">
                     </div>
+                    <div class="field">
+                        <label>Tag (small gold label)</label>
+                        <input name="content[hero][{{ $i }}][tag]" value="{{ old('content.hero.'.$i.'.tag', $slide['tag']) }}">
+                    </div>
+                    <div class="field">
+                        <label>Heading (white)</label>
+                        <textarea class="short" name="content[hero][{{ $i }}][title]">{{ old('content.hero.'.$i.'.title', $slide['title']) }}</textarea>
+                    </div>
+                    <div class="field">
+                        <label>Heading accent (gold)</label>
+                        <textarea class="short" name="content[hero][{{ $i }}][accent]">{{ old('content.hero.'.$i.'.accent', $slide['accent']) }}</textarea>
+                    </div>
+                    <div class="field">
+                        <label>Button text</label>
+                        <input name="content[hero][{{ $i }}][cta]" value="{{ old('content.hero.'.$i.'.cta', $slide['cta']) }}">
+                    </div>
+                    <div class="field">
+                        <label>Button link</label>
+                        <input name="content[hero][{{ $i }}][link]" value="{{ old('content.hero.'.$i.'.link', $slide['link']) }}" placeholder="virtual-training.html">
+                    </div>
+                    <div class="field">
+                        <label>Tab label (bottom navigation)</label>
+                        <input name="content[hero][{{ $i }}][tab]" value="{{ old('content.hero.'.$i.'.tab', $slide['tab']) }}">
+                    </div>
                 </div>
             @endforeach
+        </div>
+        <p class="help" style="margin-top:1rem">Line breaks in the headings are kept. The photo shows its right-hand side, so keep people on the right of uploaded images and avoid text baked into the picture.</p>
+        <div class="cms-grid" style="margin-top:1rem">
+            <div class="field">
+                <label>Second button text (all slides)</label>
+                <input name="content[hero_secondary][text]" value="{{ old('content.hero_secondary.text', $content['hero_secondary']['text']) }}">
+            </div>
+            <div class="field">
+                <label>Second button link</label>
+                <input name="content[hero_secondary][link]" value="{{ old('content.hero_secondary.link', $content['hero_secondary']['link']) }}" placeholder="#journey">
+            </div>
         </div>
     </section>
 

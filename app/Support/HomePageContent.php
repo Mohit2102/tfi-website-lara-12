@@ -11,9 +11,40 @@ class HomePageContent
     {
         return [
             'hero' => [
-                ['image' => 'images/hero-7.png', 'alt' => 'Personal training'],
-                ['image' => 'images/hero-8.png', 'alt' => 'Strength training'],
-                ['image' => 'images/hero-9.png', 'alt' => 'Group fitness'],
+                [
+                    'image' => 'images/hero-7.png',
+                    'alt' => 'Personal training',
+                    'tag' => 'Program 01',
+                    'title' => 'Live 1-on-1',
+                    'accent' => 'Personal Training',
+                    'cta' => 'Explore Programme',
+                    'link' => 'virtual-training.html',
+                    'tab' => 'Live 1-on-1 Personal Training',
+                ],
+                [
+                    'image' => 'images/hero-8.png',
+                    'alt' => 'Strength training',
+                    'tag' => 'Program 02',
+                    'title' => 'Personalised',
+                    'accent' => "Workout &\nNutrition Plans",
+                    'cta' => 'Explore Programme',
+                    'link' => 'non-virtual-training.html',
+                    'tab' => 'Workout & Nutrition Plans',
+                ],
+                [
+                    'image' => 'images/hero-9.png',
+                    'alt' => 'Group fitness',
+                    'tag' => 'Program 03',
+                    'title' => 'Specialised Training',
+                    'accent' => "For Health Conditions\n& Physical Limitations",
+                    'cta' => 'Explore Programme',
+                    'link' => 'personal-training.html',
+                    'tab' => 'Specialised Training',
+                ],
+            ],
+            'hero_secondary' => [
+                'text' => 'Start Your Journey',
+                'link' => '#journey',
             ],
             'stats' => [
                 ['value' => '2000', 'suffix' => '+', 'label' => 'Members trained'],

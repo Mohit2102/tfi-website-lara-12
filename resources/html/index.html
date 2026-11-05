@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -248,50 +248,133 @@
     ========================================================== -->
     <div class="hero-collage reveal" id="heroLogo">
 
-      <!-- Carousel -->
-      <div class="hero-carousel">
+      <!-- Hero: editable slides (superadmin > Home page > Hero slides) -->
+      <div class="hero-carousel" aria-roledescription="carousel" aria-label="Featured programmes">
 
-  <!-- Slide 01 -->
-  <div class="carousel-slide active">
-    <img class="slide-bg" data-cms-src="hero.0.image" src="images/hero-7.png" alt="" aria-hidden="true">
-    <img class="slide-fg" data-cms-src="hero.0.image" data-cms-alt="hero.0.alt" src="images/hero-7.png" alt="Personal training" fetchpriority="high">
+        <!-- Blurred copy of the active photo tints the whole hero -->
+        <div class="hs-ambient" aria-hidden="true">
+          <img class="hs-ambient-img is-active" src="images/hero-7.png" alt="" data-cms-src="hero.0.image">
+          <img class="hs-ambient-img" src="images/hero-8.png" alt="" data-cms-src="hero.1.image" loading="lazy">
+          <img class="hs-ambient-img" src="images/hero-9.png" alt="" data-cms-src="hero.2.image" loading="lazy">
+        </div>
 
-    <!-- <a href="virtual-training.html" class="hero-know-more">
-      Know More
-      <span>→</span>
-    </a> -->
-  </div>
+        <!-- Fitness motion layer: word marquee, heartbeat line, floating icons -->
+        <div class="hs-fx" aria-hidden="true">
+          <div class="hs-marquee hs-marquee-1">
+            <span>Strength &#8226; Endurance &#8226; Mobility &#8226; Nutrition &#8226; Recovery &#8226;&nbsp;</span>
+            <span>Strength &#8226; Endurance &#8226; Mobility &#8226; Nutrition &#8226; Recovery &#8226;&nbsp;</span>
+          </div>
+          <div class="hs-marquee hs-marquee-2">
+            <span>Train &#8226; Move &#8226; Sweat &#8226; Progress &#8226; Repeat &#8226;&nbsp;</span>
+            <span>Train &#8226; Move &#8226; Sweat &#8226; Progress &#8226; Repeat &#8226;&nbsp;</span>
+          </div>
 
-  <!-- Slide 02 -->
-  <div class="carousel-slide">
-    <img class="slide-bg" data-cms-src="hero.1.image" src="images/hero-8.png" alt="" aria-hidden="true" loading="lazy">
-    <img class="slide-fg" data-cms-src="hero.1.image" data-cms-alt="hero.1.alt" src="images/hero-8.png" alt="Strength training" loading="lazy">
+          <svg class="hs-ecg" viewBox="0 0 1200 120" preserveAspectRatio="none" focusable="false">
+            <path class="hs-ecg-base" d="M0 60 L110 60 L125 52 L140 60 L160 60 L172 14 L186 104 L198 44 L208 60 L300 60 L410 60 L425 52 L440 60 L460 60 L472 14 L486 104 L498 44 L508 60 L600 60 L710 60 L725 52 L740 60 L760 60 L772 14 L786 104 L798 44 L808 60 L900 60 L1010 60 L1025 52 L1040 60 L1060 60 L1072 14 L1086 104 L1098 44 L1108 60 L1200 60" />
+            <path class="hs-ecg-pulse" pathLength="1" d="M0 60 L110 60 L125 52 L140 60 L160 60 L172 14 L186 104 L198 44 L208 60 L300 60 L410 60 L425 52 L440 60 L460 60 L472 14 L486 104 L498 44 L508 60 L600 60 L710 60 L725 52 L740 60 L760 60 L772 14 L786 104 L798 44 L808 60 L900 60 L1010 60 L1025 52 L1040 60 L1060 60 L1072 14 L1086 104 L1098 44 L1108 60 L1200 60" />
+          </svg>
 
-    <!-- <a href="non-virtual-training.html" class="hero-know-more">
-      Know More
-      <span>→</span>
-    </a> -->
-  </div>
+          <span class="hs-float" style="--x: 3%;  --y: 12%; --s: 34px; --t: 9s;  --d: 0s;    --r: -12deg"><i class="fa-solid fa-dumbbell"></i></span>
+          <span class="hs-float" style="--x: 24%; --y: 4%;  --s: 22px; --t: 11s; --d: -4s;   --r: 10deg"><i class="fa-solid fa-apple-whole"></i></span>
+          <span class="hs-float" style="--x: 42%; --y: 9%;  --s: 26px; --t: 8s;  --d: -2s;   --r: 8deg"><i class="fa-solid fa-stopwatch"></i></span>
+          <span class="hs-float" style="--x: 38%; --y: 58%; --s: 30px; --t: 10s; --d: -6s;   --r: -8deg"><i class="fa-solid fa-heart-pulse"></i></span>
+          <span class="hs-float" style="--x: 2%;  --y: 64%; --s: 28px; --t: 12s; --d: -3s;   --r: 14deg"><i class="fa-solid fa-weight-hanging"></i></span>
+          <span class="hs-float" style="--x: 94%; --y: 6%;  --s: 24px; --t: 9s;  --d: -5s;   --r: -10deg"><i class="fa-solid fa-bolt"></i></span>
+          <span class="hs-float" style="--x: 95%; --y: 62%; --s: 38px; --t: 11s; --d: -1s;   --r: 6deg"><i class="fa-solid fa-person-running"></i></span>
+          <span class="hs-float" style="--x: 47%; --y: 40%; --s: 20px; --t: 10s; --d: -7s;   --r: -14deg"><i class="fa-solid fa-fire-flame-curved"></i></span>
+        </div>
 
-  <!-- Slide 03 -->
-  <div class="carousel-slide">
-    <img class="slide-bg" data-cms-src="hero.2.image" src="images/hero-9.png" alt="" aria-hidden="true" loading="lazy">
-    <img class="slide-fg" data-cms-src="hero.2.image" data-cms-alt="hero.2.alt" src="images/hero-9.png" alt="Group fitness" loading="lazy">
+        <div class="hs-inner">
 
-    <!-- <a href="personal-training.html" class="hero-know-more">
-      Know More
-      <span>→</span> -->
-    </a>
-  </div>
+          <div class="hs-slides">
 
-  <!-- Dots -->
-  <div class="carousel-dots">
-    <button class="active" type="button" data-slide="0" aria-label="Show slide 1"></button>
-    <button type="button" data-slide="1" aria-label="Show slide 2"></button>
-    <button type="button" data-slide="2" aria-label="Show slide 3"></button>
-  </div>
+            <!-- Slide 01 -->
+            <div class="carousel-slide active">
+              <span class="hs-tag" data-cms="hero.0.tag">Program 01</span>
+              <h1 class="hs-title">
+                <span class="hs-line"><span data-cms="hero.0.title">Live 1-on-1</span></span>
+                <span class="hs-line hs-accent"><span data-cms="hero.0.accent">Personal Training</span></span>
+              </h1>
+              <div class="hs-actions">
+                <a class="hs-btn hs-btn-primary" href="virtual-training.html" data-cms-href="hero.0.link"><span data-cms="hero.0.cta">Explore Programme</span> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <a class="hs-btn hs-btn-link" href="#journey" data-cms-href="hero_secondary.link"><span class="hs-ring" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></span><span data-cms="hero_secondary.text">Start Your Journey</span></a>
+              </div>
+            </div>
 
-</div>
+            <!-- Slide 02 -->
+            <div class="carousel-slide">
+              <span class="hs-tag" data-cms="hero.1.tag">Program 02</span>
+              <h2 class="hs-title">
+                <span class="hs-line"><span data-cms="hero.1.title">Personalised</span></span>
+                <span class="hs-line hs-accent"><span data-cms="hero.1.accent">Workout &amp;<br>Nutrition Plans</span></span>
+              </h2>
+              <div class="hs-actions">
+                <a class="hs-btn hs-btn-primary" href="non-virtual-training.html" data-cms-href="hero.1.link"><span data-cms="hero.1.cta">Explore Programme</span> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <a class="hs-btn hs-btn-link" href="#journey" data-cms-href="hero_secondary.link"><span class="hs-ring" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></span><span data-cms="hero_secondary.text">Start Your Journey</span></a>
+              </div>
+            </div>
+
+            <!-- Slide 03 -->
+            <div class="carousel-slide">
+              <span class="hs-tag" data-cms="hero.2.tag">Program 03</span>
+              <h2 class="hs-title">
+                <span class="hs-line"><span data-cms="hero.2.title">Specialised Training</span></span>
+                <span class="hs-line hs-accent"><span data-cms="hero.2.accent">For Health Conditions<br>&amp; Physical Limitations</span></span>
+              </h2>
+              <div class="hs-actions">
+                <a class="hs-btn hs-btn-primary" href="personal-training.html" data-cms-href="hero.2.link"><span data-cms="hero.2.cta">Explore Programme</span> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <a class="hs-btn hs-btn-link" href="#journey" data-cms-href="hero_secondary.link"><span class="hs-ring" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></span><span data-cms="hero_secondary.text">Start Your Journey</span></a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Photo card stack: front card is the active slide -->
+          <div class="hs-stack">
+            <span class="hs-rings" aria-hidden="true"><i></i><i></i><i></i></span>
+            <figure class="hs-card" data-pos="0">
+              <img src="images/hero-7.png" alt="Personal training" data-cms-src="hero.0.image" data-cms-alt="hero.0.alt" fetchpriority="high">
+            </figure>
+            <figure class="hs-card" data-pos="1">
+              <img src="images/hero-8.png" alt="Strength training" data-cms-src="hero.1.image" data-cms-alt="hero.1.alt" loading="lazy">
+            </figure>
+            <figure class="hs-card" data-pos="2">
+              <img src="images/hero-9.png" alt="Group fitness" data-cms-src="hero.2.image" data-cms-alt="hero.2.alt" loading="lazy">
+            </figure>
+
+            <div class="hs-badge" aria-hidden="true">
+              <svg viewBox="0 0 120 120" focusable="false">
+                <defs>
+                  <path id="hsBadgePath" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0" />
+                </defs>
+                <text><textPath href="#hsBadgePath" textLength="280" lengthAdjust="spacing">TIME TO FIT INDIA &#8226; TRAIN WITH PURPOSE &#8226;</textPath></text>
+              </svg>
+              <i class="fa-solid fa-dumbbell"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Programme tabs: the gold bar fills as the slide's timer -->
+        <div class="hs-tabs">
+          <button class="hs-tab active" type="button" aria-current="true">
+            <span class="hs-tab-bar" aria-hidden="true"><i></i></span>
+            <span class="hs-tab-num">01</span>
+            <span class="hs-tab-label" data-cms="hero.0.tab">Live 1-on-1 Personal Training</span>
+          </button>
+          <button class="hs-tab" type="button" aria-current="false">
+            <span class="hs-tab-bar" aria-hidden="true"><i></i></span>
+            <span class="hs-tab-num">02</span>
+            <span class="hs-tab-label" data-cms="hero.1.tab">Workout &amp; Nutrition Plans</span>
+          </button>
+          <button class="hs-tab" type="button" aria-current="false">
+            <span class="hs-tab-bar" aria-hidden="true"><i></i></span>
+            <span class="hs-tab-num">03</span>
+            <span class="hs-tab-label" data-cms="hero.2.tab">Specialised Training</span>
+          </button>
+        </div>
+
+      </div>
       <!-- Buttons on top of the banner -->
       <!-- <div class="hero-buttons">
         <a class="btn btn-solid hero-btn-primary" href="#programs">Explore Programmes</a>
@@ -2046,48 +2129,161 @@
       ======================================================= */
 
       function initHeroCarousel() {
-        var slides = document.querySelectorAll(".carousel-slide");
-        var dots = document.querySelectorAll(".carousel-dots button");
-        var current = 0;
-        var timer = null;
+        var carousel = document.querySelector(".hero-carousel");
+        if (!carousel) return;
 
-        if (!slides.length) return;
+        var slides = carousel.querySelectorAll(".carousel-slide");
+        var cards = carousel.querySelectorAll(".hs-card");
+        var ambient = carousel.querySelectorAll(".hs-ambient-img");
+        var tabs = carousel.querySelectorAll(".hs-tab");
+        var total = slides.length;
+        var current = 0;
+        var leaveTimer = null;
+        var INTERVAL = 6000;
+
+        if (!total) return;
+
+        function each(list, fn) {
+          Array.prototype.forEach.call(list, fn);
+        }
+
+        carousel.style.setProperty("--hero-interval", INTERVAL + "ms");
+        if (!reduceMotion) carousel.classList.add("is-autoplay");
+
+        // Long CMS headings get a smaller size so every slide keeps the same rhythm.
+        each(carousel.querySelectorAll(".hs-title"), function (title) {
+          if (title.textContent.replace(/\s+/g, " ").trim().length > 42) {
+            title.classList.add("is-long");
+          }
+        });
+
+        function placeCards(previous) {
+          each(cards, function (card, i) {
+            var pos = (i - current + total) % total;
+
+            // The card leaving the front flies out, then quietly rejoins at the back.
+            if (i === previous && pos === total - 1 && total > 2) {
+              card.dataset.pos = "out";
+              setTimeout(function () {
+                if (card.dataset.pos !== "out") return;
+                card.classList.add("is-reset");
+                card.dataset.pos = String((i - current + total) % total);
+                void card.offsetWidth;
+                card.classList.remove("is-reset");
+              }, 650);
+              return;
+            }
+
+            card.dataset.pos = String(pos);
+          });
+        }
 
         function show(index) {
-          if (index < 0 || index >= slides.length) index = 0;
+          index = (index + total) % total;
+          if (index === current) return;
 
-          Array.prototype.forEach.call(slides, function (slide, i) {
-            slide.classList.toggle("active", i === index);
+          var outgoing = slides[current];
+          var previous = current;
+
+          carousel.classList.add("has-moved");
+
+          each(slides, function (slide) {
+            if (slide !== outgoing) slide.classList.remove("leaving");
           });
 
-          Array.prototype.forEach.call(dots, function (dot, i) {
-            dot.classList.toggle("active", i === index);
-          });
-
+          outgoing.classList.remove("active");
+          outgoing.classList.add("leaving");
+          slides[index].classList.add("active");
           current = index;
+
+          placeCards(previous);
+
+          each(slides, function (slide, i) {
+            slide.setAttribute("aria-hidden", i === index ? "false" : "true");
+          });
+
+          each(ambient, function (img, i) {
+            img.classList.toggle("is-active", i === index);
+          });
+
+          each(tabs, function (tab, i) {
+            tab.classList.toggle("active", i === index);
+            tab.setAttribute("aria-current", i === index ? "true" : "false");
+          });
+
+          clearTimeout(leaveTimer);
+          leaveTimer = setTimeout(function () {
+            outgoing.classList.remove("leaving");
+          }, 900);
         }
 
-        function start() {
-          if (reduceMotion) return;
-          timer = setInterval(function () {
-            show((current + 1) % slides.length);
-          }, 4000);
-        }
+        function next() { show(current + 1); }
+        function prev() { show(current - 1); }
 
-        function restart() {
-          clearInterval(timer);
-          start();
-        }
-
-        Array.prototype.forEach.call(dots, function (dot, index) {
-          dot.addEventListener("click", function () {
+        // Autoplay is driven by the active tab's progress bar, so pausing that
+        // animation (hover, focus, hidden tab) pauses the slideshow too.
+        each(tabs, function (tab, index) {
+          tab.addEventListener("animationend", function (e) {
+            if (e.animationName === "hsTabFill" && tab.classList.contains("active")) next();
+          });
+          tab.addEventListener("click", function () {
             show(index);
-            restart();
           });
         });
 
-        show(0);
-        start();
+        each(cards, function (card, index) {
+          card.addEventListener("click", function () {
+            show(index);
+          });
+        });
+
+        function pause() { carousel.classList.add("is-paused"); }
+        function resume() { carousel.classList.remove("is-paused"); }
+
+        carousel.addEventListener("pointerenter", function (e) {
+          if (e.pointerType === "mouse") pause();
+        });
+        carousel.addEventListener("pointerleave", function (e) {
+          if (e.pointerType === "mouse") resume();
+        });
+        carousel.addEventListener("focusin", pause);
+        carousel.addEventListener("focusout", resume);
+
+        document.addEventListener("visibilitychange", function () {
+          if (document.hidden) pause();
+          else if (!carousel.matches(":hover")) resume();
+        });
+
+        carousel.addEventListener("keydown", function (e) {
+          if (e.key === "ArrowLeft") { prev(); e.preventDefault(); }
+          if (e.key === "ArrowRight") { next(); e.preventDefault(); }
+        });
+
+        var touchX = null;
+        var touchY = null;
+
+        carousel.addEventListener("touchstart", function (e) {
+          touchX = e.touches[0].clientX;
+          touchY = e.touches[0].clientY;
+          pause();
+        }, { passive: true });
+
+        carousel.addEventListener("touchend", function (e) {
+          if (touchX !== null) {
+            var dx = e.changedTouches[0].clientX - touchX;
+            var dy = e.changedTouches[0].clientY - touchY;
+            if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+              if (dx < 0) next();
+              else prev();
+            }
+          }
+          touchX = touchY = null;
+          resume();
+        }, { passive: true });
+
+        each(slides, function (slide, i) {
+          slide.setAttribute("aria-hidden", i === current ? "false" : "true");
+        });
       }
 
 
