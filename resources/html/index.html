@@ -2150,6 +2150,16 @@
         carousel.style.setProperty("--hero-interval", INTERVAL + "ms");
         if (!reduceMotion) carousel.classList.add("is-autoplay");
 
+        each(cards, function (card) {
+          var img = card.querySelector("img");
+          if (!img) return;
+          function measure() {
+            card.classList.toggle("is-wide", img.naturalWidth > img.naturalHeight * 2);
+          }
+          img.addEventListener("load", measure);
+          if (img.complete && img.naturalWidth) measure();
+        });
+
         // Long CMS headings get a smaller size so every slide keeps the same rhythm.
         each(carousel.querySelectorAll(".hs-title"), function (title) {
           if (title.textContent.replace(/\s+/g, " ").trim().length > 42) {

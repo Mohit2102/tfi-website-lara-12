@@ -74,7 +74,7 @@
                 </div>
             @endforeach
         </div>
-        <p class="help" style="margin-top:1rem">Line breaks in the headings are kept. The photo shows its right-hand side, so keep people on the right of uploaded images and avoid text baked into the picture.</p>
+        <p class="help" style="margin-top:1rem">Line breaks in the headings are kept. Upload plain photos without text, ideally landscape 4:3 (for example 1600 × 1200 px) — they fill the photo card fully. Very wide banner images only show their right-hand side.</p>
         <div class="cms-grid" style="margin-top:1rem">
             <div class="field">
                 <label>Second button text (all slides)</label>

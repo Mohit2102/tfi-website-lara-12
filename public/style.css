@@ -1207,8 +1207,8 @@ html.dark-mode #mobilemenu {
 }
 
 /* Editable slides (superadmin > Home page) with a photo card stack.
-   Cards show the right-hand part of each photo, so text baked into the
-   left of an uploaded image stays hidden. */
+   Photos fill a 4:3 card centred; very wide banner images (.is-wide) show
+   their right-hand side so text baked into the left stays hidden. */
 .hero-carousel {
   --hs-ease: cubic-bezier(0.77, 0, 0.18, 1);
   --hs-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -1506,7 +1506,7 @@ html.dark-mode .hero-carousel {
 }
 
 .hs-title {
-  margin: 22px 0 38px;
+  margin: 22px 0 48px;
   color: var(--hs-ink);
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-size: clamp(34px, 3.8vw, 56px);
@@ -1519,20 +1519,24 @@ html.dark-mode .hero-carousel {
   font-size: clamp(28px, 2.9vw, 42px);
 }
 
+/* Extra bottom room (cancelled by negative margins) keeps descenders like
+   "g" and "p" inside both the reveal mask and the gold text's background. */
 .hs-line {
   --d: 0.22s;
   display: block;
   overflow: hidden;
-  padding-bottom: 0.08em;
+  padding: 0 0.06em 0.2em 0;
+  margin-bottom: -0.2em;
 }
 
 .hs-line + .hs-line {
   --d: 0.34s;
-  margin-top: -0.08em;
 }
 
 .hs-line > span {
   display: inline-block;
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
   transform: translateY(105%);
 }
 
@@ -1686,8 +1690,8 @@ html.dark-mode .hero-carousel {
 
 .hs-stack {
   position: relative;
-  width: 86%;
-  aspect-ratio: 5 / 4;
+  width: 88%;
+  aspect-ratio: 4 / 3;
   margin: 4% 0 0 2%;
 }
 
@@ -1710,9 +1714,15 @@ html.dark-mode .hero-carousel {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  transform-origin: center;
+  transform: scale(1.04);
+}
+
+/* Wide banner artwork usually has text painted on its left, so show its right side */
+.hs-card.is-wide img {
   object-position: right center;
   transform-origin: right center;
-  transform: scale(1.1);
 }
 
 .hs-card::before {
@@ -1967,7 +1977,7 @@ html.dark-mode .hero-carousel {
 }
 
 @keyframes hsZoom {
-  from { transform: scale(1.1); }
+  from { transform: scale(1.04); }
   to   { transform: scale(1); }
 }
 
@@ -2057,7 +2067,7 @@ html.dark-mode .hero-carousel {
   }
 
   .hs-title {
-    margin: 16px 0 26px;
+    margin: 16px 0 32px;
     font-size: 32px;
   }
 
