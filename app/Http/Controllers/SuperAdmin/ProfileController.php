@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Support\ImageUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -22,8 +22,8 @@ class ProfileController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:120'],
-            'photo' => ['nullable', 'image', 'max:4096'],
-        ]);
+            'photo' => ImageUpload::rules(),
+        ], ImageUpload::messages(['photo']));
 
         $user = $request->user();
         $user->name = $data['name'];
@@ -47,19 +47,12 @@ class ProfileController extends Controller
 
     private function storePhoto(UploadedFile $file, ?string $previous): string
     {
-        $directory = public_path('uploads/avatars');
-
-        if (! is_dir($directory)) {
-            mkdir($directory, 0755, true);
-        }
-
-        $name = Str::uuid()->toString().'.'.$file->getClientOriginalExtension();
-        $file->move($directory, $name);
+        $path = ImageUpload::store($file, 'uploads/avatars', ImageUpload::PHOTO_WIDTH);
 
         if (is_string($previous) && str_starts_with($previous, 'uploads/avatars/') && is_file(public_path($previous))) {
             @unlink(public_path($previous));
         }
 
-        return 'uploads/avatars/'.$name;
+        return $path;
     }
 }

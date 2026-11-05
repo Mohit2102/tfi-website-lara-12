@@ -5,12 +5,11 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\SitePage;
 use App\Support\HomePageContent;
+use App\Support\ImageUpload;
 use App\Support\UploadCleanup;
-use App\Support\WebpImage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class HomePageController extends Controller
@@ -30,11 +29,14 @@ class HomePageController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
+        $imageFields = ['uploads.hero.*', 'uploads.programs.*', 'uploads.why.*', 'uploads.bmi', 'uploads.founder', 'uploads.why_team'];
+
         $data = $request->validate([
             'title' => ['required', 'string', 'max:180'],
             'meta_description' => ['nullable', 'string', 'max:500'],
             'content' => ['required', 'array'],
-        ]);
+            ...array_fill_keys($imageFields, ImageUpload::rules()),
+        ], ImageUpload::messages($imageFields));
 
         $content = UploadCleanup::blankClearedImages(HomePageContent::merge($data['content']));
         $content = $this->storeUploads($request, $content);
@@ -114,16 +116,6 @@ class HomePageController extends Controller
 
     private function storePublic(UploadedFile $file): string
     {
-        $directory = public_path('uploads/home');
-
-        if (! is_dir($directory)) {
-            mkdir($directory, 0755, true);
-        }
-
-        $name = Str::uuid()->toString().'.'.$file->getClientOriginalExtension();
-        $file->move($directory, $name);
-        WebpImage::create($directory.DIRECTORY_SEPARATOR.$name);
-
-        return 'uploads/home/'.$name;
+        return ImageUpload::store($file, 'uploads/home');
     }
 }

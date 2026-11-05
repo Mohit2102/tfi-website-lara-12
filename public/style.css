@@ -1223,11 +1223,9 @@ html.dark-mode #mobilemenu {
   --hs-num: #a8832f;
   --hs-track: rgba(20, 19, 15, 0.12);
   --hs-accent: linear-gradient(100deg, #7a5a14 0%, #b8892b 22%, #d9ad52 32%, #a8832f 48%, #7a5a14 70%, #b8892b 100%);
-  --hs-ambient-filter: blur(48px) saturate(1.15) brightness(1.05);
-  --hs-ambient-opacity: 0.5;
   --hs-overlay:
     radial-gradient(55% 65% at 16% 42%, rgba(212, 169, 74, 0.2), rgba(212, 169, 74, 0) 70%),
-    linear-gradient(90deg, rgba(246, 240, 226, 0.97) 0%, rgba(246, 240, 226, 0.86) 42%, rgba(246, 240, 226, 0.55) 100%),
+    radial-gradient(45% 70% at 78% 40%, rgba(184, 137, 43, 0.16), rgba(184, 137, 43, 0) 70%),
     linear-gradient(0deg, #f6f0e2 0%, rgba(246, 240, 226, 0) 32%);
   --hs-btn-shadow: 0 14px 30px rgba(184, 137, 43, 0.3);
   --hs-ring-border: rgba(184, 137, 43, 0.55);
@@ -1238,7 +1236,7 @@ html.dark-mode #mobilemenu {
   --hs-back-1-opacity: 0.8;
   --hs-back-2-opacity: 0.5;
   --hs-back-hover: brightness(1) saturate(1);
-  --hs-badge-bg: rgba(255, 253, 248, 0.88);
+  --hs-badge-bg: rgba(255, 253, 248, 0.96);
   --hs-badge-text: #7a5a14;
   --hs-badge-shadow: 0 16px 34px rgba(70, 52, 16, 0.18);
   --hs-fx-word: rgba(140, 106, 30, 0.12);
@@ -1262,11 +1260,9 @@ html.dark-mode .hero-carousel {
   --hs-num: #c9a24d;
   --hs-track: rgba(255, 255, 255, 0.14);
   --hs-accent: linear-gradient(100deg, #c9a24d 0%, #f1d488 22%, #fff3cf 32%, #d4a94a 48%, #b8892b 70%, #f1d488 100%);
-  --hs-ambient-filter: blur(48px) saturate(1.3) brightness(0.55);
-  --hs-ambient-opacity: 1;
   --hs-overlay:
     radial-gradient(55% 65% at 16% 42%, rgba(201, 162, 77, 0.16), rgba(201, 162, 77, 0) 70%),
-    linear-gradient(90deg, rgba(11, 10, 8, 0.95) 0%, rgba(11, 10, 8, 0.78) 42%, rgba(11, 10, 8, 0.45) 100%),
+    radial-gradient(45% 70% at 78% 40%, rgba(201, 162, 77, 0.14), rgba(201, 162, 77, 0) 70%),
     linear-gradient(0deg, #0b0a08 0%, rgba(11, 10, 8, 0) 32%);
   --hs-btn-shadow: 0 14px 34px rgba(201, 162, 77, 0.32);
   --hs-ring-border: rgba(201, 162, 77, 0.6);
@@ -1277,7 +1273,7 @@ html.dark-mode .hero-carousel {
   --hs-back-1-opacity: 0.85;
   --hs-back-2-opacity: 0.55;
   --hs-back-hover: brightness(0.75) saturate(0.9);
-  --hs-badge-bg: rgba(14, 12, 9, 0.75);
+  --hs-badge-bg: rgba(14, 12, 9, 0.92);
   --hs-badge-text: #f1d488;
   --hs-badge-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
   --hs-fx-word: rgba(201, 162, 77, 0.13);
@@ -1295,24 +1291,6 @@ html.dark-mode .hero-carousel {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-}
-
-.hs-ambient-img {
-  position: absolute;
-  top: -80px;
-  left: -80px;
-  width: calc(100% + 160px);
-  height: calc(100% + 160px);
-  object-fit: cover;
-  object-position: right center;
-  filter: var(--hs-ambient-filter);
-  opacity: 0;
-  transform: scale(1.08);
-  transition: opacity 1.4s ease;
-}
-
-.hs-ambient-img.is-active {
-  opacity: var(--hs-ambient-opacity);
 }
 
 .hs-ambient::after {
@@ -1338,6 +1316,7 @@ html.dark-mode .hero-carousel {
   display: flex;
   width: max-content;
   white-space: nowrap;
+  will-change: transform;
   animation: hsMarquee 70s linear infinite;
 }
 
@@ -1388,7 +1367,6 @@ html.dark-mode .hero-carousel {
   stroke-width: 2.2;
   stroke-dasharray: 0.09 0.91;
   stroke-dashoffset: 1;
-  filter: drop-shadow(0 0 5px var(--hs-fx-pulse));
   animation: hsEcg 4.5s linear infinite;
 }
 
@@ -1548,10 +1526,6 @@ html.dark-mode .hero-carousel {
   background-clip: text;
 }
 
-.carousel-slide.active .hs-accent > span {
-  animation: hsShine 7s linear infinite;
-}
-
 .hs-actions {
   --d: 0.48s;
   display: flex;
@@ -1632,6 +1606,7 @@ html.dark-mode .hero-carousel {
   width: 40%;
   background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
   transform: skewX(-20deg);
+  will-change: transform;
   animation: hsBtnShine 4s ease-in-out infinite;
 }
 
@@ -1811,8 +1786,6 @@ html.dark-mode .hero-carousel {
   border: 1px solid rgba(201, 162, 77, 0.45);
   border-radius: 50%;
   box-shadow: var(--hs-badge-shadow);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .hs-badge svg {
@@ -1912,6 +1885,12 @@ html.dark-mode .hero-carousel {
   animation-play-state: paused;
 }
 
+.hero-carousel.is-offscreen *,
+.hero-carousel.is-offscreen *::before,
+.hero-carousel.is-offscreen *::after {
+  animation-play-state: paused !important;
+}
+
 .hs-tab-num {
   padding-top: 2px;
   color: var(--hs-num);
@@ -1937,12 +1916,6 @@ html.dark-mode .hero-carousel {
 
 .hero-carousel:not(.has-moved) .carousel-slide.active .hs-line > span {
   animation: hsLineUp 1s var(--hs-out) var(--d) both;
-}
-
-.hero-carousel:not(.has-moved) .carousel-slide.active .hs-accent > span {
-  animation:
-    hsLineUp 1s var(--hs-out) var(--d) both,
-    hsShine 7s linear infinite;
 }
 
 .hero-carousel:not(.has-moved) .hs-card {
@@ -1990,13 +1963,9 @@ html.dark-mode .hero-carousel {
   to { transform: translateX(120%); }
 }
 
-@keyframes hsShine {
-  to { background-position: -220% 0; }
-}
-
 @keyframes hsBtnShine {
-  0%, 55% { left: -60%; }
-  100%    { left: 130%; }
+  0%, 55% { transform: translateX(0) skewX(-20deg); }
+  100%    { transform: translateX(480%) skewX(-20deg); }
 }
 
 @keyframes hsPulse {
@@ -7910,9 +7879,9 @@ html:not(.dark-mode) #whyChartFill stop {
   transform: scaleX(0);
 }
 
-#why .why-board.is-reveal.in .tfi-v2-board__steps::before {
+/* #why .why-board.is-reveal.in .tfi-v2-board__steps::before {
   transform: scaleX(1);
-}
+} */
 
 @keyframes whyBoardRise {
   to { opacity: 1; translate: 0 0; }
@@ -22097,12 +22066,6 @@ html.lenis {
 /* Scroll-linked depth (browsers without scroll timelines simply skip it) */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .page-home .hero-carousel .hs-ambient {
-      animation: tfiHeroDepth linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 90vh;
-    }
-
     .page-home section h2 {
       animation: tfiHeadingDrift linear both;
       animation-timeline: view();
@@ -22115,10 +22078,6 @@ html.lenis {
       animation-range: entry 0% exit 100%;
     }
   }
-}
-
-@keyframes tfiHeroDepth {
-  to { translate: 0 8%; scale: 1.18; }
 }
 
 @keyframes tfiHeadingDrift {

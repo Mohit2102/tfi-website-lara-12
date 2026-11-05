@@ -5,10 +5,10 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserPlan;
+use App\Support\ImageUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -152,9 +152,9 @@ class UserController extends Controller
             'phone' => ['nullable', 'string', 'max:40'],
             'role' => ['required', Rule::in([User::ROLE_SUPERADMIN, User::ROLE_ADMIN, User::ROLE_CUSTOMER])],
             'password' => $passwordRules,
-            'photo' => ['nullable', 'image', 'max:4096'],
+            'photo' => ImageUpload::rules(),
             'trainer_id' => ['nullable', 'integer', Rule::exists('users', 'id')->where('role', User::ROLE_ADMIN)],
-        ]);
+        ], ImageUpload::messages(['photo']));
     }
 
     /**
@@ -201,18 +201,11 @@ class UserController extends Controller
             return $previous;
         }
 
-        $directory = public_path('uploads/avatars');
-
-        if (! is_dir($directory)) {
-            mkdir($directory, 0755, true);
-        }
-
-        $name = Str::uuid()->toString().'.'.$file->getClientOriginalExtension();
-        $file->move($directory, $name);
+        $path = ImageUpload::store($file, 'uploads/avatars', ImageUpload::PHOTO_WIDTH);
 
         $this->deletePhoto($previous);
 
-        return 'uploads/avatars/'.$name;
+        return $path;
     }
 
     private function deletePhoto(?string $path): void

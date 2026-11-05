@@ -259,5 +259,6 @@
     document.getElementById('overlay').addEventListener('click', close);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 </script>
+@include('partials.image-upload-guard')
 </body>
 </html>

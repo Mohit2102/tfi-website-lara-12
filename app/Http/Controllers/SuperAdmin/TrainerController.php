@@ -4,11 +4,11 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Trainer;
+use App\Support\ImageUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -133,8 +133,8 @@ class TrainerController extends Controller
             'instagram_url' => ['nullable', 'url', 'max:255'],
             'linkedin_url' => ['nullable', 'url', 'max:255'],
             'sort_order' => ['nullable', 'integer', 'min:0', 'max:9999'],
-            'photo' => ['nullable', 'image', 'max:4096'],
-        ]);
+            'photo' => ImageUpload::rules(),
+        ], ImageUpload::messages(['photo']));
 
         unset($data['photo']);
 
@@ -155,18 +155,11 @@ class TrainerController extends Controller
             return $previous;
         }
 
-        $directory = public_path('uploads/trainers');
-
-        if (! is_dir($directory)) {
-            mkdir($directory, 0755, true);
-        }
-
-        $name = Str::uuid()->toString().'.'.$file->getClientOriginalExtension();
-        $file->move($directory, $name);
+        $path = ImageUpload::store($file, 'uploads/trainers', ImageUpload::PHOTO_WIDTH);
 
         $this->deletePhoto($previous);
 
-        return 'uploads/trainers/'.$name;
+        return $path;
     }
 
     private function deletePhoto(?string $path): void

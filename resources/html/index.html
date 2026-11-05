@@ -252,11 +252,7 @@
       <div class="hero-carousel" aria-roledescription="carousel" aria-label="Featured programmes">
 
         <!-- Blurred copy of the active photo tints the whole hero -->
-        <div class="hs-ambient" aria-hidden="true">
-          <img class="hs-ambient-img is-active" src="images/hero-7.png" alt="" data-cms-src="hero.0.image">
-          <img class="hs-ambient-img" src="images/hero-8.png" alt="" data-cms-src="hero.1.image" loading="lazy">
-          <img class="hs-ambient-img" src="images/hero-9.png" alt="" data-cms-src="hero.2.image" loading="lazy">
-        </div>
+        <div class="hs-ambient" aria-hidden="true"></div>
 
         <!-- Fitness motion layer: word marquee, heartbeat line, floating icons -->
         <div class="hs-fx" aria-hidden="true">
@@ -2134,7 +2130,6 @@
 
         var slides = carousel.querySelectorAll(".carousel-slide");
         var cards = carousel.querySelectorAll(".hs-card");
-        var ambient = carousel.querySelectorAll(".hs-ambient-img");
         var tabs = carousel.querySelectorAll(".hs-tab");
         var total = slides.length;
         var current = 0;
@@ -2212,10 +2207,6 @@
             slide.setAttribute("aria-hidden", i === index ? "false" : "true");
           });
 
-          each(ambient, function (img, i) {
-            img.classList.toggle("is-active", i === index);
-          });
-
           each(tabs, function (tab, i) {
             tab.classList.toggle("active", i === index);
             tab.setAttribute("aria-current", i === index ? "true" : "false");
@@ -2263,6 +2254,13 @@
           if (document.hidden) pause();
           else if (!carousel.matches(":hover")) resume();
         });
+
+        // Freeze every hero animation while the banner is scrolled out of view.
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(function (entries) {
+            carousel.classList.toggle("is-offscreen", !entries[0].isIntersecting);
+          }).observe(carousel);
+        }
 
         carousel.addEventListener("keydown", function (e) {
           if (e.key === "ArrowLeft") { prev(); e.preventDefault(); }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\SitePage;
 use App\Support\HtmlPageRenderer;
+use App\Support\ImageUpload;
 use App\Support\PlanPriceCatalog;
 use App\Support\ProgramPageContent;
 use App\Support\TrainersPageContent;
@@ -12,7 +13,6 @@ use App\Support\UploadCleanup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class SitePageController extends Controller
@@ -97,9 +97,9 @@ class SitePageController extends Controller
 
         if (ProgramPageContent::supports($slug)) {
             $rules['content'] = ['required', 'array'];
-            $rules['uploads.hero'] = ['nullable', 'file', 'max:8192', 'mimes:jpg,jpeg,png,webp,gif'];
+            $rules['uploads.hero'] = ImageUpload::rules();
             $rules['uploads.inside'] = ['nullable', 'array'];
-            $rules['uploads.inside.*'] = ['nullable', 'file', 'max:8192', 'mimes:jpg,jpeg,png,webp,gif'];
+            $rules['uploads.inside.*'] = ImageUpload::rules();
         } elseif ($slug === 'trainers') {
             $rules['content'] = ['required', 'array'];
             $rules['content.*.*'] = ['nullable', 'string', 'max:600'];
@@ -107,7 +107,7 @@ class SitePageController extends Controller
             $rules['html'] = ['required', 'string'];
         }
 
-        $data = $request->validate($rules);
+        $data = $request->validate($rules, ImageUpload::messages(['uploads.hero', 'uploads.inside.*']));
 
         $payload = [
             'title' => $data['title'],
@@ -194,16 +194,7 @@ class SitePageController extends Controller
 
     private function storePublic(UploadedFile $file, string $slug): string
     {
-        $directory = public_path('uploads/programs/'.$slug);
-
-        if (! is_dir($directory)) {
-            mkdir($directory, 0755, true);
-        }
-
-        $name = Str::uuid()->toString().'.'.$file->getClientOriginalExtension();
-        $file->move($directory, $name);
-
-        return 'uploads/programs/'.$slug.'/'.$name;
+        return ImageUpload::store($file, 'uploads/programs/'.$slug);
     }
 
     private function assertKnownPage(string $slug): void

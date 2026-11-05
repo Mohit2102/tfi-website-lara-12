@@ -26,19 +26,32 @@ class WebpImage
      */
     public static function create(string $file, int $maxWidth = self::MAX_WIDTH): bool
     {
-        if (! function_exists('imagewebp') || ! is_file($file)) {
+        return self::convert($file, self::pathFor($file), $maxWidth);
+    }
+
+    /**
+     * Re-encode any image GD can read (jpg, png, gif, webp, bmp, avif) as a
+     * resized .webp at $destination. Returns false when GD cannot read it.
+     */
+    public static function convert(string $source, string $destination, int $maxWidth = self::MAX_WIDTH): bool
+    {
+        if (! function_exists('imagewebp') || ! is_file($source)) {
             return false;
         }
 
-        $info = @getimagesize($file);
+        $info = @getimagesize($source);
 
         if (! $info) {
             return false;
         }
 
-        $image = match ($info[2]) {
-            IMAGETYPE_PNG => @imagecreatefrompng($file),
-            IMAGETYPE_JPEG => @imagecreatefromjpeg($file),
+        $image = match (true) {
+            $info[2] === IMAGETYPE_PNG => @imagecreatefrompng($source),
+            $info[2] === IMAGETYPE_JPEG => @imagecreatefromjpeg($source),
+            $info[2] === IMAGETYPE_GIF => @imagecreatefromgif($source),
+            $info[2] === IMAGETYPE_WEBP => @imagecreatefromwebp($source),
+            $info[2] === IMAGETYPE_BMP && function_exists('imagecreatefrombmp') => @imagecreatefrombmp($source),
+            defined('IMAGETYPE_AVIF') && $info[2] === IMAGETYPE_AVIF && function_exists('imagecreatefromavif') => @imagecreatefromavif($source),
             default => false,
         };
 
@@ -47,7 +60,7 @@ class WebpImage
         }
 
         if ($info[2] === IMAGETYPE_JPEG) {
-            $image = self::orient($image, $file);
+            $image = self::orient($image, $source);
         }
 
         imagepalettetotruecolor($image);
@@ -69,7 +82,7 @@ class WebpImage
         imagealphablending($image, false);
         imagesavealpha($image, true);
 
-        $written = imagewebp($image, self::pathFor($file), self::QUALITY);
+        $written = imagewebp($image, $destination, self::QUALITY);
         imagedestroy($image);
         self::$available = [];
 

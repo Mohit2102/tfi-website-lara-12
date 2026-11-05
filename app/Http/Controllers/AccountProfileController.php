@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\ImageUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -44,8 +44,8 @@ class AccountProfileController extends Controller
             'gender' => ['nullable', Rule::in(['male', 'female', 'other'])],
             'date_of_birth' => ['nullable', 'date', 'before:today', 'after:1920-01-01'],
             'bio' => ['nullable', 'string', 'max:500'],
-            'photo' => ['nullable', 'image', 'max:4096'],
-        ]);
+            'photo' => ImageUpload::rules(),
+        ], ImageUpload::messages(['photo']));
 
         $user->fill([
             'name' => $data['name'],
@@ -72,19 +72,12 @@ class AccountProfileController extends Controller
 
     private function storePhoto(UploadedFile $file, ?string $previous): string
     {
-        $directory = public_path('uploads/avatars');
-
-        if (! is_dir($directory)) {
-            mkdir($directory, 0755, true);
-        }
-
-        $name = Str::uuid()->toString().'.'.$file->getClientOriginalExtension();
-        $file->move($directory, $name);
+        $path = ImageUpload::store($file, 'uploads/avatars', ImageUpload::PHOTO_WIDTH);
 
         if (is_string($previous) && str_starts_with($previous, 'uploads/avatars/') && is_file(public_path($previous))) {
             @unlink(public_path($previous));
         }
 
-        return 'uploads/avatars/'.$name;
+        return $path;
     }
 }
