@@ -157,11 +157,6 @@ class TrainersPageContent
             ? '<p class="tr-bio">'.e($trainer->bio).'</p>'
             : '';
 
-        $tags = collect($trainer->tags ?? [])->filter(fn ($tag) => filled($tag));
-        $tagsHtml = $tags->isNotEmpty()
-            ? '<div class="tr-tags">'.$tags->map(fn ($tag) => '<span>'.e($tag).'</span>')->implode('').'</div>'
-            : '';
-
         $meta = collect([
             ['fa-certificate', $trainer->certification],
             ['fa-user-group', $trainer->highlight],
@@ -186,11 +181,10 @@ class TrainersPageContent
         return '<article class="tr-card">'
             .'<div class="tr-photo'.($photo ? ' has-photo' : '').'" style="background-image:'.$background.'">'
             .$exp
-            .'<div class="tr-photo-name"><h3>'.e($trainer->name).'</h3></div>'
             .'</div>'
             .'<div class="tr-body">'
+            .'<div class="tr-name"><span class="tr-name-label">Name :</span><h3>'.e($trainer->name).'</h3></div>'
             .$bio
-            .$tagsHtml
             .$metaHtml
             .'<div class="tr-foot">'
             .$socialsHtml

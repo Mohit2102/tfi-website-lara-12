@@ -125,7 +125,6 @@ class TrainerController extends Controller
             'name' => ['required', 'string', 'max:120'],
             'experience' => ['nullable', 'string', 'max:40'],
             'bio' => ['nullable', 'string', 'max:600'],
-            'tags' => ['nullable', 'string', 'max:300'],
             'certification' => ['nullable', 'string', 'max:160'],
             'highlight' => ['nullable', 'string', 'max:160'],
             'languages' => ['nullable', 'string', 'max:160'],
@@ -137,11 +136,6 @@ class TrainerController extends Controller
 
         unset($data['photo']);
 
-        $data['tags'] = collect(explode(',', (string) ($data['tags'] ?? '')))
-            ->map(fn (string $tag) => trim($tag))
-            ->filter()
-            ->values()
-            ->all();
         $data['sort_order'] = (int) ($data['sort_order'] ?? 0);
         $data['is_published'] = $request->boolean('is_published');
 

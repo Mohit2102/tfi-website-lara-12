@@ -242,7 +242,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(9, 8, 6, .92) 0%, rgba(9, 8, 6, .25) 55%, transparent 100%);
+      background: linear-gradient(to top, rgba(9, 8, 6, .55) 0%, rgba(9, 8, 6, .08) 40%, transparent 100%);
     }
 
     .tr-p1 { background-image: url('images/trainer-1.jpg'), linear-gradient(135deg, #c99a2e, #3a2a08); }
@@ -273,19 +273,61 @@
       letter-spacing: .1em;
     }
 
-    .tr-photo-name {
+    /* Nameplate overlapping the bottom of the photo */
+    .tr-name {
       position: relative;
-      z-index: 3;
-      width: 100%;
-      padding: 0 24px 20px;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: -52px 0 18px;
+      padding: 13px 16px 13px 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, .16);
+      transition: border-color .35s ease, transform .4s cubic-bezier(.2, .8, .2, 1);
     }
 
-    .tr-photo-name h3 {
-      font-size: 28px;
-      font-weight: 600;
-      line-height: 1.05;
+    .tr-name::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: -1px;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .tr-name-label {
+      flex: 0 0 auto;
+      padding: 5px 10px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, #f3d98b, #c99a2e);
+      color: #1a1408;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      color: #fffaf0;
+      white-space: nowrap;
+    }
+
+    .tr-name h3 {
+      min-width: 0;
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+      color: var(--text);
+      overflow-wrap: anywhere;
+    }
+
+    .tr-card:hover .tr-name {
+      border-color: var(--gold);
+      transform: translateY(-4px);
     }
 
     .tr-body {
@@ -306,26 +348,6 @@
       line-height: 1.65;
       color: var(--text);
     }
-
-    .tr-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .tr-tags span {
-      padding: 6px 12px;
-      border-radius: 30px;
-      border: 1px solid var(--line-strong);
-      background: color-mix(in srgb, var(--gold) 9%, transparent);
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--gold);
-      transition: background .25s ease, color .25s ease, border-color .25s ease;
-    }
-
-    .tr-card:hover .tr-tags span { border-color: var(--gold); }
 
     .tr-meta {
       display: grid;
@@ -566,14 +588,14 @@
               <span class="dropdown-arrow" aria-hidden="true">›</span>
             </a>
             <div class="dropdown-menu dropdown-menu--nested">
-              <a href="diabetes-management.html">Type 2 Diabetes &amp; Prediabetes</a>
-              <a href="thyroid-metabolic-support.html">Hypothyroidism &amp; Hyperthyroidism</a>
-              <a href="pcos-pcod-nutrition.html">PCOS / PCOD</a>
-              <a href="hypertension-heart-healthy.html">Hypertension &amp; Cardiovascular Conditions</a>
-              <a href="prenatal-postnatal-fitness.html">Post-Pregnancy Fitness &amp; Recovery</a>
-              <a href="arthritis-joint-mobility.html">Arthritis &amp; Joint Mobility</a>
-              <a href="back-spine-posture.html">Cervical &amp; Lumbar Spine Conditions</a>
-              <a href="age-related-strength-balance-mobility.html">Age-Related Strength, Balance &amp; Mobility</a>
+              <a href="diabetes-management.html">Metabolic Health</a>
+              <a href="pcos-pcod-nutrition.html">Women’s Hormonal Health</a>
+              <a href="hypertension-heart-healthy.html">Cardiovascular Health</a>
+              <a href="prenatal-postnatal-fitness.html">Postnatal Fitness</a>
+              <a href="back-spine-posture.html">Spinal Health</a>
+              <a href="arthritis-joint-mobility.html">Joint Health</a>
+              <a href="thyroid-metabolic-support.html">Thyroid Health</a>
+              <a href="age-related-strength-balance-mobility.html">Senior Fitness</a>
             </div>
           </div>
 
@@ -655,14 +677,14 @@
             <span class="m-chevron"></span>
           </button>
           <div class="m-submenu m-submenu--l2">
-            <a href="diabetes-management.html">Type 2 Diabetes &amp; Prediabetes</a>
-            <a href="thyroid-metabolic-support.html">Hypothyroidism &amp; Hyperthyroidism</a>
-            <a href="pcos-pcod-nutrition.html">PCOS / PCOD</a>
-            <a href="hypertension-heart-healthy.html">Hypertension &amp; Cardiovascular Conditions</a>
-            <a href="prenatal-postnatal-fitness.html">Post-Pregnancy Fitness &amp; Recovery</a>
-            <a href="arthritis-joint-mobility.html">Arthritis &amp; Joint Mobility</a>
-            <a href="back-spine-posture.html">Cervical &amp; Lumbar Spine Conditions</a>
-            <a href="age-related-strength-balance-mobility.html">Age-Related Strength, Balance &amp; Mobility</a>
+            <a href="diabetes-management.html">Metabolic Health</a>
+            <a href="pcos-pcod-nutrition.html">Women’s Hormonal Health</a>
+            <a href="hypertension-heart-healthy.html">Cardiovascular Health</a>
+            <a href="prenatal-postnatal-fitness.html">Postnatal Fitness</a>
+            <a href="back-spine-posture.html">Spinal Health</a>
+            <a href="arthritis-joint-mobility.html">Joint Health</a>
+            <a href="thyroid-metabolic-support.html">Thyroid Health</a>
+            <a href="age-related-strength-balance-mobility.html">Senior Fitness</a>
           </div>
         </div>
 
@@ -730,17 +752,10 @@
         <article class="tr-card">
           <div class="tr-photo tr-p1">
             <span class="tr-exp"><i class="fa-solid fa-medal"></i>8+ YEARS</span>
-            <div class="tr-photo-name">
-              <h3>Arjun Mehta</h3>
-            </div>
           </div>
           <div class="tr-body">
+            <div class="tr-name"><span class="tr-name-label">Name :</span><h3>Arjun Mehta</h3></div>
             <p class="tr-bio">Builds raw strength and athletic power with structured, progressive programming.</p>
-            <div class="tr-tags">
-              <span>Strength Training</span>
-              <span>Powerlifting</span>
-              <span>Athletic Performance</span>
-            </div>
             <ul class="tr-meta">
               <li><i class="fa-solid fa-certificate"></i>NSCA-CSCS Certified</li>
               <li><i class="fa-solid fa-user-group"></i>300+ clients trained</li>
@@ -760,17 +775,10 @@
         <article class="tr-card">
           <div class="tr-photo tr-p2">
             <span class="tr-exp"><i class="fa-solid fa-medal"></i>6+ YEARS</span>
-            <div class="tr-photo-name">
-              <h3>Priya Sharma</h3>
-            </div>
           </div>
           <div class="tr-body">
+            <div class="tr-name"><span class="tr-name-label">Name :</span><h3>Priya Sharma</h3></div>
             <p class="tr-bio">Helps clients lose fat sustainably with smart training and practical nutrition habits.</p>
-            <div class="tr-tags">
-              <span>Weight Loss</span>
-              <span>Diet Planning</span>
-              <span>Body Recomposition</span>
-            </div>
             <ul class="tr-meta">
               <li><i class="fa-solid fa-certificate"></i>ACE CPT &amp; Nutrition Coach</li>
               <li><i class="fa-solid fa-user-group"></i>250+ transformations</li>
@@ -790,17 +798,10 @@
         <article class="tr-card">
           <div class="tr-photo tr-p3">
             <span class="tr-exp"><i class="fa-solid fa-medal"></i>10+ YEARS</span>
-            <div class="tr-photo-name">
-              <h3>Kavya Nair</h3>
-            </div>
           </div>
           <div class="tr-body">
+            <div class="tr-name"><span class="tr-name-label">Name :</span><h3>Kavya Nair</h3></div>
             <p class="tr-bio">Improves flexibility, posture and mental calm through mindful movement.</p>
-            <div class="tr-tags">
-              <span>Yoga</span>
-              <span>Mobility</span>
-              <span>Stress Relief</span>
-            </div>
             <ul class="tr-meta">
               <li><i class="fa-solid fa-certificate"></i>RYT-500 Certified Yoga Teacher</li>
               <li><i class="fa-solid fa-user-group"></i>500+ sessions led</li>
@@ -820,17 +821,10 @@
         <article class="tr-card">
           <div class="tr-photo tr-p4">
             <span class="tr-exp"><i class="fa-solid fa-medal"></i>9+ YEARS</span>
-            <div class="tr-photo-name">
-              <h3>Rohan Kapoor</h3>
-            </div>
           </div>
           <div class="tr-body">
+            <div class="tr-name"><span class="tr-name-label">Name :</span><h3>Rohan Kapoor</h3></div>
             <p class="tr-bio">Sculpts muscle and physique with hypertrophy-focused plans and contest-style prep.</p>
-            <div class="tr-tags">
-              <span>Muscle Gain</span>
-              <span>Hypertrophy</span>
-              <span>Contest Prep</span>
-            </div>
             <ul class="tr-meta">
               <li><i class="fa-solid fa-certificate"></i>ISSA Certified Trainer</li>
               <li><i class="fa-solid fa-trophy"></i>State-level competitor</li>
@@ -850,17 +844,10 @@
         <article class="tr-card">
           <div class="tr-photo tr-p5">
             <span class="tr-exp"><i class="fa-solid fa-medal"></i>5+ YEARS</span>
-            <div class="tr-photo-name">
-              <h3>Sneha Reddy</h3>
-            </div>
           </div>
           <div class="tr-body">
+            <div class="tr-name"><span class="tr-name-label">Name :</span><h3>Sneha Reddy</h3></div>
             <p class="tr-bio">High-energy sessions that boost endurance, burn calories and keep workouts fun.</p>
-            <div class="tr-tags">
-              <span>HIIT</span>
-              <span>Functional Training</span>
-              <span>Endurance</span>
-            </div>
             <ul class="tr-meta">
               <li><i class="fa-solid fa-certificate"></i>CrossFit Level 2 Trainer</li>
               <li><i class="fa-solid fa-user-group"></i>200+ group classes</li>
@@ -880,17 +867,10 @@
         <article class="tr-card">
           <div class="tr-photo tr-p6">
             <span class="tr-exp"><i class="fa-solid fa-medal"></i>12+ YEARS</span>
-            <div class="tr-photo-name">
-              <h3>Vikram Iyer</h3>
-            </div>
           </div>
           <div class="tr-body">
+            <div class="tr-name"><span class="tr-name-label">Name :</span><h3>Vikram Iyer</h3></div>
             <p class="tr-bio">Safe, gentle coaching for injury recovery, back pain and active ageing.</p>
-            <div class="tr-tags">
-              <span>Injury Recovery</span>
-              <span>Posture Correction</span>
-              <span>Senior Fitness</span>
-            </div>
             <ul class="tr-meta">
               <li><i class="fa-solid fa-certificate"></i>BPT &amp; Corrective Exercise Specialist</li>
               <li><i class="fa-solid fa-user-group"></i>400+ rehab clients</li>

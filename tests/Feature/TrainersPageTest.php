@@ -42,7 +42,7 @@ class TrainersPageTest extends TestCase
             ->assertDontSee('Priya Sharma');
     }
 
-    public function test_superadmin_can_add_a_trainer_with_photo_and_tags(): void
+    public function test_superadmin_can_add_a_trainer_with_photo(): void
     {
         $admin = User::factory()->create(['role' => User::ROLE_SUPERADMIN]);
 
@@ -56,7 +56,6 @@ class TrainersPageTest extends TestCase
                 'name' => 'Meera Joshi',
                 'experience' => '7+ Years',
                 'bio' => 'Core strength and control for everyday movement.',
-                'tags' => 'Pilates, Core,  , Posture',
                 'certification' => 'STOTT Pilates',
                 'instagram_url' => 'https://instagram.com/meera',
                 'sort_order' => 0,
@@ -67,13 +66,13 @@ class TrainersPageTest extends TestCase
 
         $trainer = Trainer::query()->where('name', 'Meera Joshi')->firstOrFail();
 
-        $this->assertSame(['Pilates', 'Core', 'Posture'], $trainer->tags);
         $this->assertFileExists(public_path($trainer->photo));
 
         $this->get('/trainers')
             ->assertOk()
-            ->assertSee('Meera Joshi')
+            ->assertSee('<span class="tr-name-label">Name :</span><h3>Meera Joshi</h3>', false)
             ->assertSee('<p class="tr-bio">Core strength and control for everyday movement.</p>', false)
+            ->assertDontSee('class="tr-tags"', false)
             ->assertSee('7+ YEARS')
             ->assertSee('https://instagram.com/meera', false)
             ->assertSee('uploads/trainers/', false)

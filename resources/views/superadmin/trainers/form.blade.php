@@ -57,11 +57,6 @@
                 <textarea class="short" id="bio" name="bio" maxlength="600" placeholder="One or two sentences about how they coach.">{{ old('bio', $trainer->bio) }}</textarea>
                 <p class="help">Shown highlighted at the top of the card, under the photo.</p>
             </div>
-            <div class="field">
-                <label for="tags">Tags</label>
-                <input id="tags" name="tags" value="{{ old('tags', implode(', ', $trainer->tags ?? [])) }}" maxlength="300" placeholder="Strength Training, Powerlifting, Athletic Performance">
-                <p class="help">Separate with commas. Three tags fit best on one card.</p>
-            </div>
             <div class="cms-grid-3">
                 <div class="field">
                     <label for="certification">Certification</label>
