@@ -496,17 +496,17 @@
           <div class="mvp-stage">
             <img class="mvp-stage-img" src="" alt="" data-cms-src="hero.image" data-cms-alt="hero.image_alt" onerror="this.onerror=null;this.setAttribute('src','')">
             <!-- Animated scene: shown until a gallery image is uploaded -->
-            <div class="vp-scene vp-scene--live vp-scene--stage vp-scene--cardio" aria-hidden="true">
+            <div class="vp-scene vp-scene--live vp-scene--stage vp-scene--joint" aria-hidden="true">
               <div class="vp-grid"></div>
               <div class="vp-glow"></div>
 
               <div class="vp-call">
                 <div class="vp-call-bar">
                   <span class="vp-live"><i></i>LIVE</span>
-                  <span class="vp-range"><i class="fa-solid fa-heart-pulse"></i>ZONE 2</span>
+                  <span class="vp-range"><i class="fa-solid fa-person-walking"></i>LOW IMPACT</span>
                 </div>
 
-                <svg class="vp-athlete vp-walker vp-walker--run" viewBox="0 0 120 110">
+                <svg class="vp-athlete vp-walker" viewBox="0 0 120 110">
                   <ellipse class="vp-floor" cx="60" cy="104" rx="34" ry="4" />
                   <line class="vp-track" x1="8" y1="104" x2="112" y2="104" />
                   <g class="vp-stride">
@@ -519,10 +519,15 @@
                   </g>
                 </svg>
 
-                <svg class="vp-ecg" viewBox="0 0 240 30" preserveAspectRatio="none">
-                  <path class="vp-ecg-base" d="M0 15 H40 L48 15 L54 4 L60 26 L66 15 H160 L168 15 L174 4 L180 26 L186 15 H240" />
-                  <path class="vp-ecg-beam" d="M0 15 H40 L48 15 L54 4 L60 26 L66 15 H160 L168 15 L174 4 L180 26 L186 15 H240" pathLength="100" />
-                </svg>
+                <div class="vp-cycle vp-cycle--posture">
+                  <div class="vp-cycle-track">
+                    <i></i><i></i><i></i><i></i>
+                    <span class="vp-cycle-dot"></span>
+                  </div>
+                  <div class="vp-cycle-labels">
+                    <small>STIFF</small><small>LOOSER</small><small>MOBILE</small><small>COMFORT</small>
+                  </div>
+                </div>
               </div>
 
               <!-- Coach picture-in-picture -->
@@ -539,29 +544,29 @@
 
               <!-- Coach messages (cycle) -->
               <div class="vp-bubble">
-                <span>Hold this pace</span>
-                <span>Zone 2, perfect</span>
-                <span>Stamina is building</span>
+                <span>Move within comfort</span>
+                <span>Joints feeling easier</span>
+                <span>Nice, steady steps</span>
               </div>
 
               <!-- Session stats dock -->
               <div class="vp-dock">
                 <span class="vp-dock-progress"></span>
                 <div class="vp-dock-item">
-                  <small>HEART</small>
-                  <b class="vp-reps"><span>128<br>132<br>136<br>138<br>140</span></b>
+                  <small>MOBILITY</small>
+                  <b class="vp-reps"><span>60%<br>65%<br>70%<br>75%<br>80%</span></b>
                 </div>
                 <div class="vp-dock-item">
-                  <small>PACE</small>
-                  <b>6:10</b>
+                  <small>STIFFNESS</small>
+                  <b>LOW</b>
                 </div>
                 <div class="vp-dock-item">
-                  <small>DISTANCE</small>
-                  <b>4.2km</b>
+                  <small>STEPS</small>
+                  <b>6,200</b>
                 </div>
                 <div class="vp-dock-item">
-                  <small>RECOVERY</small>
-                  <b><i class="vp-heart">♥</i> 92</b>
+                  <small>COMFORT</small>
+                  <b><i class="fa-solid fa-face-smile vp-leaf"></i> GOOD</b>
                 </div>
               </div>
             </div>
