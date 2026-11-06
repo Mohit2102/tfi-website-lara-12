@@ -19898,9 +19898,9 @@ html.dark-mode .cx-page {
   mask-image: linear-gradient(180deg, #000 55%, transparent);
 }
 .mvp-more.is-clamped.is-open { -webkit-mask-image: none; mask-image: none; }
-.mvp-more > .mvp-bul:last-child { margin-bottom: 0; }
+.mvp-more.is-clamped > .mvp-desc { margin-bottom: 0; }
 .mvp-more-btn {
-  display: inline-flex; align-items: center; gap: 8px; margin: 10px 0 26px; padding: 0;
+  display: inline-flex; align-items: center; gap: 8px; margin: 10px 0 22px; padding: 0;
   border: 0; background: none; color: var(--mv-gold); cursor: pointer;
   font: 800 12px "Plus Jakarta Sans", system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase;
 }

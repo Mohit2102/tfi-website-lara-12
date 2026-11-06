@@ -584,6 +584,11 @@
 
           <div class="mvp-more" id="mvMore">
           <p class="mvp-desc" data-cms="hero.body">The thyroid is a small gland in the neck that produces hormones responsible for regulating metabolism, energy levels and several important body functions.<br><br>Hypothyroidism occurs when the thyroid gland produces too little thyroid hormone, which can slow down body functions.<br><br>Hyperthyroidism occurs when the thyroid gland produces too much thyroid hormone, which can speed up body functions.</p>
+          </div>
+
+          <button type="button" class="mvp-more-btn" id="mvMoreBtn" aria-controls="mvMore" aria-expanded="false" hidden>
+            <span>View more</span> <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
 
           <p class="mvp-bul-head">Your specialised training includes</p>
 
@@ -593,11 +598,6 @@
             <li><i class="fa-solid fa-check"></i><span><b>Nutrition Guidance:</b> <span data-cms="hero.bullets.2">Nutritionist-led guidance on balanced macronutrients and micronutrients, portion control and practical meal planning.</span></span></li>
             <li><i class="fa-solid fa-check"></i><span><b>Lifestyle Tracking:</b> <span data-cms="hero.bullets.3">Monitoring physical activity, sleep, hydration, energy levels and recovery to support consistent healthy habits.</span></span></li>
           </ul>
-          </div>
-
-          <button type="button" class="mvp-more-btn" id="mvMoreBtn" aria-controls="mvMore" aria-expanded="false" hidden>
-            <span>View more</span> <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-          </button>
 
           <div class="mvp-hero-cta">
             <a href="#build" class="mvp-hero-btn">Build my plan <span>↓</span></a>
@@ -1238,7 +1238,7 @@
 
     if (!box || !button) return;
 
-    var limit = 170;
+    var limit = 120;
 
     if (box.scrollHeight <= limit + 40) return;
 
