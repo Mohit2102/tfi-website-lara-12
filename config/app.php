@@ -56,6 +56,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Public Page Content Protection
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, public pages are served minified and with a script that
+    | blocks right-click, copying, view-source and developer tool shortcuts.
+    | Signed-in super admins always receive the unprotected pages.
+    |
+    */
+
+    'content_protection' => (bool) env('CONTENT_PROTECTION', true),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

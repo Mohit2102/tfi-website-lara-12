@@ -68,7 +68,10 @@ class HtmlPageRenderer
         }
 
         return response($this->rewrite($html, $page, $record))
-            ->header('Content-Type', 'text/html; charset=UTF-8');
+            ->header('Content-Type', 'text/html; charset=UTF-8')
+            ->header('X-Frame-Options', 'SAMEORIGIN')
+            ->header('X-Content-Type-Options', 'nosniff')
+            ->header('Referrer-Policy', 'strict-origin-when-cross-origin');
     }
 
     private function fileHtml(string $page): string
@@ -206,6 +209,8 @@ class HtmlPageRenderer
             1
         ) ?? $html;
 
-        return WebpImage::rewrite($html);
+        $html = WebpImage::rewrite($html);
+
+        return ContentProtection::enabled() ? ContentProtection::apply($html) : $html;
     }
 }
