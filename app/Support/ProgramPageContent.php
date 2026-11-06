@@ -564,44 +564,46 @@ class ProgramPageContent
             ),
             'thyroid-metabolic-support' => [
                 'hero' => [
-                    'title' => 'Thyroid Management',
-                    'title_accent' => 'Metabolic Support',
-                    'body' => 'Consistent training, balanced nutrition and recovery habits for people managing thyroid conditions, with realistic expectations and steady progress.',
+                    'title' => 'Hypothyroidism &',
+                    'title_accent' => 'Hyperthyroidism',
+                    'body' => "The thyroid is a small gland in the neck that produces hormones responsible for regulating metabolism, energy levels and several important body functions.\n\nHypothyroidism occurs when the thyroid gland produces too little thyroid hormone, which can slow down body functions.\n\nHyperthyroidism occurs when the thyroid gland produces too much thyroid hormone, which can speed up body functions.",
                     'bullets' => [
-                        'Training and nutrition tuned for energy and metabolism',
-                        'Strength work to support body composition',
-                        'Realistic routines that respect fatigue and recovery',
-                        'Works alongside your medical care and lab follow-ups',
+                        'Progressive resistance exercises to build muscle strength, support muscle function and maintain healthy body composition.',
+                        'Individualised exercise routines adapted to your energy levels, symptoms and fitness capacity.',
+                        'Nutritionist-led guidance on balanced macronutrients and micronutrients, portion control and practical meal planning.',
+                        'Monitoring physical activity, sleep, hydration, energy levels and recovery to support consistent healthy habits.',
                     ],
                     'image' => '',
-                    'image_alt' => 'Thyroid metabolic support',
+                    'image_alt' => 'Hypothyroidism and hyperthyroidism training',
                 ],
             ] + self::specializedBody(
                 [
-                    ['number' => '01', 'period' => 'WEEK 1', 'title' => 'Assess', 'body' => 'History, medication timing you share, symptoms and your goals.'],
-                    ['number' => '02', 'period' => 'WEEKS 2–8', 'title' => 'Build', 'body' => 'Gradual strength and activity progression with a simple nutrition plan.'],
-                    ['number' => '03', 'period' => 'ONGOING', 'title' => 'Sustain', 'body' => 'Review, adjust and build habits that last.'],
+                    ['number' => '01', 'period' => 'WEEK 1', 'title' => 'Assess', 'body' => 'We understand your health history, current fitness level, lifestyle, individual needs and personal goals before designing your training plan.'],
+                    ['number' => '02', 'period' => 'WEEKS 2–8', 'title' => 'Build', 'body' => 'Follow your personalised strength, movement and nutrition plan with progressive training and regular guidance tailored to your needs.'],
+                    ['number' => '03', 'period' => 'WEEK 9 ONWARDS', 'title' => 'Sustain', 'body' => 'Review your progress, refine your training plan and build sustainable habits for long-term fitness and wellbeing.'],
                 ],
-                'Patient, steady and sustainable.',
-                'Progress may look different for everyone, so we focus on routines and results you can measure.',
+                'Build strength. Improve your fitness.',
+                'Structured exercise and nutrition guidance for people living with hypothyroidism or hyperthyroidism.',
                 [
-                    'Diagnosed with a thyroid condition and under medical care',
-                    'Feeling tired, sluggish or struggling with energy',
-                    'Finding weight management harder than expected',
-                    'Wanting a consistent routine and clear guidance',
-                ],
-                [
-                    ['title' => 'Strength training', 'body' => 'Preserving and building muscle supports metabolism and daily energy.'],
-                    ['title' => 'Regular movement', 'body' => 'Cardio and daily activity scaled to your energy on the day.'],
-                    ['title' => 'Balanced nutrition', 'body' => 'Whole-food meal structure, protein and fibre, without extreme restriction.'],
-                    ['title' => 'Sleep & recovery', 'body' => 'Rest and stress habits that support overall wellbeing.'],
+                    'Living with hypothyroidism and looking for structured exercise support.',
+                    'Diagnosed with hyperthyroidism and seeking appropriate fitness guidance.',
+                    'Experiencing changes in energy levels, strength or physical fitness.',
+                    'Looking to improve body composition and build sustainable healthy habits.',
                 ],
                 [
-                    'We do not give medical advice or adjust medication or timing',
-                    'We scale sessions to your energy and avoid overtraining',
-                    'We encourage regular check-ups and blood work with your doctor',
-                    'We keep goals realistic and progress measurable',
-                ]
+                    ['title' => 'Strength Training', 'body' => 'Progressive resistance exercises to build muscle strength, maintain healthy body composition and improve physical fitness.'],
+                    ['title' => 'Daily Movement', 'body' => 'Structured movement routines adapted to your energy levels and fitness capacity to improve mobility and reduce sedentary time.'],
+                    ['title' => 'Balanced Nutrition', 'body' => 'Nutritionist-led guidance on balanced meals, essential nutrients, protein intake and portion control to support overall health.'],
+                    ['title' => 'Habit Tracking', 'body' => 'Tracking daily activity, sleep, hydration and energy levels to build consistency and monitor progress.'],
+                ],
+                [
+                    'We review your health history, current symptoms, fitness level and any exercise restrictions before training.',
+                    'We consider your energy levels and individual needs when planning exercise intensity and session duration.',
+                    'We monitor your response to exercise and adjust or stop training if you experience unusual symptoms such as dizziness, excessive fatigue or palpitations.',
+                    'We encourage regular communication with your treating doctor and follow their recommendations throughout your fitness journey.',
+                ],
+                'Overview',
+                'TFI programmes provide fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult your doctor before starting a new exercise or nutrition plan.'
             ),
             'age-related-strength-balance-mobility' => [
                 'hero' => [
@@ -660,7 +662,9 @@ class ProgramPageContent
         string $overviewBody,
         array $overviewCards,
         array $approachCards,
-        array $safetyItems
+        array $safetyItems,
+        string $overviewKicker = "Who it's for",
+        string $safetyNote = 'TFI programmes are fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult a qualified healthcare professional before starting a new exercise or nutrition plan.'
     ): array {
         return [
             'journey' => [
@@ -671,7 +675,7 @@ class ProgramPageContent
             ],
             'overview' => [
                 'tab' => 'Overview',
-                'kicker' => "Who it's for",
+                'kicker' => $overviewKicker,
                 'heading' => $overviewHeading,
                 'body' => $overviewBody,
                 'cards' => array_map(fn (string $body): array => ['body' => $body], $overviewCards),
@@ -688,7 +692,7 @@ class ProgramPageContent
                 'kicker' => 'Our promise',
                 'heading' => 'Safety comes first.',
                 'items' => $safetyItems,
-                'note' => 'TFI programmes are fitness and lifestyle support. They are not medical advice, diagnosis or treatment, and do not replace your doctor. Always consult a qualified healthcare professional before starting a new exercise or nutrition plan.',
+                'note' => $safetyNote,
             ],
         ];
     }
