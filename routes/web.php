@@ -36,6 +36,9 @@ $pages = implode('|', array_values(array_filter(
     fn (string $page) => $page !== 'index'
 )));
 
+Route::permanentRedirect('/cardiovascular-conditioning', '/arthritis-joint-mobility');
+Route::permanentRedirect('/gerd-support', '/age-related-strength-balance-mobility');
+
 Route::get('/{page}', [PageController::class, 'show'])
     ->where('page', $pages);
 

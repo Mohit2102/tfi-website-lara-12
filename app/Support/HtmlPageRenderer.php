@@ -32,9 +32,9 @@ class HtmlPageRenderer
         'hypertension-heart-healthy',
         'prenatal-postnatal-fitness',
         'back-spine-posture',
-        'cardiovascular-conditioning',
+        'arthritis-joint-mobility',
         'thyroid-metabolic-support',
-        'gerd-support',
+        'age-related-strength-balance-mobility',
     ];
 
     public function response(string $page): Response

@@ -153,10 +153,6 @@ class TrainersPageContent
             ? '<span class="tr-exp"><i class="fa-solid fa-medal"></i>'.e(mb_strtoupper($trainer->experience)).'</span>'
             : '';
 
-        $specialization = filled($trainer->specialization)
-            ? '<span>'.e($trainer->specialization).'</span>'
-            : '';
-
         $bio = filled($trainer->bio)
             ? '<p class="tr-bio">'.e($trainer->bio).'</p>'
             : '';
@@ -190,7 +186,7 @@ class TrainersPageContent
         return '<article class="tr-card">'
             .'<div class="tr-photo'.($photo ? ' has-photo' : '').'" style="background-image:'.$background.'">'
             .$exp
-            .'<div class="tr-photo-name">'.$specialization.'<h3>'.e($trainer->name).'</h3></div>'
+            .'<div class="tr-photo-name"><h3>'.e($trainer->name).'</h3></div>'
             .'</div>'
             .'<div class="tr-body">'
             .$bio

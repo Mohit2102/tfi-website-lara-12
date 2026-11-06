@@ -83,10 +83,7 @@
                                         {{ $initialsOf($trainer->name) }}
                                     @endif
                                 </div>
-                                <div>
-                                    <div class="td-main">{{ $trainer->name }}</div>
-                                    <div class="td-sub">{{ $trainer->specialization ?: '—' }}</div>
-                                </div>
+                                <div class="td-main">{{ $trainer->name }}</div>
                             </div>
                         </td>
                         <td class="muted">{{ $trainer->experience ?: '—' }}</td>

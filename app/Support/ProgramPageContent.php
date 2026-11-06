@@ -116,20 +116,20 @@ class ProgramPageContent
             ],
             'personal-training' => [
                 'intro' => [
-                    'kicker' => 'TFI PERSONAL TRAINING',
+                    'kicker' => 'TFI SPECIALISED PERSONAL TRAINING',
                     'heading' => 'Training built around',
                     'heading_accent' => 'your needs.',
-                    'body' => 'One-on-one coaching designed around your body, your goals, your lifestyle and the areas where you need the most support.',
+                    'body' => 'One-on-one coaching is designed around your body, your goals, your lifestyle and the areas where you need the most support.',
                 ],
                 'cards' => [
-                    ['label' => 'METABOLIC HEALTH', 'title' => 'Diabetes Management / Blood Sugar Control', 'body' => 'Structured fitness support focused on movement, consistency and healthy lifestyle habits.'],
-                    ['label' => "WOMEN'S WELLNESS", 'title' => 'PCOS / PCOD Balanced Nutrition', 'body' => 'Personalised fitness and nutrition guidance designed around individual lifestyle needs.'],
-                    ['label' => 'HEART HEALTH', 'title' => 'Hypertension Heart-Healthy Workouts', 'body' => 'Individualised training focused on safe and sustainable fitness routines.'],
-                    ['label' => 'MATERNITY FITNESS', 'title' => 'Pre & Post Natal Fitness', 'body' => 'Personalised movement and fitness guidance adapted to individual needs.'],
-                    ['label' => 'POSTURE & MOBILITY', 'title' => 'Lower Back & Spine Pain / Posture Correction', 'body' => 'Targeted movement and training support focused on posture, mobility and functional strength.'],
-                    ['label' => 'CARDIO FITNESS', 'title' => 'Cardiovascular Health / Cardio Conditioning', 'body' => 'Structured cardio and fitness training tailored to your current fitness level and goals.'],
-                    ['label' => 'METABOLIC SUPPORT', 'title' => 'Thyroid Management / Metabolic Support', 'body' => 'Personalised training and lifestyle support focused on sustainable fitness habits.'],
-                    ['label' => 'LIFESTYLE SUPPORT', 'title' => 'GERD Fitness Guidance', 'body' => 'Individualised fitness guidance adapted to lifestyle considerations and training needs.'],
+                    ['label' => 'METABOLIC HEALTH', 'title' => 'Type 2 Diabetes & Prediabetes'],
+                    ['label' => 'THYROID HEALTH', 'title' => 'Hypothyroidism & Hyperthyroidism'],
+                    ['label' => 'WOMEN’S HORMONAL HEALTH', 'title' => 'PCOS / PCOD'],
+                    ['label' => 'CARDIOVASCULAR HEALTH', 'title' => 'Hypertension & Cardiovascular Conditions'],
+                    ['label' => 'POSTNATAL FITNESS', 'title' => 'Post-Pregnancy Fitness & Recovery'],
+                    ['label' => 'JOINT HEALTH', 'title' => 'Arthritis & Joint Mobility'],
+                    ['label' => 'SPINAL HEALTH', 'title' => 'Cervical & Lumbar Spine Conditions'],
+                    ['label' => 'SENIOR FITNESS', 'title' => 'Age-Related Strength, Balance & Mobility'],
                 ],
             ],
             'monthly-virtual-training' => [
@@ -521,7 +521,7 @@ class ProgramPageContent
                     'We progress gradually, with no pushing through pain',
                 ]
             ),
-            'cardiovascular-conditioning' => [
+            'arthritis-joint-mobility' => [
                 'hero' => [
                     'title' => 'Cardiovascular Health',
                     'title_accent' => 'Cardio Conditioning',
@@ -603,7 +603,7 @@ class ProgramPageContent
                     'We keep goals realistic and progress measurable',
                 ]
             ),
-            'gerd-support' => [
+            'age-related-strength-balance-mobility' => [
                 'hero' => [
                     'title' => 'GERD',
                     'title_accent' => "Gastro\u{00AD}esophageal Reflux Disease",

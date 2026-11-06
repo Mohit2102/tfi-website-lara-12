@@ -123,7 +123,6 @@ class TrainerController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:120'],
-            'specialization' => ['nullable', 'string', 'max:120'],
             'experience' => ['nullable', 'string', 'max:40'],
             'bio' => ['nullable', 'string', 'max:600'],
             'tags' => ['nullable', 'string', 'max:300'],

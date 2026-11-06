@@ -7865,7 +7865,7 @@ html:not(.dark-mode) #whyChartFill stop {
   translate: 0 34px;
 }
 
-#why .why-board.is-reveal.in .tfi-v2-board__step {
+#why .why-board.is-reveal .tfi-v2-board__step.in {
   animation: whyBoardRise .8s cubic-bezier(.2, .7, .2, 1) forwards;
   animation-delay: calc(var(--i, 0) * .14s);
 }
@@ -7874,6 +7874,10 @@ html:not(.dark-mode) #whyChartFill stop {
 #why .why-board .tfi-v2-board__step:nth-child(3) { --i: 2; }
 #why .why-board .tfi-v2-board__step:nth-child(4) { --i: 3; }
 #why .why-board .tfi-v2-board__step:nth-child(5) { --i: 4; }
+
+@media (max-width: 520px) {
+  #why .why-board .tfi-v2-board__step:nth-child(n) { --i: 0; }
+}
 
 #why .why-board.is-reveal .tfi-v2-board__steps::before {
   transform: scaleX(0);
@@ -17132,8 +17136,9 @@ html:not(.dark-mode) .tfi-v2-method__process p {
 
 .pt-special-card {
   position: relative;
-  min-height: 390px;
-  padding: 27px 25px 23px;
+  isolation: isolate;
+  min-height: 330px;
+  padding: 26px 24px 22px;
   display: flex;
   flex-direction: column;
 
@@ -17141,23 +17146,38 @@ html:not(.dark-mode) .tfi-v2-method__process p {
   color: var(--text);
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255,0.035),
-      rgba(255, 255, 255,0.008)
-    ),
+    radial-gradient(circle at 100% 0%, rgba(201, 162, 77, .12), transparent 55%),
+    linear-gradient(160deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .008) 60%),
     var(--bg);
 
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 16px;
 
   overflow: hidden;
 
   transition:
-    transform .4s cubic-bezier(.2,.8,.2,1),
+    transform .45s cubic-bezier(.2,.8,.2,1),
     border-color .35s ease,
-    box-shadow .35s ease,
-    background .35s ease;
+    box-shadow .35s ease;
+}
+
+/* Dot texture fading out from the top corner */
+.pt-special-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background-image: radial-gradient(rgba(201, 162, 77, .28) 1px, transparent 1.4px);
+  background-size: 14px 14px;
+
+  -webkit-mask-image: linear-gradient(205deg, #000, transparent 48%);
+  mask-image: linear-gradient(205deg, #000, transparent 48%);
+
+  opacity: .5;
+  pointer-events: none;
+
+  transition: opacity .4s ease;
 }
 
 
@@ -17165,16 +17185,17 @@ html:not(.dark-mode) .tfi-v2-method__process p {
 
 .pt-card-number {
   position: absolute;
-  right: -5px;
-  top: -25px;
+  top: 8px;
+  right: 14px;
+  z-index: -1;
 
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-  font-size: 125px;
+  font-size: 96px;
   font-weight: 800;
   line-height: 1;
 
   color: transparent;
-  -webkit-text-stroke: 1px rgba(201, 162, 77,.12);
+  -webkit-text-stroke: 1px rgba(201, 162, 77, .13);
 
   pointer-events: none;
 
@@ -17187,39 +17208,36 @@ html:not(.dark-mode) .tfi-v2-method__process p {
 /* Top row */
 
 .pt-card-top {
-  position: relative;
-  z-index: 2;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  min-height: 55px;
 }
 
 
 /* Icon */
 
 .pt-card-icon {
-  width: 48px;
-  height: 48px;
+  width: 54px;
+  height: 54px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 
-  border: 1px solid rgba(201, 162, 77,.35);
-  border-radius: 50%;
+  border: 1px solid transparent;
+  border-radius: 15px;
 
   color: var(--gold);
-  background: rgba(201, 162, 77,.06);
+  background:
+    linear-gradient(145deg, rgba(201, 162, 77, .18), rgba(201, 162, 77, .03)) padding-box,
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    linear-gradient(145deg, rgba(201, 162, 77, .8), rgba(201, 162, 77, .08)) border-box;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, .16);
 
-  font-size: 18px;
+  font-size: 21px;
 
   transition:
-    background .35s ease,
     color .35s ease,
-    transform .35s ease,
+    transform .45s cubic-bezier(.2,.8,.2,1),
     box-shadow .35s ease;
 }
 
@@ -17230,40 +17248,65 @@ html:not(.dark-mode) .tfi-v2-method__process p {
   position: relative;
   z-index: 2;
 
-  margin-top: 35px;
+  margin-top: auto;
+  padding-top: 34px;
 }
 
 .pt-card-label {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  gap: 9px;
 
-  margin-bottom: 13px;
+  margin-bottom: 14px;
 
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 2px;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-transform: uppercase;
 
   color: var(--gold);
 }
 
+.pt-card-label b {
+  flex: 0 0 auto;
+  padding: 3px 8px;
+
+  border-radius: 999px;
+
+  font-weight: 800;
+  letter-spacing: .6px;
+
+  color: #111;
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+}
+
 .pt-card-content h3 {
+  min-height: calc(3 * 1.22em);
   margin: 0;
 
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-  font-size: 25px;
-  font-weight: 700;
-  line-height: 1.12;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.22;
   letter-spacing: .2px;
-
   text-transform: uppercase;
+  text-wrap: balance;
 }
 
-.pt-card-content p {
-  margin: 17px 0 0;
+.pt-card-content::after {
+  content: "";
+  display: block;
 
-  color: var(--text-muted);
+  width: 42px;
+  height: 2px;
+  margin-top: 16px;
 
-  font-size: 13px;
-  line-height: 1.7;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+
+  transition: width .45s cubic-bezier(.2,.8,.2,1);
 }
 
 
@@ -17275,8 +17318,8 @@ html:not(.dark-mode) .tfi-v2-method__process p {
   position: relative;
   z-index: 2;
 
-  margin-top: auto;
-  padding-top: 22px;
+  margin-top: 22px;
+  padding-top: 18px;
 
   display: flex;
   align-items: center;
@@ -17295,24 +17338,24 @@ html:not(.dark-mode) .tfi-v2-method__process p {
 }
 
 .pt-card-arrow {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 
-  border: 1px solid var(--line);
+  border: 1px solid rgba(201, 162, 77, .35);
   border-radius: 50%;
 
   color: var(--gold);
 
-  font-size: 17px;
+  font-size: 16px;
 
   transition:
     transform .35s ease,
     background .35s ease,
-    color .35s ease;
+    color .35s ease,
+    border-color .35s ease;
 }
 
 
@@ -17321,29 +17364,42 @@ html:not(.dark-mode) .tfi-v2-method__process p {
 ----------------------------------------- */
 
 .pt-special-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
 
-  border-color: rgba(201, 162, 77,.65);
+  border-color: rgba(201, 162, 77, .6);
 
   box-shadow:
-    0 20px 55px rgba(0, 0, 0,.25),
-    0 0 35px rgba(201, 162, 77,.07);
+    inset 0 2px 0 var(--gold),
+    0 24px 60px rgba(0, 0, 0, .28),
+    0 0 40px rgba(201, 162, 77, .08);
+}
+
+.pt-special-card:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.pt-special-card:hover::after {
+  opacity: 1;
 }
 
 .pt-special-card:hover .pt-card-number {
-  transform: translate(-8px, 8px) rotate(-4deg);
+  transform: translate(-6px, -6px) rotate(-4deg);
 
-  -webkit-text-stroke-color: rgba(201, 162, 77,.28);
+  -webkit-text-stroke-color: rgba(201, 162, 77, .3);
 }
 
 .pt-special-card:hover .pt-card-icon {
-  background: var(--gold);
   color: #111;
+  background: linear-gradient(145deg, var(--gold-bright), var(--gold)) border-box;
 
-  transform: rotate(-8deg) scale(1.08);
+  transform: translateY(-3px) rotate(-6deg);
 
-  box-shadow:
-    0 0 25px rgba(201, 162, 77,.22);
+  box-shadow: 0 14px 30px rgba(201, 162, 77, .3);
+}
+
+.pt-special-card:hover .pt-card-content::after {
+  width: 96px;
 }
 
 .pt-special-card:hover .pt-card-footer {
@@ -17365,14 +17421,11 @@ html:not(.dark-mode) .tfi-v2-method__process p {
 ----------------------------------------- */
 
 .pt-card-featured {
-  border-color: rgba(201, 162, 77,.45);
+  border-color: rgba(201, 162, 77, .45);
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(201, 162, 77,.09),
-      transparent 65%
-    ),
+    radial-gradient(circle at 100% 0%, rgba(201, 162, 77, .2), transparent 60%),
+    linear-gradient(160deg, rgba(201, 162, 77, .09), transparent 65%),
     var(--bg);
 }
 
@@ -17380,25 +17433,25 @@ html:not(.dark-mode) .tfi-v2-method__process p {
   content: "FOCUS AREA";
 
   position: absolute;
-  top: 15px;
-  left: 15px;
+  top: 0;
+  right: 22px;
+  z-index: 5;
 
-  padding: 5px 9px;
+  padding: 6px 10px 5px;
 
   font-size: 8px;
   font-weight: 800;
   letter-spacing: 1.5px;
 
   color: #111;
-  background: var(--gold);
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
 
-  border-radius: 2px;
-
-  z-index: 5;
+  border-radius: 0 0 8px 8px;
 }
 
 .pt-card-glow {
   position: absolute;
+  z-index: -1;
 
   width: 180px;
   height: 180px;
@@ -17411,7 +17464,7 @@ html:not(.dark-mode) .tfi-v2-method__process p {
   background: var(--gold);
 
   filter: blur(75px);
-  opacity: .08;
+  opacity: .1;
 
   transition:
     opacity .4s ease,
@@ -17421,7 +17474,7 @@ html:not(.dark-mode) .tfi-v2-method__process p {
 }
 
 .pt-card-featured:hover .pt-card-glow {
-  opacity: .18;
+  opacity: .2;
   transform: scale(1.3);
 }
 
@@ -17488,6 +17541,18 @@ html:not(.dark-mode) .tfi-v2-method__process p {
    TABLET
 ========================================================= */
 
+@media (max-width: 1240px) {
+
+  .pt-special-card {
+    padding-inline: 20px;
+  }
+
+  .pt-card-label {
+    letter-spacing: .6px;
+  }
+
+}
+
 @media (max-width: 1100px) {
 
   .pt-special-grid {
@@ -17495,7 +17560,11 @@ html:not(.dark-mode) .tfi-v2-method__process p {
   }
 
   .pt-special-card {
-    min-height: 360px;
+    min-height: 300px;
+  }
+
+  .pt-card-content h3 {
+    font-size: 20px;
   }
 
 }
@@ -17533,20 +17602,29 @@ html:not(.dark-mode) .tfi-v2-method__process p {
   }
 
   .pt-special-card {
-    min-height: 340px;
-    padding: 23px 21px 20px;
+    min-height: 0;
+    padding: 22px 20px 18px;
+    border-radius: 14px;
   }
 
   .pt-card-number {
-    font-size: 105px;
+    font-size: 96px;
+  }
+
+  .pt-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 13px;
+    font-size: 19px;
   }
 
   .pt-card-content {
-    margin-top: 28px;
+    padding-top: 26px;
   }
 
   .pt-card-content h3 {
-    font-size: 24px;
+    min-height: 0;
+    font-size: 21px;
   }
 
   .pt-special-card:hover {
@@ -22066,7 +22144,9 @@ html.lenis {
 /* Scroll-linked depth (browsers without scroll timelines simply skip it) */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .page-home section h2 {
+    .page-home section h2,
+    .page-home section .sec-kicker,
+    .page-home #why .why-kicker {
       animation: tfiHeadingDrift linear both;
       animation-timeline: view();
       animation-range: entry 0% exit 100%;

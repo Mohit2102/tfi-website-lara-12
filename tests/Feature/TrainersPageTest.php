@@ -54,7 +54,6 @@ class TrainersPageTest extends TestCase
         $this->actingAs($admin)
             ->post('/superadmin/trainers', [
                 'name' => 'Meera Joshi',
-                'specialization' => 'Pilates & Core',
                 'experience' => '7+ Years',
                 'bio' => 'Core strength and control for everyday movement.',
                 'tags' => 'Pilates, Core,  , Posture',
@@ -74,7 +73,7 @@ class TrainersPageTest extends TestCase
         $this->get('/trainers')
             ->assertOk()
             ->assertSee('Meera Joshi')
-            ->assertSee('Pilates &amp; Core', false)
+            ->assertSee('<p class="tr-bio">Core strength and control for everyday movement.</p>', false)
             ->assertSee('7+ YEARS')
             ->assertSee('https://instagram.com/meera', false)
             ->assertSee('uploads/trainers/', false)

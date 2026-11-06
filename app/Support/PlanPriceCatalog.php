@@ -79,9 +79,9 @@ class PlanPriceCatalog
             'hypertension-heart-healthy' => 'Hypertension / heart-healthy',
             'prenatal-postnatal-fitness' => 'Prenatal / postnatal fitness',
             'back-spine-posture' => 'Back, spine & posture',
-            'cardiovascular-conditioning' => 'Cardiovascular conditioning',
+            'arthritis-joint-mobility' => 'Arthritis & joint mobility',
             'thyroid-metabolic-support' => 'Thyroid / metabolic support',
-            'gerd-support' => 'GERD support',
+            'age-related-strength-balance-mobility' => 'Age-related strength, balance & mobility',
         ];
     }
 }

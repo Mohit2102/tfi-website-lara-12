@@ -34,10 +34,6 @@
                     <input id="name" name="name" value="{{ old('name', $trainer->name) }}" required maxlength="120">
                 </div>
                 <div class="field">
-                    <label for="specialization">Specialization</label>
-                    <input id="specialization" name="specialization" value="{{ old('specialization', $trainer->specialization) }}" maxlength="120" placeholder="Strength & Conditioning">
-                </div>
-                <div class="field">
                     <label for="experience">Experience badge</label>
                     <input id="experience" name="experience" value="{{ old('experience', $trainer->experience) }}" maxlength="40" placeholder="8+ Years">
                 </div>
@@ -59,6 +55,7 @@
             <div class="field">
                 <label for="bio">Short bio</label>
                 <textarea class="short" id="bio" name="bio" maxlength="600" placeholder="One or two sentences about how they coach.">{{ old('bio', $trainer->bio) }}</textarea>
+                <p class="help">Shown highlighted at the top of the card, under the photo.</p>
             </div>
             <div class="field">
                 <label for="tags">Tags</label>

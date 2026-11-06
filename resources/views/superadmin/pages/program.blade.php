@@ -71,7 +71,6 @@
                 <div class="cms-grid">
                     <div class="field"><label>Label</label><input name="content[cards][{{ $i }}][label]" value="{{ old('content.cards.'.$i.'.label', $card['label']) }}"></div>
                     <div class="field full"><label>Title</label><input name="content[cards][{{ $i }}][title]" value="{{ old('content.cards.'.$i.'.title', $card['title']) }}"></div>
-                    <div class="field full"><label>Body</label><textarea class="short" name="content[cards][{{ $i }}][body]">{{ old('content.cards.'.$i.'.body', $card['body']) }}</textarea></div>
                 </div>
             </section>
         @endforeach
